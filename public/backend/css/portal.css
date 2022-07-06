@@ -29,7 +29,7 @@
     --bs-gray-700: #495057;
     --bs-gray-800: #343a40;
     --bs-gray-900: #212529;
-    --bs-primary: #15a362;
+    --bs-primary: #4c83ee;
     --bs-secondary: #5d6778;
     --bs-success: #5cb377;
     --bs-danger: #d26d69;
@@ -78,7 +78,7 @@
 }
 
 @media(prefers-reduced-motion: no-preference) {
-    :root {
+     :root {
         scroll-behavior: smooth
     }
 }
@@ -3114,8 +3114,8 @@ fieldset:disabled .btn {
 
 .btn-primary {
     --bs-btn-color: #000;
-    --bs-btn-bg: #15a362;
-    --bs-btn-border-color: #15a362;
+    --bs-btn-bg: #4c83ee;
+    --bs-btn-border-color: #4c83ee;
     --bs-btn-hover-color: #000;
     --bs-btn-hover-bg: #38b17a;
     --bs-btn-hover-border-color: #2cac72;
@@ -3125,8 +3125,8 @@ fieldset:disabled .btn {
     --bs-btn-active-border-color: #2cac72;
     --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
     --bs-btn-disabled-color: #000;
-    --bs-btn-disabled-bg: #15a362;
-    --bs-btn-disabled-border-color: #15a362
+    --bs-btn-disabled-bg: #4c83ee;
+    --bs-btn-disabled-border-color: #4c83ee
 }
 
 .btn-secondary {
@@ -3215,17 +3215,17 @@ fieldset:disabled .btn {
 }
 
 .btn-outline-primary {
-    --bs-btn-color: #15a362;
-    --bs-btn-border-color: #15a362;
+    --bs-btn-color: #4c83ee;
+    --bs-btn-border-color: #4c83ee;
     --bs-btn-hover-color: #000;
-    --bs-btn-hover-bg: #15a362;
-    --bs-btn-hover-border-color: #15a362;
+    --bs-btn-hover-bg: #4c83ee;
+    --bs-btn-hover-border-color: #4c83ee;
     --bs-btn-focus-shadow-rgb: 21, 163, 98;
     --bs-btn-active-color: #000;
-    --bs-btn-active-bg: #15a362;
-    --bs-btn-active-border-color: #15a362;
+    --bs-btn-active-bg: #4c83ee;
+    --bs-btn-active-border-color: #4c83ee;
     --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-    --bs-btn-disabled-color: #15a362;
+    --bs-btn-disabled-color: #4c83ee;
     --bs-btn-disabled-bg: transparent;
     --bs-gradient: none
 }
@@ -7269,7 +7269,7 @@ fieldset:disabled .btn {
 }
 
 .link-primary {
-    color: #15a362 !important
+    color: #4c83ee !important
 }
 
 .link-primary:hover,
@@ -11397,7 +11397,7 @@ fieldset:disabled .btn {
 }
 
 
-/*!  
+/*!
  * Portal - Bootstrap 5 Admin Dashboard Template for Developers
  * Version: 2.1
  * Author: Xiaoying Riley
@@ -11429,12 +11429,12 @@ h6,
 }
 
 a {
-    color: #15a362;
+    color: #4c83ee;
     text-decoration: none
 }
 
 a:hover {
-    color: #128c54
+    color: #4b6587
 }
 
 hr {
@@ -11512,7 +11512,7 @@ a.app-link {
 }
 
 a.app-link:hover {
-    color: #15a362;
+    color: #4c83ee;
     -webkit-text-decoration-color: rgba(21, 163, 98, .8);
     text-decoration-color: rgba(21, 163, 98, .8)
 }
@@ -11546,9 +11546,9 @@ button.close:focus {
 }
 
 .app-btn-primary {
-    background: #15a362;
+    background: #4c83ee;
     color: #fff;
-    border-color: #15a362
+    border-color: #4c83ee
 }
 
 .app-btn-primary:hover,
@@ -11565,19 +11565,19 @@ button.close:focus {
 }
 
 .app-btn-secondary:hover {
-    color: #15a362;
-    border: 1px solid #15a362;
+    color: #4c83ee;
+    border: 1px solid #4c83ee;
     background: #fff
 }
 
 .btn-light {
     background: #f5f6fe;
-    color: #15a362
+    color: #4c83ee
 }
 
 .btn-light:hover {
     background: #f5f6fe;
-    color: #15a362
+    color: #4c83ee
 }
 
 .form-control {
@@ -11595,8 +11595,8 @@ button.close:focus {
 }
 
 .form-check-input:checked {
-    background-color: #15a362;
-    border-color: #15a362
+    background-color: #4c83ee;
+    border-color: #4c83ee
 }
 
 .dropdown-menu {
@@ -11674,7 +11674,7 @@ button.close:focus {
 .app-search-form .search-btn:focus,
 .app-search-form .search-btn:hover {
     outline: none !important;
-    color: #15a362;
+    color: #4c83ee;
     box-shadow: none
 }
 
@@ -11793,8 +11793,8 @@ button.close:focus {
 
 .app-notifications-dropdown .app-icon-holder {
     display: inline-block;
-    background: #edfdf6;
-    color: #15a362;
+    background: #e6eefd;
+    color: #4c83ee;
     width: 36px;
     height: 36px;
     padding-top: 4px;
@@ -11842,7 +11842,7 @@ button.close:focus {
         opacity: .8
     }
     .search-mobile-trigger:hover {
-        color: #15a362;
+        color: #4c83ee;
         -webkit-opacity: 1;
         -moz-opacity: 1;
         opacity: 1
@@ -11940,15 +11940,13 @@ button.close:focus {
 }
 
 .app-branding {
-    height: 60px;
     padding-top: 1rem;
     padding-left: 1rem;
     margin-bottom: 1rem
 }
 
 .app-branding .logo-icon {
-    width: 36px;
-    height: 36px
+    height: 40px
 }
 
 .app-branding .logo-text {
@@ -11986,9 +11984,9 @@ button.close:focus {
 }
 
 .app-nav .nav-link.active {
-    color: #15a362;
-    background: #edfdf6;
-    border-left: 3px solid #15a362;
+    color: #4c83ee;
+    background: #e6eefd;
+    border-left: 3px solid #4c83ee;
     font-weight: 500
 }
 
@@ -11998,7 +11996,7 @@ button.close:focus {
 }
 
 .app-nav .nav-link:hover {
-    color: #15a362
+    color: #4c83ee
 }
 
 .app-nav .nav-icon {
@@ -12076,11 +12074,11 @@ button.close:focus {
 }
 
 .app-nav .submenu-link.active {
-    color: #15a362
+    color: #4c83ee
 }
 
 .app-nav .submenu-link.active:before {
-    background-color: #15a362
+    background-color: #4c83ee
 }
 
 .app-sidepanel-footer {
@@ -12176,7 +12174,7 @@ button.close:focus {
 }
 
 .app-card.border-left-decoration {
-    border-left: 3px solid #15a362
+    border-left: 3px solid #4c83ee
 }
 
 .app-card .app-card-link-mask {
@@ -12297,8 +12295,8 @@ button.close:focus {
 
 .app-card .app-icon-holder {
     display: inline-block;
-    background: #edfdf6;
-    color: #15a362;
+    background: #e6eefd;
+    color: #4c83ee;
     width: 50px;
     height: 50px;
     padding-top: 10px;
@@ -12451,33 +12449,33 @@ button.close:focus {
     font-size: .875rem
 }
 
-.app-card-orders-table .table {
+.app-card-categories-table .table {
     font-size: .875rem
 }
 
-.app-card-orders-table .table .cell {
+.app-card-categories-table .table .cell {
     border-color: #e7e9ed;
     color: #5d6778;
     vertical-align: middle
 }
 
-.app-card-orders-table .cell span {
+.app-card-categories-table .cell span {
     display: inline-block
 }
 
-.app-card-orders-table .cell .note {
+.app-card-categories-table .cell .note {
     display: block;
     color: #828d9f;
     font-size: .75rem
 }
 
-.app-card-orders-table .btn-sm,
-.app-card-orders-table .btn-group-sm>.btn {
+.app-card-categories-table .btn-sm,
+.app-card-categories-table .btn-group-sm>.btn {
     padding: .125rem .5rem;
     font-size: .75rem
 }
 
-.app-card-orders-table .truncate {
+.app-card-categories-table .truncate {
     max-width: 250px;
     display: inline-block;
     overflow: hidden;
@@ -12497,8 +12495,8 @@ button.close:focus {
 }
 
 .app-nav-tabs .nav-link.active {
-    color: #15a362;
-    border-bottom: 2px solid #15a362
+    color: #4c83ee;
+    border-bottom: 2px solid #4c83ee
 }
 
 .app-nav-tabs .nav-link.active:hover {
@@ -12506,8 +12504,8 @@ button.close:focus {
 }
 
 .app-nav-tabs .nav-link:hover {
-    background: #edfdf6;
-    color: #15a362
+    background: #e6eefd;
+    color: #4c83ee
 }
 
 .app-pagination .pagination {
@@ -12556,7 +12554,7 @@ button.close:focus {
     padding-left: 0;
     font-size: 1rem;
     text-decoration: none;
-    color: #15a362
+    color: #4c83ee
 }
 
 .app-card-accordion .faq-accordion .accordion-button:after {

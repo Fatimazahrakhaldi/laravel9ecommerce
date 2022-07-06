@@ -1,15 +1,15 @@
 <header class="section-header">
-	<section class="header-main">
-		<div class="container">
-			<div class="row gy-3 align-items-center">
-				<div class="col-lg-2 col-sm-4 col-4">
+    <section class="header-main">
+        <div class="container">
+            <div class="row gy-3 align-items-center">
+                <div class="col-lg-2 col-sm-4 col-4">
                     <a class="navbar-brand" href="{{ url('/') }}">
                         <img src="{{ asset('frontend/images/logo_h&f.png') }}" height="40" class="logo">
                     </a>
                     <!-- brand end.// -->
-				</div>
-				<div class="order-lg-last col-lg-5 col-sm-8 col-8">
-					<div class="float-end">
+                </div>
+                <div class="order-lg-last col-lg-5 col-sm-8 col-8">
+                    <div class="float-end">
                         <div class="widgets-wrap d-xl-flex">
                             <div class="widget-header ms-2">
                                 @if (Route::has('login'))
@@ -20,7 +20,8 @@
                                                 <i class="fa fa-user"></i>
                                             </a>
                                             <ul class="dropdown-menu dropdown-menu-end" data-bs-popper="none">
-                                                <li> <a class="dropdown-item" href="{{ route('admin.dashboard') }}">Dashboard</a>
+                                                <li> <a class="dropdown-item"
+                                                        href="{{ route('admin.dashboard') }}">Dashboard</a>
                                                 </li>
                                                 <li>
                                                     <hr class="dropdown-divider">
@@ -39,9 +40,11 @@
                                                 <i class="fa fa-user"></i>
                                             </a>
                                             <ul class="dropdown-menu dropdown-menu-end" data-bs-popper="none">
-                                                <li> <a class="dropdown-item" href="{{ route('user.dashboard') }}">Dashboard</a>
+                                                <li> <a class="dropdown-item"
+                                                        href="{{ route('user.dashboard') }}">Dashboard</a>
                                                 </li>
-                                                <li> <a class="dropdown-item" href="{{ url('profile/account') }}">Profile</a>
+                                                <li> <a class="dropdown-item"
+                                                        href="{{ url('profile/account') }}">Profile</a>
                                                 </li>
                                                 <li> <a class="dropdown-item" href="{{ url('profile/setting') }}">Account
                                                         Settings</a>
@@ -78,11 +81,14 @@
                             </div>
                             <div class="widget-header ms-2">
                                 <a href="https://bootstrap-ecommerce.com/components.html#"
-                                    class="icon icon-sm rounded-circle bg-gray-200"> <i class="fa fa-heart"></i> </a>
+                                    class="icon icon-sm rounded-circle bg-gray-200">
+                                    <i class="fa fa-heart"></i>
+                                </a>
                             </div>
                             <div class="widget-header ms-2">
                                 <div class="dropdown">
-                                    <a href="#" class="icon icon-sm rounded-circle bg-gray-200" data-bs-toggle="dropdown">
+                                    <a href="#" class="icon icon-sm rounded-circle bg-gray-200"
+                                        data-bs-toggle="dropdown">
                                         <i class="fa fa-shopping-cart"></i>
                                         @if (Cart::count() > 0)
                                             <span class="notify">{{ Cart::count() }}</span>
@@ -92,89 +98,90 @@
                                         <div class="itemside mb-3">
                                             <div class="aside"><img src="{{ asset('frontend/images/manteau.jpg') }}"
                                                     class="img-sm rounded border"></div>
-                                            <div class="info"> <a href="https://bootstrap-ecommerce.com/components.html#"
-                                                    class="title">Canon Cmera EOS</a> <small class="text-muted">Blue Size: M
+                                            <div class="info"> <a
+                                                    href="https://bootstrap-ecommerce.com/components.html#"
+                                                    class="title">Canon Cmera EOS</a> <small class="text-muted">Blue
+                                                    Size: M
                                                     QTY: 1</small>
                                                 <div class="price text-muted">$9.50</div>
                                                 <!-- price .// -->
                                             </div>
                                             <div class="flex-grow-0 ms-2"> <a
                                                     href="https://bootstrap-ecommerce.com/components.html#"
-                                                    class="btn btn-sm btn-light float-end"><i class="fa fa-times"></i></a>
+                                                    class="btn btn-sm btn-light float-end"><i
+                                                        class="fa fa-times"></i></a>
                                             </div>
                                         </div>
                                         <div class="itemside mb-3">
                                             <div class="aside"><img src="{{ asset('frontend/images/manteau.jpg') }}"
                                                     class="img-sm rounded border"></div>
-                                            <div class="info"> <a href="https://bootstrap-ecommerce.com/components.html#"
-                                                    class="title">Name of item nice iteme</a> <small class="text-muted">Blue
+                                            <div class="info"> <a
+                                                    href="https://bootstrap-ecommerce.com/components.html#"
+                                                    class="title">Name of item nice iteme</a> <small
+                                                    class="text-muted">Blue
                                                     Size: M QTY: 1</small>
                                                 <div class="price text-muted">$9.50</div>
                                                 <!-- price .// -->
                                             </div>
                                             <div class="flex-grow-0 ms-2"> <a
                                                     href="https://bootstrap-ecommerce.com/components.html#"
-                                                    class="btn btn-sm btn-light float-end"><i class="fa fa-times"></i></a>
+                                                    class="btn btn-sm btn-light float-end"><i
+                                                        class="fa fa-times"></i></a>
                                             </div>
                                         </div>
                                         <div class="itemside mb-3">
-                                            <div class="aside"><img src="{{ asset('frontend/images/manteau.jpg') }}"
+                                            <div class="aside"><img
+                                                    src="{{ asset('frontend/images/manteau.jpg') }}"
                                                     class="img-sm rounded border"></div>
-                                            <div class="info"> <a href="https://bootstrap-ecommerce.com/components.html#"
-                                                    class="title">Name of item nice iteme</a> <small class="text-muted">Blue
+                                            <div class="info"> <a
+                                                    href="https://bootstrap-ecommerce.com/components.html#"
+                                                    class="title">Name of item nice iteme</a> <small
+                                                    class="text-muted">Blue
                                                     Size: M QTY: 1</small>
                                                 <div class="price text-muted">$9.50</div>
                                                 <!-- price .// -->
                                             </div>
                                             <div class="flex-grow-0 ms-2"> <a
                                                     href="https://bootstrap-ecommerce.com/components.html#"
-                                                    class="btn btn-sm btn-light float-end"><i class="fa fa-times"></i></a>
+                                                    class="btn btn-sm btn-light float-end"><i
+                                                        class="fa fa-times"></i></a>
                                             </div>
                                         </div>
                                         <hr>
-                                        <div class="my-3"> Subtotal: <strong class="float-end price">$944.99</strong> </div>
-                                        <a href="{{ url('cart') }}" class="btn btn-primary text-white w-100"> Checkout </a>
+                                        <div class="my-3"> Subtotal: <strong
+                                                class="float-end price">$944.99</strong> </div>
+                                        <a href="{{ url('cart') }}" class="btn btn-primary text-white w-100">
+                                            Checkout </a>
                                     </div>
                                     <!-- drowpdown-menu.// -->
                                 </div>
                                 <!-- dropdown.// -->
                             </div>
                         </div>
-			        </div>
-				</div> <!-- col end.// -->
-				<div class="col-lg-5 col-md-12 col-12">
-					<form action="#" class="">
-		              <div class="input-group">
-		                <input type="search" class="form-control" style="width:55%" placeholder="Search">
-		                <select class="form-select">
-		                  <option value="">All type</option>
-		                  <option value="codex">Special</option>
-		                  <option value="comments">Only best</option>
-		                  <option value="content">Latest</option>
-		                </select>
-		                <button class="btn btn-primary">
-		                  <i class="fa fa-search"></i>
-		                </button>
-		              </div> <!-- input-group end.// -->
-		            </form>
-				</div> <!-- col end.// -->
+                    </div>
+                </div> <!-- col end.// -->
+                <div class="col-lg-5 col-md-12 col-12">
 
-			</div> <!-- row end.// -->
-		</div> <!-- container end.// -->
-	</section> <!-- header-main end.// -->
+                    @livewire('header-search-component')
 
-	<nav class="navbar navbar-light bg-white border-top navbar-expand-lg">
-		<div class="container">
-			<button class="navbar-toggler border collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#navbar_main" aria-expanded="false">
-				<span class="navbar-toggler-icon"></span>
-			</button>
+                </div> <!-- col end.// -->
+            </div> <!-- row end.// -->
+        </div> <!-- container end.// -->
+    </section> <!-- header-main end.// -->
 
-			<div class="navbar-collapse collapse" id="navbar_main" style="">
+    <nav class="navbar navbar-light bg-white border-top navbar-expand-lg">
+        <div class="container">
+            <button class="navbar-toggler border collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbar_main" aria-expanded="false">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="navbar-collapse collapse" id="navbar_main" style="">
 
                 @include('layouts.front.partials.nav')
 
 
-			</div> <!-- collapse end.// -->
-		</div> <!-- container end.// -->
-	</nav> <!-- navbar end.// -->
+            </div> <!-- collapse end.// -->
+        </div> <!-- container end.// -->
+    </nav> <!-- navbar end.// -->
 </header>
