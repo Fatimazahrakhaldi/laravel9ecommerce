@@ -239,7 +239,7 @@
                                 <figure class="card card-product-grid">
                                     <div class="img-wrap">
                                         <a href="{{ route('product.details', ['slug' => $product->slug]) }}">
-                                            <img src="{{ asset('frontend/images/products') }}/{{ $product->image }}"
+                                            <img src="{{ asset('images/products') }}/{{ $product->image }}"
                                                 alt="{{ $product->name }}">
                                         </a>
                                     </div>

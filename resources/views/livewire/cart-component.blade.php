@@ -20,7 +20,7 @@
                                     <a href="{{ route('product.details', ['slug' => $item->model->slug]) }}"
                                         class="itemside align-items-center">
                                         <div class="aside">
-                                            <img src="{{ asset('frontend/images/products') }}/{{ $item->model->image }}"
+                                            <img src="{{ asset('images/products') }}/{{ $item->model->image }}"
                                                 height="72" alt="{{ $item->model->name }}" width="72"
                                                 class="img-thumbnail img-sm">
                                         </div>

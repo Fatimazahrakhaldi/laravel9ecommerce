@@ -24,5 +24,6 @@
     <!-- Scripts -->
     @include('layouts.admin.partials.scripts')
     @livewireScripts
+    @stack('scripts')
 </body>
 </html>

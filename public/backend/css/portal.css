@@ -2243,7 +2243,8 @@ progress {
 }
 
 textarea.form-control {
-    min-height: calc(1.5em + 0.75rem + 2px)
+    /* min-height: calc(1.5em + 0.75rem + 2px) */
+    height: auto;
 }
 
 textarea.form-control-sm {

@@ -3,7 +3,7 @@
         <section class="footer-main py-5">
             <div class="row">
                 <aside class="col-lg-4">
-                    <article class="me-lg-4 mb-4"> <img src="{{ asset('frontend/images/logo_h&f.png') }}" class="logo-footer">
+                    <article class="me-lg-4 mb-4"> <img src="{{ asset('images/logo_h&f.png') }}" class="logo-footer">
                         <p class="mt-3"> You might remember the Lenovo computer commercials in which a youth reports this exciting news to his friends. </p>
                         <nav> <a class="btn btn-icon btn-light" title="Facebook" target="_blank" href="https://bootstrap-ecommerce.com/components.html#"><i class="fab fa-facebook-f"></i></a> <a class="btn btn-icon btn-light" title="Instagram" target="_blank"
                                 href="https://bootstrap-ecommerce.com/components.html#"><i class="fab fa-instagram"></i></a> <a class="btn btn-icon btn-light" title="Youtube" target="_blank" href="https://bootstrap-ecommerce.com/components.html#"><i class="fab fa-youtube"></i></a>                                <a class="btn btn-icon btn-light" title="Twitter" target="_blank" href="https://bootstrap-ecommerce.com/components.html#"><i class="fab fa-twitter"></i></a> </nav>

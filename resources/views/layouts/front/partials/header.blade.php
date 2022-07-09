@@ -4,7 +4,7 @@
             <div class="row gy-3 align-items-center">
                 <div class="col-lg-2 col-sm-4 col-4">
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        <img src="{{ asset('frontend/images/logo_h&f.png') }}" height="40" class="logo">
+                        <img src="{{ asset('images/logo_h&f.png') }}" height="40" class="logo">
                     </a>
                     <!-- brand end.// -->
                 </div>
@@ -96,7 +96,7 @@
                                     </a>
                                     <div class="dropdown-menu p-3 dropdown-menu-end" style="min-width:300px;">
                                         <div class="itemside mb-3">
-                                            <div class="aside"><img src="{{ asset('frontend/images/manteau.jpg') }}"
+                                            <div class="aside"><img src="{{ asset('images/manteau.jpg') }}"
                                                     class="img-sm rounded border"></div>
                                             <div class="info"> <a
                                                     href="https://bootstrap-ecommerce.com/components.html#"
@@ -113,7 +113,7 @@
                                             </div>
                                         </div>
                                         <div class="itemside mb-3">
-                                            <div class="aside"><img src="{{ asset('frontend/images/manteau.jpg') }}"
+                                            <div class="aside"><img src="{{ asset('images/manteau.jpg') }}"
                                                     class="img-sm rounded border"></div>
                                             <div class="info"> <a
                                                     href="https://bootstrap-ecommerce.com/components.html#"
@@ -131,7 +131,7 @@
                                         </div>
                                         <div class="itemside mb-3">
                                             <div class="aside"><img
-                                                    src="{{ asset('frontend/images/manteau.jpg') }}"
+                                                    src="{{ asset('images/manteau.jpg') }}"
                                                     class="img-sm rounded border"></div>
                                             <div class="info"> <a
                                                     href="https://bootstrap-ecommerce.com/components.html#"

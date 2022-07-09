@@ -6,8 +6,8 @@
                 <article class="gallery-wrap">
                     <div class="img-big-wrap img-thumbnail">
                         <a data-fslightbox="mygalley" data-type="image"
-                            href="{{ asset('frontend/images/products') }}/{{ $product->image }}">
-                            <img height="560" src="{{ asset('frontend/images/products') }}/{{ $product->image }}">
+                            href="{{ asset('images/products') }}/{{ $product->image }}">
+                            <img height="560" src="{{ asset('images/products') }}/{{ $product->image }}">
                         </a>
                     </div> <!-- img-big-wrap.// -->
                     <div class="thumbs-wrap">
@@ -219,7 +219,7 @@
                         @foreach ($related_products as $r_product)
                             <article class="itemside mb-3">
                                 <a href="{{ route('product.details', ['slug' => $r_product->slug]) }}" class="aside">
-                                    <img src="{{ asset('frontend/images/products') }}/{{ $r_product->image }}" width="96" height="96"
+                                    <img src="{{ asset('images/products') }}/{{ $r_product->image }}" width="96" height="96"
                                         class="img-md img-thumbnail">
                                 </a>
                                 <div class="info">

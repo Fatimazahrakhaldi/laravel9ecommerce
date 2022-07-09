@@ -116,7 +116,7 @@
                         <h5 class="mb-4">Items in cart</h5>
                         <div class="itemside align-items-center mb-4">
                             <div class="aside"> <b class="badge bg-secondary rounded-pill">2</b> <img
-                                    src="{{ asset('frontend/images/manteau.jpg') }}" class="img-sm rounded border">
+                                    src="{{ asset('images/manteau.jpg') }}" class="img-sm rounded border">
                             </div>
                             <div class="info"> <a href="https://bootstrap-ecommerce.com/components.html#"
                                     class="title">Canon Cmera EOS, 10x zoom</a>
@@ -126,7 +126,7 @@
                         </div>
                         <div class="itemside align-items-center mb-4">
                             <div class="aside"> <b class="badge bg-secondary rounded-pill">2</b> <img
-                                    src="{{ asset('frontend/images/manteau.jpg') }}" class="img-sm rounded border">
+                                    src="{{ asset('images/manteau.jpg') }}" class="img-sm rounded border">
                             </div>
                             <div class="info"> <a href="https://bootstrap-ecommerce.com/components.html#"
                                     class="title">Leather Wallet for Men Original</a>
@@ -136,7 +136,7 @@
                         </div>
                         <div class="itemside align-items-center mb-4">
                             <div class="aside"> <b class="badge bg-secondary rounded-pill">2</b> <img
-                                    src="{{ asset('frontend/images/manteau.jpg') }}" class="img-sm rounded border">
+                                    src="{{ asset('images/manteau.jpg') }}" class="img-sm rounded border">
                             </div>
                             <div class="info"> <a href="https://bootstrap-ecommerce.com/components.html#"
                                     class="title">Product name goes here</a>

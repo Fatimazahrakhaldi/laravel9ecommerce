@@ -1,7 +1,7 @@
 <main>
     <section class="section-intro padding-top-sm">
         <div class="container">
-            <main class="card p-3">
+            <div class="card p-3">
                 <div class="row">
                     <aside class="col-lg-3">
                         <nav class="nav flex-column nav-pills">
@@ -38,19 +38,21 @@
                         </nav>
                     </aside>
                     <div class="col-lg-9">
-                        <article class="card-banner p-5 bg-primary" style="height: 360px">
-                            <div style="max-width: 500px">
-                                <h2 class="text-white">Great products with <br> best deals </h2>
-                                <p class="text-white">No matter how far along you are in your sophistication as an
-                                    amateur
-                                    astronomer, there is always one.</p>
-                                <a href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/page-index-3.html#"
-                                    class="btn btn-warning"> View more </a>
-                            </div>
-                        </article>
+                        @foreach ($sliders as $slider)
+                            <article class="card-banner p-5 bg-primary"
+                                style="height: 360px; background-image: url('{{ asset('images/sliders') }}/{{ $slider->image }}');">
+                                <div style="max-width: 500px">
+                                    <h2 class="text-white">{{ $slider->title }}</h2>
+                                    <p class="text-white">{{ $slider->subtitle }}</p>
+                                    {{-- <span class="price">{{ $slider->price }}</span> --}}
+                                    <a href="{{ $slider->link }}" class="btn btn-primary"> View more </a>
+                                </div>
+                            </article>
+                        @endforeach
+
                     </div>
                 </div>
-            </main>
+            </div>
         </div> <!-- container end.// -->
     </section>
 
@@ -61,7 +63,7 @@
             <div class="col-lg-4 col-md-6">
                 <!-- ============ COMPONENT BANNER 1 ============ -->
                 <article class="card-banner"
-                    style="height:220px; background-image: url('{{ asset('frontend/images/banner4.jpg') }}');">
+                    style="height:220px; background-image: url('{{ asset('images/banner4.jpg') }}');">
                     <div class="card-body caption">
                         <h5 class="card-title text-white">Men</h5>
                         <p>No matter how far along you are in your sophistication as an amateur astronomer, there is
@@ -78,7 +80,7 @@
             <div class="col-lg-4 col-md-6">
                 <!-- ============ COMPONENT BANNER 2 ============ -->
                 <article class="card-banner"
-                    style="height:220px; background-image: url('{{ asset('frontend/images/banner5.jpg') }}');">
+                    style="height:220px; background-image: url('{{ asset('images/banner5.jpg') }}');">
                     <div class="card-body caption">
                         <h5 class="card-title text-white">Women</h5>
                         <p>No matter how far along you are in your sophistication as an amateur astronomer, there is
@@ -95,7 +97,7 @@
             <div class="col-lg-4 col-md-6">
                 <!-- ============ COMPONENT BANNER 3 ============ -->
                 <article class="card-banner"
-                    style="height:220px; background-image: url('{{ asset('frontend/images/banner6.jpg') }}');">
+                    style="height:220px; background-image: url('{{ asset('images/banner6.jpg') }}');">
                     <div class="card-img-overlay caption">
                         <h5 class="card-title text-white">Kids</h5>
                         <p>No matter how far along you are in your sophistication as an amateur astronomer, there is
@@ -122,151 +124,29 @@
             </header>
 
             <div class="row">
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <figure class="card-product-grid">
-                        <a href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/page-index-2.html#"
-                            class="img-wrap rounded bg-gray-light">
-                            <span class="topbar"> <span class="badge bg-danger"> New </span> </span>
-                            <img height="250" class="mix-blend-multiply"
-                                src="{{ asset('frontend/images/manteau2.jpg') }}">
-                        </a>
-                        <figcaption class="pt-2">
-                            <a href="https://bootstrap-ecommerce.com/components.html#"
-                                class="float-end btn btn-primary btn-icon"> <i class="fa fa-shopping-cart"></i> </a>
-                            <strong class="price">$29.95</strong> <!-- price.// -->
-                            <a href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/page-index-2.html#"
-                                class="title text-truncate">GoPro action camera 4K</a>
-                            <small class="text-muted">Model: X-200</small>
-                        </figcaption>
-                    </figure>
-                </div> <!-- col end.// -->
+                @foreach ($lproducts as $lproduct)
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <figure class="card-product-grid">
+                            <a href="{{ route('product.details', ['slug' => $lproduct->slug]) }}"
+                                class="img-wrap rounded bg-gray-light">
+                                <span class="topbar"> <span class="badge bg-danger"> New </span> </span>
+                                <img height="250" class="mix-blend-multiply"
+                                    src="{{ asset('images/products') }}/{{ $lproduct->image }}">
+                            </a>
+                            <figcaption class="pt-2">
+                                <a href="{{ route('product.details', ['slug' => $lproduct->slug]) }}"
+                                    class="float-end btn btn-primary btn-icon">
+                                    <i class="fa fa-shopping-cart"></i>
+                                </a>
+                                <strong class="price">{{$lproduct->regular_price}}</strong> <!-- price.// -->
+                                <a href="{{ route('product.details', ['slug' => $lproduct->slug]) }}"
+                                    class="title text-truncate">{{$lproduct->name}}</a>
+                                <small class="text-muted">Model: X-200</small>
+                            </figcaption>
+                        </figure>
+                    </div> <!-- col end.// -->
+                @endforeach
 
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <figure class="card-product-grid">
-                        <a href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/page-index-2.html#"
-                            class="img-wrap rounded bg-gray-light">
-                            <span class="topbar"> <span class="badge bg-warning"> Offer </span> </span>
-                            <img height="250" class="mix-blend-multiply"
-                                src="{{ asset('frontend/images/manteau.jpg') }}">
-                        </a>
-                        <figcaption class="pt-2">
-                            <a href="https://bootstrap-ecommerce.com/components.html#"
-                                class="float-end btn btn-primary btn-icon"> <i class="fa fa-shopping-cart"></i> </a>
-                            <strong class="price">$590.00</strong> <!-- price.// -->
-                            <a href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/page-index-2.html#"
-                                class="title text-truncate">Canon EOS professional</a>
-                            <small class="text-muted">Capacity: 128GB</small>
-                        </figcaption>
-                    </figure>
-                </div> <!-- col end.// -->
-
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <figure class="card-product-grid">
-                        <a href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/page-index-2.html#"
-                            class="img-wrap rounded bg-gray-light">
-                            <img height="250" class="mix-blend-multiply"
-                                src="{{ asset('frontend/images/manteau2.jpg') }}">
-                        </a>
-                        <figcaption class="pt-2">
-                            <a href="https://bootstrap-ecommerce.com/components.html#"
-                                class="float-end btn btn-primary btn-icon"> <i class="fa fa-shopping-cart"></i> </a>
-                            <strong class="price">$29.95</strong> <!-- price.// -->
-                            <a href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/page-index-2.html#"
-                                class="title text-truncate">Modern product name here</a>
-                            <small class="text-muted">Sizes: S, M, XL</small>
-                        </figcaption>
-                    </figure>
-                </div> <!-- col end.// -->
-
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <figure class="card-product-grid">
-                        <a href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/page-index-2.html#"
-                            class="img-wrap rounded bg-gray-light">
-                            <img height="250" class="mix-blend-multiply"
-                                src="{{ asset('frontend/images/manteau.jpg') }}">
-                        </a>
-                        <figcaption class="pt-2">
-                            <a href="https://bootstrap-ecommerce.com/components.html#"
-                                class="float-end btn btn-primary btn-icon"> <i class="fa fa-shopping-cart"></i> </a>
-                            <strong class="price">$1099.00</strong> <!-- price.// -->
-                            <a href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/page-index-2.html#"
-                                class="title text-truncate">Apple iPhone 13 Pro max</a>
-                            <small class="text-muted">Color: Black, Memory: 128GB</small>
-                        </figcaption>
-                    </figure>
-                </div> <!-- col end.// -->
-
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <figure class="card-product-grid">
-                        <a href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/page-index-2.html#"
-                            class="img-wrap rounded bg-gray-light">
-                            <img height="250" class="mix-blend-multiply"
-                                src="{{ asset('frontend/images/manteau2.jpg') }}">
-                        </a>
-                        <figcaption class="pt-2">
-                            <a href="https://bootstrap-ecommerce.com/components.html#"
-                                class="float-end btn btn-primary btn-icon"> <i class="fa fa-shopping-cart"></i> </a>
-                            <strong class="price">$29.95</strong> <!-- price.// -->
-                            <a href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/page-index-2.html#"
-                                class="title text-truncate">Modern product name here</a>
-                            <small class="text-muted">Sizes: S, M, XL</small>
-                        </figcaption>
-                    </figure>
-                </div> <!-- col end.// -->
-
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <figure class="card-product-grid">
-                        <a href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/page-index-2.html#"
-                            class="img-wrap rounded bg-gray-light">
-                            <img height="250" class="mix-blend-multiply"
-                                src="{{ asset('frontend/images/manteau.jpg') }}">
-                        </a>
-                        <figcaption class="pt-2">
-                            <a href="https://bootstrap-ecommerce.com/components.html#"
-                                class="float-end btn btn-primary btn-icon"> <i class="fa fa-shopping-cart"></i> </a>
-                            <strong class="price">$29.95</strong> <!-- price.// -->
-                            <a href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/page-index-2.html#"
-                                class="title text-truncate">Modern product name here</a>
-                            <small class="text-muted">Sizes: S, M, XL</small>
-                        </figcaption>
-                    </figure>
-                </div> <!-- col end.// -->
-
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <figure class="card-product-grid">
-                        <a href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/page-index-2.html#"
-                            class="img-wrap rounded bg-gray-light">
-                            <img height="250" class="mix-blend-multiply"
-                                src="{{ asset('frontend/images/manteau2.jpg') }}">
-                        </a>
-                        <figcaption class="pt-2">
-                            <a href="https://bootstrap-ecommerce.com/components.html#"
-                                class="float-end btn btn-primary btn-icon"> <i class="fa fa-shopping-cart"></i> </a>
-                            <strong class="price">$29.95</strong> <!-- price.// -->
-                            <a href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/page-index-2.html#"
-                                class="title text-truncate">Modern product name here</a>
-                            <small class="text-muted">Sizes: S, M, XL</small>
-                        </figcaption>
-                    </figure>
-                </div> <!-- col end.// -->
-
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <figure class="card-product-grid">
-                        <a href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/page-index-2.html#"
-                            class="img-wrap rounded bg-gray-light">
-                            <img height="250" class="mix-blend-multiply"
-                                src="{{ asset('frontend/images/manteau.jpg') }}">
-                        </a>
-                        <figcaption class="pt-2">
-                            <a href="https://bootstrap-ecommerce.com/components.html#"
-                                class="float-end btn btn-primary btn-icon"> <i class="fa fa-shopping-cart"></i> </a>
-                            <strong class="price">$29.95</strong> <!-- price.// -->
-                            <a href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/page-index-2.html#"
-                                class="title text-truncate">Modern product name here</a>
-                            <small class="text-muted">Material: Jeans</small>
-                        </figcaption>
-                    </figure>
-                </div> <!-- col end.// -->
             </div> <!-- row end.// -->
 
         </div> <!-- container end.// -->
@@ -286,7 +166,7 @@
                 <figure class="card-product-grid">
                     <a href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/page-index-2.html#"
                         class="img-wrap rounded bg-gray-light">
-                        <img height="250" class="mix-blend-multiply" src="{{ asset('frontend/images/9.jpg') }}">
+                        <img height="250" class="mix-blend-multiply" src="{{ asset('images/9.jpg') }}">
                     </a>
                     <figcaption class="pt-2">
                         <a href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/page-index-2.html#"
@@ -303,8 +183,7 @@
                 <figure class="card-product-grid">
                     <a href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/page-index-2.html#"
                         class="img-wrap rounded bg-gray-light">
-                        <img height="250" class="mix-blend-multiply"
-                            src="{{ asset('frontend/images/10.jpg') }}">
+                        <img height="250" class="mix-blend-multiply" src="{{ asset('images/10.jpg') }}">
                     </a>
                     <figcaption class="pt-2">
                         <a href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/page-index-2.html#"
@@ -321,8 +200,7 @@
                 <figure class="card-product-grid">
                     <a href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/page-index-2.html#"
                         class="img-wrap rounded bg-gray-light">
-                        <img height="250" class="mix-blend-multiply"
-                            src="{{ asset('frontend/images/11.jpg') }}">
+                        <img height="250" class="mix-blend-multiply" src="{{ asset('images/11.jpg') }}">
                     </a>
                     <figcaption class="pt-2">
                         <a href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/page-index-2.html#"
@@ -339,8 +217,7 @@
                 <figure class="card-product-grid">
                     <a href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/page-index-2.html#"
                         class="img-wrap rounded bg-gray-light">
-                        <img height="250" class="mix-blend-multiply"
-                            src="{{ asset('frontend/images/12.jpg') }}">
+                        <img height="250" class="mix-blend-multiply" src="{{ asset('images/12.jpg') }}">
                     </a>
                     <figcaption class="pt-2">
                         <a href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/page-index-2.html#"
