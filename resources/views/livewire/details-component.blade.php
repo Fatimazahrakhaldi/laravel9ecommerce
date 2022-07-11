@@ -50,12 +50,16 @@
                         <span class="label-rating text-success">{{ $product->stock_status }}</span>
                     </div> <!-- rating-wrap.// -->
 
-                    <div class="mb-3">
-                        <var class="price h5">{{ $product->regular_price }}</var>
-                        <span class="text-muted">/per box</span>
+                    <div class="price-wrap mb-3">
+                        @if ($product->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now())
+                            <strong> <var class="price h4 me-2">{{ $product->sale_price }}</var> </strong>
+                            <del class="price-old"> {{ $product->regular_price }} </del>
+                        @else
+                            <var class="price h4">{{ $product->regular_price }}</var>
+                        @endif
                     </div>
 
-                    <p>{{ $product->short_description }}</p>
+                    <p>{!! $product->short_description !!}</p>
 
                     <dl class="row">
                         <dt class="col-3">Type:</dt>
@@ -93,18 +97,25 @@
                                 </button>
                                 <input class="form-control text-center" placeholder="" value="14">
                                 <button class="btn btn-icon btn-light" type="button">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#999"
-                                        viewBox="0 0 24 24">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
+                                        fill="#999" viewBox="0 0 24 24">
                                         <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path>
                                     </svg>
                                 </button>
                             </div> <!-- input-group.// -->
                         </div> <!-- col.// -->
                     </div> <!-- row.// -->
-
-                    <button class="btn btn-primary" wire:click.prevent="store({{$product->id}},'{{$product->name}}',{{$product->regular_price}})">
-                        <i class="me-1 fa fa-shopping-basket"></i> Add to cart
-                    </button>
+                    @if ($product->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now())
+                        <button class="btn btn-primary"
+                            wire:click.prevent="store({{ $product->id }},'{{ $product->name }}',{{ $product->sale_price }})">
+                            <i class="me-1 fa fa-shopping-basket"></i> Add to cart
+                        </button>
+                    @else
+                        <button class="btn btn-primary"
+                            wire:click.prevent="store({{ $product->id }},'{{ $product->name }}',{{ $product->regular_price }})">
+                            <i class="me-1 fa fa-shopping-basket"></i> Add to cart
+                        </button>
+                    @endif
                     <a href="#" class="btn  btn-light"> <i class="me-1 fa fa-heart"></i> Save </a>
 
                 </article> <!-- product-info-aside .// -->
@@ -142,7 +153,7 @@
                     </header>
                     <div class="tab-content">
                         <article id="tab_specs" class="tab-pane show active card-body">
-                            <p>{{ $product->description }}</p>
+                            <p>{!! $product->description !!}</p>
                             <ul class="list-check cols-two">
                                 <li>Some great feature name here </li>
                                 <li>Lorem ipsum dolor sit amet, consectetur </li>
@@ -218,14 +229,22 @@
                         <h5 class="card-title">Similar items</h5>
                         @foreach ($related_products as $r_product)
                             <article class="itemside mb-3">
-                                <a href="{{ route('product.details', ['slug' => $r_product->slug]) }}" class="aside">
-                                    <img src="{{ asset('images/products') }}/{{ $r_product->image }}" width="96" height="96"
-                                        class="img-md img-thumbnail">
+                                <a href="{{ route('product.details', ['slug' => $r_product->slug]) }}"
+                                    class="aside">
+                                    <img src="{{ asset('images/products') }}/{{ $r_product->image }}"
+                                        width="96" height="96" class="img-md img-thumbnail">
                                 </a>
                                 <div class="info">
-                                    <a href="{{ route('product.details', ['slug' => $r_product->slug]) }}" class="title mb-1"> {{ $r_product->name }}
+                                    <a href="{{ route('product.details', ['slug' => $r_product->slug]) }}"
+                                        class="title mb-1"> {{ $r_product->name }}
                                     </a>
-                                    <strong class="price"> {{ $r_product->regular_price }}</strong> <!-- price.// -->
+                                    @if ($product->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now())
+                                        <strong class="price h6 me-2">{{ $r_product->sale_price }}</strong>
+                                        <del class="price-old"> {{ $r_product->regular_price }} </del>
+                                    @else
+                                        <strong class="price">{{ $r_product->regular_price }}</strong>
+                                    @endif
+                                    <!-- price.// -->
                                 </div>
                             </article>
                         @endforeach

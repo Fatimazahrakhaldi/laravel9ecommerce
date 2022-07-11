@@ -8,6 +8,7 @@ use Livewire\Component;
 use App\Models\Category;
 use Illuminate\Support\Str;
 use Livewire\WithFileUploads;
+use Illuminate\Validation\Rule;
 
 class AdminEditProductComponent extends Component
 {
@@ -52,8 +53,39 @@ class AdminEditProductComponent extends Component
         $this->slug = Str::slug($this->name, '-');
     }
 
+    public function updated($fields)
+    {
+        $this->validateOnly($fields,[
+            'name' => 'required',
+            'slug' => ['required',Rule::unique('products')->ignore($this->slug,'slug')],
+            'short_description' => 'required',
+            'description' => 'required',
+            'regular_price' => 'required|numeric',
+            'sale_price' => 'nullable|numeric',
+            'sku' => 'required',
+            'stock_status' => 'required',
+            'quantity' => 'required|numeric',
+            'newimage' => 'nullable|mimes:webp,jpeg,png,jpg',
+            'category_id' => 'required'
+        ]);
+    }
+
     public function updateProduct()
     {
+        $this->validate([
+            'name' => 'required',
+            'slug' => ['required',Rule::unique('products')->ignore($this->slug,'slug')],
+            'short_description' => 'required',
+            'description' => 'required',
+            'regular_price' => 'required|numeric',
+            'sale_price' => 'nullable|numeric',
+            'sku' => 'required',
+            'stock_status' => 'required',
+            'quantity' => 'required|numeric',
+            'newimage' => 'nullable|mimes:webp,jpeg,png,jpg',
+            'category_id' => 'required'
+        ]);
+
         $product = Product::find($this->product_id);
         $product->name = $this->name;
         $product->slug = $this->slug;
@@ -74,6 +106,7 @@ class AdminEditProductComponent extends Component
 
         $product->category_id = $this->category_id;
         $product->save();
+        $this->dispatchBrowserEvent('contentChanged');
         session()->flash('message', 'Product has been updated successfuly.');
     }
 

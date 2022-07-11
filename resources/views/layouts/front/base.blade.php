@@ -10,8 +10,9 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-    @include('layouts.front.partials.styles')
     @livewireStyles
+    @include('layouts.front.partials.styles')
+    @stack('styles')
 </head>
 
 <body class="">
@@ -20,9 +21,10 @@
     {{ $slot }}
 
     <!-- Scripts -->
+    @livewireScripts
     @include('layouts.front.partials.footer')
     @include('layouts.front.partials.scripts')
-    @livewireScripts
+    @stack('scripts')
 </body>
 
 </html>

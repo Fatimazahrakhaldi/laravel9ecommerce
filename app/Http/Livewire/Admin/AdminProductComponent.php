@@ -10,11 +10,17 @@ class AdminProductComponent extends Component
 {
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
+    public $deleteId = '';
 
-    public function deleteProduct($id)
+    public function deleteId($id)
     {
-        $product = Product::find($id);
-        $product->delete();
+        $this->deleteId = $id;
+    }
+
+    public function deleteCategory()
+    {
+        Product::find($this->deleteId)->delete();
+        $this->dispatchBrowserEvent('closeModal');
         session()->flash('message','Product has been deleted successfuly.');
     }
 

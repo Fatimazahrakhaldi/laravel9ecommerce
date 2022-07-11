@@ -235,6 +235,7 @@
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <figure class="card card-product-grid">
                                 <div class="img-wrap">
+                                    <span class="topbar"> <a href="#" class="btn btn-sm btn-light float-end"><i class="fa fa-heart"></i></a> </span>
                                     <a href="{{ route('product.details', ['slug' => $product->slug]) }}">
                                         <img src="{{ asset('images/products') }}/{{ $product->image }}"
                                             alt="{{ $product->name }}">

@@ -15,11 +15,4 @@
 
 <!-- Custom CSS -->
 <link href="{{ asset('frontend/css/style.css') }}" rel="stylesheet">
-
-<style type="text/css">
-    .section-header,
-    .section-footer {
-        box-shadow: 0 2px 10px rgb(51 51 51 / 10%);
-        position: relative;
-    }
-</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.6.0/nouislider.min.css" integrity="sha512-qveKnGrvOChbSzAdtSs8p69eoLegyh+1hwOMbmpCViIwj7rn4oJjdmMvWOuyQlTOZgTlZA0N2PXA7iA8/2TUYA==" crossorigin="anonymous" referrerpolicy="no-referrer" />

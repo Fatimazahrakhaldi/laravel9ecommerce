@@ -37,8 +37,39 @@ class AdminAddProductComponent extends Component
         $this->slug = Str::slug($this->name, '-');
     }
 
+    public function updated($fields)
+    {
+        $this->validateOnly($fields,[
+            'name' => 'required',
+            'slug' => 'required|unique:products',
+            'short_description' => 'required',
+            'description' => 'required',
+            'regular_price' => 'required|numeric',
+            'sale_price' => 'nullable|numeric',
+            'sku' => 'required',
+            'stock_status' => 'required',
+            'quantity' => 'required|numeric',
+            'image' => 'required|mimes:webp,jpeg,jpg,png',
+            'category_id' => 'required'
+        ]);
+    }
+
     public function addProduct()
     {
+        $this->validate([
+            'name' => 'required',
+            'slug' => 'required|unique:products',
+            'short_description' => 'required',
+            'description' => 'required',
+            'regular_price' => 'required|numeric',
+            'sale_price' => 'nullable|numeric',
+            'sku' => 'required',
+            'stock_status' => 'required',
+            'quantity' => 'required|numeric',
+            'image' => 'required|mimes:webp,jpeg,jpg,png',
+            'category_id' => 'required'
+        ]);
+
         $product = new Product();
         $product->name = $this->name;
         $product->slug = $this->slug;
@@ -50,13 +81,13 @@ class AdminAddProductComponent extends Component
         $product->stock_status = $this->stock_status;
         $product->quantity = $this->quantity;
         $product->featured = $this->featured;
-        $imageName = Carbon::now()->timestamp. '.' . $this->image->extension();
+        $imageName = Carbon::now()->timestamp . '.' . $this->image->extension();
         $this->image->storeAs('products', $imageName);
         $product->image = $imageName;
         $product->category_id = $this->category_id;
         $product->save();
-        session()->flash('message','Product has been created successfuly.');
-
+        $this->dispatchBrowserEvent('contentChanged');
+        session()->flash('message', 'Product has been created successfuly.');
     }
     public function render()
     {

@@ -605,8 +605,8 @@ a:hover>.img-thumbnail {
 
 .widget-header .notify {
     position: absolute;
-    top: -3px;
-    right: -7px
+    top: 0;
+    right: -5px
 }
 
 .widget-header:hover i {

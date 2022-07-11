@@ -36,6 +36,7 @@
                                     <th class="cell">Name</th>
                                     <th class="cell">Stock</th>
                                     <th class="cell">Price</th>
+                                    <th class="cell">Sale Price</th>
                                     <th class="cell">Category</th>
                                     <th class="cell">Date </th>
                                     <th class="cell">Action</th>
@@ -52,6 +53,7 @@
                                             <td class="cell">{{ $product->name }}</td>
                                             <td class="cell">{{ $product->stock_status }}</td>
                                             <td class="cell">{{ $product->regular_price }}</td>
+                                            <td class="cell">{{ $product->sale_price }}</td>
                                             <td class="cell">{{ $product->category->name }}</td>
                                             <td class="cell">{{ $product->created_at }}</td>
                                             <td class="cell">
@@ -59,10 +61,12 @@
                                                     href="{{ route('admin.editproduct', ['product_slug' => $product->slug]) }}"><i
                                                         class="fas fa-edit"></i>
                                                 </a>
-                                                <a href="#"
-                                                    wire:click.prevent="deleteProduct({{ $product->id }})"><i
-                                                        class="fas fa-trash-can"></i>
-                                                </a>
+
+                                                <button type="button" wire:click="deleteId({{ $product->id }})"
+                                                    class="btn" data-bs-toggle="modal"
+                                                    data-bs-target="#delete_confirm">
+                                                    <i class="fas fa-trash-can"></i>
+                                                </button>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -75,9 +79,30 @@
                         </table>
                     </div>
                     <!--//table-responsive-->
-
                 </div>
                 <!--//app-card-body-->
+
+                <!-- Modal -->
+                <div class="modal fade" id="delete_confirm" tabindex="-1" aria-labelledby="delete_confirmLabel"
+                    aria-hidden="true" wire:ignore.self>
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="delete_confirmLabel">Delete Confirm</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <p>Are you sure want to delete?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" wire:click.prevent="deleteCategory()"
+                                    class="btn btn-danger close-modal" data-dismiss="modal">Yes, Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <!--//app-card-->
             <div class="app-pagination">
@@ -94,16 +119,15 @@
     </div>
     <!--//app-content-->
 
-    <footer class="app-footer">
-        <div class="container text-center py-3">
-            <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
-            <small class="copyright">Designed with <span class="sr-only">love</span><i class="fas fa-heart"
-                    style="color: #fb866a;"></i> by <a class="app-link" href="http://themes.3rdwavemedia.com"
-                    target="_blank">Xiaoying Riley</a> for developers</small>
-
-        </div>
-    </footer>
-    <!--//app-footer-->
-
 </div>
 <!--//app-wrapper-->
+
+@push('scripts')
+    <script>
+        window.addEventListener('closeModal', event => {
+            var myModalEl = document.getElementById('delete_confirm')
+            var modal = bootstrap.Modal.getInstance(myModalEl)
+            modal.hide();
+        });
+    </script>
+@endpush

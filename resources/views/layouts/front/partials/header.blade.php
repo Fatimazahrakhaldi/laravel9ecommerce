@@ -83,6 +83,9 @@
                                 <a href="https://bootstrap-ecommerce.com/components.html#"
                                     class="icon icon-sm rounded-circle bg-gray-200">
                                     <i class="fa fa-heart"></i>
+                                    @if (Cart::instance('wishlist')->count() > 0)
+                                            <span class="notify">{{ Cart::instance('wishlist')->count() }}</span>
+                                        @endif
                                 </a>
                             </div>
                             <div class="widget-header ms-2">
@@ -90,8 +93,8 @@
                                     <a href="#" class="icon icon-sm rounded-circle bg-gray-200"
                                         data-bs-toggle="dropdown">
                                         <i class="fa fa-shopping-cart"></i>
-                                        @if (Cart::count() > 0)
-                                            <span class="notify">{{ Cart::count() }}</span>
+                                        @if (Cart::instance('cart')->count() > 0)
+                                            <span class="notify">{{ Cart::instance('cart')->count() }}</span>
                                         @endif
                                     </a>
                                     <div class="dropdown-menu p-3 dropdown-menu-end" style="min-width:300px;">

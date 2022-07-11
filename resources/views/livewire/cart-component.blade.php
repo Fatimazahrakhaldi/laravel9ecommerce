@@ -9,11 +9,11 @@
                         <strong>Success!</strong> {{ Session::get('success_message') }}
                     </div>
                 @endif
-                @if (Cart::count() > 0)
-                    @foreach (Cart::content() as $item)
-                        <button class="btn btn-light" type="button" wire:click.prevent="destroyAll()">
-                            Destroy cart
-                        </button>
+                @if (Cart::instance('cart')->count() > 0)
+                    <button class="btn btn-light" type="button" wire:click.prevent="destroyAll()">
+                        Destroy cart
+                    </button>
+                    @foreach (Cart::instance('cart')->content() as $item)
                         <article class="card card-body mb-3">
                             <div class="row gy-3 align-items-center">
                                 <div class="col-md-6">
@@ -34,14 +34,18 @@
                                 <!-- col.// -->
                                 <div class="col-auto">
                                     <div class="input-group input-spinner">
-                                        <button class="btn btn-light btn-decrease" type="button" wire:click.prevent="decreaseQuantity('{{$item->rowId}}')">
+                                        <button class="btn btn-light btn-decrease" type="button"
+                                            wire:click.prevent="decreaseQuantity('{{ $item->rowId }}')">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 fill="#999" viewBox="0 0 24 24">
                                                 <path d="M19 13H5v-2h14v2z"></path>
                                             </svg>
                                         </button>
-                                        <input type="text" class="form-control" data-max="{{ $item->model->quantity }}" value="{{ $item->qty }}" pattern="[0-9]">
-                                        <button class="btn btn-light btn-increase" type="button" wire:click.prevent="increaseQuantity('{{$item->rowId}}')"> <svg
+                                        <input type="text" class="form-control"
+                                            data-max="{{ $item->model->quantity }}" value="{{ $item->qty }}"
+                                            pattern="[0-9]">
+                                        <button class="btn btn-light btn-increase" type="button"
+                                            wire:click.prevent="increaseQuantity('{{ $item->rowId }}')"> <svg
                                                 xmlns="http://www.w3.org/2000/svg" width="24" height="24"
                                                 fill="#999" viewBox="0 0 24 24">
                                                 <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path>
@@ -51,9 +55,11 @@
                                     <!-- input-group.// -->
                                 </div>
                                 <!-- col.// -->
-                                <div class="col"> <strong class="total"> {{ $item->subtotal }} MAD</strong> </div>
+                                <div class="col"> <strong class="total"> {{ $item->subtotal }} MAD</strong>
+                                </div>
                                 <div class="col text-end">
-                                    <a href="" class="btn btn-icon btn-outline-danger" wire:click.prevent="destroy('{{$item->rowId}}')">
+                                    <a href="" class="btn btn-icon btn-outline-danger"
+                                        wire:click.prevent="destroy('{{ $item->rowId }}')">
                                         <i class="fa fa-trash"></i>
                                     </a>
                                 </div>
@@ -93,11 +99,11 @@
                         </div> --}}
                         <dl class="dlist-align">
                             <dt>Subtotal:</dt>
-                            <dd class="text-end"> {{ Cart::subtotal() }} MAD</dd>
+                            <dd class="text-end"> {{ Cart::instance('cart')->subtotal() }} MAD</dd>
                         </dl>
                         <dl class="dlist-align">
                             <dt>Tax:</dt>
-                            <dd class="text-end"> {{ Cart::tax() }} MAD</dd>
+                            <dd class="text-end"> {{ Cart::instance('cart')->tax() }} MAD</dd>
                         </dl>
                         <dl class="dlist-align">
                             <dt>Shipping:</dt>
@@ -105,7 +111,7 @@
                         </dl>
                         <dl class="dlist-align">
                             <dt>Total:</dt>
-                            <dd class="text-end text-dark h5"> {{ Cart::total() }} MAD </dd>
+                            <dd class="text-end text-dark h5"> {{ Cart::instance('cart')->total() }} MAD </dd>
                         </dl>
                         <hr>
                         <a href="{{ url('checkout') }}" class="btn btn-primary mb-2 w-100">Checkout</a>

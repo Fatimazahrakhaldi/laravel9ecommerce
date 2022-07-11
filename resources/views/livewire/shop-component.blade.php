@@ -21,7 +21,8 @@
                             <div class="card-body">
                                 <ul class="list-menu">
                                     @foreach ($categories as $category)
-                                        <li><a href="{{ route('product.category', ['category_slug' => $category->slug]) }}">{{ $category->name }}</a>
+                                        <li><a
+                                                href="{{ route('product.category', ['category_slug' => $category->slug]) }}">{{ $category->name }}</a>
                                         </li>
                                     @endforeach
                                 </ul>
@@ -81,13 +82,16 @@
                         <header class="card-header">
                             <a href="#" class="title" data-bs-toggle="collapse"
                                 data-bs-target="#collapse_aside2">
-                                <i class="icon-control fa fa-chevron-down"></i> Price
+                                <i class="icon-control fa fa-chevron-down"></i> Price <span
+                                    class="text-info">{{ $min_price }} - {{ $max_price }}</span>
                             </a>
                         </header>
                         <div class="collapse show" id="collapse_aside2">
                             <div class="card-body">
-                                <input type="range" class="form-range" min="0" max="100">
-                                <div class="row mb-3">
+                                <div id="slider" wire:ignore></div>
+
+                                {{-- <input type="range" class="form-range" min="0" max="100"> --}}
+                                {{-- <div class="row mb-3">
                                     <div class="col-6">
                                         <label for="min" class="form-label">Min</label>
                                         <input class="form-control" id="min" placeholder="$0" type="number">
@@ -97,7 +101,7 @@
                                         <label for="max" class="form-label">Max</label>
                                         <input class="form-control" id="max" placeholder="$1,0000" type="number">
                                     </div> <!-- col end.// -->
-                                </div> <!-- row end.// -->
+                                </div> <!-- row end.// --> --}}
                                 <button class="btn btn-light w-100" type="button">Apply</button>
                             </div> <!-- card-body.// -->
                         </div> <!-- collapse.// -->
@@ -231,10 +235,26 @@
 
                 <!-- ========= content items ========= -->
                 <div class="row">
+                    @php
+                        $witems = Cart::instance('wishlist')
+                            ->content()
+                            ->pluck('id');
+                    @endphp
                     @foreach ($products as $product)
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <figure class="card card-product-grid">
                                 <div class="img-wrap">
+                                    <span class="topbar">
+                                        @if ($witems->contains($product->id))
+                                            <a href="#" class="btn btn-sm btn-light float-end"><i
+                                                    class="fa fa-heart"></i></a>
+                                        @else
+                                            <a href="#"
+                                                wire:click.prevent="addToWishlist({{ $product->id }},'{{ $product->name }}',{{ $product->regular_price }})"
+                                                class="btn btn-sm btn-light float-end"><i
+                                                    class="fa-regular fa-heart"></i></a>
+                                        @endif
+                                    </span>
                                     <a href="{{ route('product.details', ['slug' => $product->slug]) }}">
                                         <img src="{{ asset('images/products') }}/{{ $product->image }}"
                                             alt="{{ $product->name }}">
@@ -242,18 +262,22 @@
                                 </div>
                                 <figcaption class="info-wrap border-top">
                                     <div class="price-wrap">
-                                        <strong class="price">{{ $product->regular_price }}</strong>
-                                        <del class="price-old">$170.00</del>
+                                        @if ($product->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now())
+                                            <strong class="price h6 me-2">{{ $product->sale_price }}</strong>
+                                            <del class="price-old"> {{ $product->regular_price }} </del>
+                                        @else
+                                            <strong class="price">{{ $product->regular_price }}</strong>
+                                        @endif
                                     </div> <!-- price-wrap.// -->
+
                                     <a href="{{ route('product.details', ['slug' => $product->slug]) }}">
                                         <p class="title mb-2">{{ $product->name }}</p>
                                     </a>
 
-                                    <button class="btn btn-primary"
-                                        wire:click.prevent="store({{ $product->id }},'{{ $product->name }}',{{ $product->regular_price }})">Add
-                                        to cart</button>
-                                    <a href="#" class="btn btn-light btn-icon"> <i class="fa fa-heart"></i>
-                                    </a>
+                                    <button class="float-end btn btn-primary btn-icon"
+                                        wire:click.prevent="store({{ $product->id }},'{{ $product->name }}',{{ $product->regular_price }})">
+                                        <i class="fa fa-shopping-cart"></i>
+                                    </button>
                                 </figcaption>
                             </figure>
                         </div> <!-- col end.// -->
@@ -280,3 +304,29 @@
 
     </div> <!-- container .//  -->
 </main>
+
+@push('scripts')
+    <script>
+        var slider = document.getElementById('slider');
+
+        noUiSlider.create(slider, {
+            start: [1, 1000],
+            // tooltips: true,
+            connect: true,
+            range: {
+                'min': 0,
+                'max': 1000
+            },
+            pips: {
+                mode: 'steps',
+                stepped: true,
+                density: 4
+            },
+        });
+
+        slider.noUiSlider.on('update', function(value) {
+            @this.set('min_price', value[0]);
+            @this.set('max_price', value[1]);
+        });
+    </script>
+@endpush

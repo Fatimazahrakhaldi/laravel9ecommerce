@@ -1,3 +1,39 @@
+@push('styles')
+    <style>
+        .countdown {
+            display: -webkit-box;
+            display: -ms-flexbox;
+            display: flex;
+            padding: 10px 20px;
+            border: 1px solid black;
+        }
+
+        .countdown .day,
+        .countdown .hour,
+        .countdown .min,
+        .countdown .sec {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .countdown .day .num,
+        .countdown .hour .num,
+        .countdown .min .num,
+        .countdown .sec .num {
+            display: block;
+            font-size: 40px;
+        }
+
+        .countdown .day .word,
+        .countdown .hour .word,
+        .countdown .min .word,
+        .countdown .sec .word {
+            display: block;
+            font-size: 20px;
+        }
+    </style>
+@endpush
+
 <main>
     <section class="section-intro padding-top-sm">
         <div class="container">
@@ -56,6 +92,61 @@
         </div> <!-- container end.// -->
     </section>
 
+    <!-- ================ SECTION PRODUCTS ================ -->
+    <section class="padding-y">
+        <div class="container">
+            <div class="card">
+                <header class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        @foreach ($categories as $key => $category)
+                            <li class="nav-item">
+                                <a href="#" data-bs-target="#category_{{ $category->id }}" data-bs-toggle="tab"
+                                    class="nav-link {{ $key == 0 ? 'active' : '' }}">{{ $category->name }}</a>
+                            </li>
+                        @endforeach
+                    </ul>
+                </header>
+                <div class="tab-content">
+                    @foreach ($categories as $key => $category)
+                        <article id="category_{{ $category->id }}"
+                            class="tab-pane {{ $key == 0 ? 'show active' : '' }} card-body">
+                            <div class="row">
+                                @foreach ($getProductsByIdCat($category->id, $no_of_products) as $product)
+                                    <div class="col-lg-3 col-md-6 col-sm-6">
+                                        <figure class="card-product-grid">
+
+                                            <div class="img-wrap">
+                                                <span class="topbar">
+                                                    <a href="#" class="btn btn-sm btn-light float-end"><i
+                                                            class="fa fa-heart"></i></a> <span class="badge bg-danger"> New </span>
+                                                </span>
+                                                <a href="{{ route('product.details', ['slug' => $product->slug]) }}">
+                                                    <img height="250"
+                                                        src="{{ asset('images/products') }}/{{ $product->image }}">
+                                                    </a>
+                                            </div>
+                                            <figcaption class="pt-2">
+                                                <a href="{{ route('product.details', ['slug' => $product->slug]) }}"
+                                                    class="float-end btn btn-primary btn-icon">
+                                                    <i class="fa fa-shopping-cart"></i>
+                                                </a>
+                                                <strong class="price">{{ $product->regular_price }}</strong>
+                                                <!-- price.// -->
+                                                <a href="{{ route('product.details', ['slug' => $product->slug]) }}"
+                                                    class="title text-truncate">{{ $product->name }}</a>
+                                                <small class="text-muted">Model: X-200</small>
+                                            </figcaption>
+                                        </figure>
+                                    </div> <!-- col end.// -->
+                                @endforeach
+
+                            </div> <!-- row end.// -->
+                        </article>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- ============ COMPONENT BS CARD IMG END .// ============ -->
     <div class="container pt-5">
@@ -127,20 +218,23 @@
                 @foreach ($lproducts as $lproduct)
                     <div class="col-lg-3 col-md-6 col-sm-6">
                         <figure class="card-product-grid">
-                            <a href="{{ route('product.details', ['slug' => $lproduct->slug]) }}"
-                                class="img-wrap rounded bg-gray-light">
-                                <span class="topbar"> <span class="badge bg-danger"> New </span> </span>
-                                <img height="250" class="mix-blend-multiply"
+                            <div class="img-wrap">
+                                <span class="topbar"> <a href="#" class="btn btn-sm btn-light float-end"><i
+                                            class="fa fa-heart"></i></a> <span class="badge bg-danger"> New </span>
+                                </span>
+                                <a href="{{ route('product.details', ['slug' => $lproduct->slug]) }}">
+                                <img height="250"
                                     src="{{ asset('images/products') }}/{{ $lproduct->image }}">
-                            </a>
+                                </a>
+                            </div>
                             <figcaption class="pt-2">
                                 <a href="{{ route('product.details', ['slug' => $lproduct->slug]) }}"
                                     class="float-end btn btn-primary btn-icon">
                                     <i class="fa fa-shopping-cart"></i>
                                 </a>
-                                <strong class="price">{{$lproduct->regular_price}}</strong> <!-- price.// -->
+                                <strong class="price">{{ $lproduct->regular_price }}</strong> <!-- price.// -->
                                 <a href="{{ route('product.details', ['slug' => $lproduct->slug]) }}"
-                                    class="title text-truncate">{{$lproduct->name}}</a>
+                                    class="title text-truncate">{{ $lproduct->name }}</a>
                                 <small class="text-muted">Model: X-200</small>
                             </figcaption>
                         </figure>
@@ -153,87 +247,49 @@
     </section>
     <!-- ================ SECTION PRODUCTS END.// ================ -->
 
+    @if ($sproducts->count() > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now())
+        <!-- ================ SECTION PRODUCTS ================ -->
+        <section class="container">
 
-    <!-- ================ SECTION PRODUCTS ================ -->
-    <section class="container">
+            <header class="section-heading">
+                <h3 class="section-title">On sale</h3>
+            </header>
 
-        <header class="section-heading">
-            <h3 class="section-title">Recommended</h3>
-        </header>
+            <div class="row">
+                <div id="countdown" data-expire="{{ Carbon\Carbon::parse($sale->sale_date) }}">
+                </div>
+                @foreach ($sproducts as $sproduct)
+                    <div class="col-lg-3 col-md-6 col-sm-6">
+                        <figure class="card-product-grid">
+                            <div class="img-wrap">
+                                <span class="topbar">
+                                    <a href="#" class="btn btn-sm btn-light float-end"><i
+                                            class="fa fa-heart"></i></a> <span class="badge bg-warning"> sale </span>
+                                </span>
+                                <a href="{{ route('product.details', ['slug' => $sproduct->slug]) }}">
+                                    <img height="250"
+                                        src="{{ asset('images/products') }}/{{ $sproduct->image }}">
+                                    </a>
+                            </div>
+                            <figcaption class="pt-2">
+                                <a href="{{ route('product.details', ['slug' => $sproduct->slug]) }}"
+                                    class="float-end btn btn-primary btn-icon"> <i class="fa fa-shopping-cart"></i>
+                                </a>
+                                <div class="price-wrap mb-3"> <strong class="price"> {{ $sproduct->sale_price }}
+                                    </strong> <del class="price-old"> {{ $sproduct->regular_price }} </del> </div>
+                                <a href="{{ route('product.details', ['slug' => $sproduct->slug]) }}"
+                                    class="title text-truncate">{{ $sproduct->name }}</a>
+                                {{-- <small class="text-muted">Sizes: S, M, XL</small> --}}
+                            </figcaption>
+                        </figure>
+                    </div> <!-- col end.// -->
+                @endforeach
 
-        <div class="row">
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <figure class="card-product-grid">
-                    <a href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/page-index-2.html#"
-                        class="img-wrap rounded bg-gray-light">
-                        <img height="250" class="mix-blend-multiply" src="{{ asset('images/9.jpg') }}">
-                    </a>
-                    <figcaption class="pt-2">
-                        <a href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/page-index-2.html#"
-                            class="float-end btn btn-primary btn-icon"> <i class="fa fa-shopping-cart"></i> </a>
-                        <strong class="price">$17.00</strong> <!-- price.// -->
-                        <a href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/page-index-2.html#"
-                            class="title text-truncate">Blue jeans shorts for men</a>
-                        <small class="text-muted">Sizes: S, M, XL</small>
-                    </figcaption>
-                </figure>
-            </div> <!-- col end.// -->
+            </div> <!-- row end.// -->
 
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <figure class="card-product-grid">
-                    <a href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/page-index-2.html#"
-                        class="img-wrap rounded bg-gray-light">
-                        <img height="250" class="mix-blend-multiply" src="{{ asset('images/10.jpg') }}">
-                    </a>
-                    <figcaption class="pt-2">
-                        <a href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/page-index-2.html#"
-                            class="float-end btn btn-primary btn-icon"> <i class="fa fa-shopping-cart"></i> </a>
-                        <strong class="price">$9.50</strong> <!-- price.// -->
-                        <a href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/page-index-2.html#"
-                            class="title text-truncate">Slim fit T-shirt for men</a>
-                        <small class="text-muted">Sizes: S, M, XL</small>
-                    </figcaption>
-                </figure>
-            </div> <!-- col end.// -->
-
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <figure class="card-product-grid">
-                    <a href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/page-index-2.html#"
-                        class="img-wrap rounded bg-gray-light">
-                        <img height="250" class="mix-blend-multiply" src="{{ asset('images/11.jpg') }}">
-                    </a>
-                    <figcaption class="pt-2">
-                        <a href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/page-index-2.html#"
-                            class="float-end btn btn-primary btn-icon"> <i class="fa fa-shopping-cart"></i> </a>
-                        <strong class="price">$29.95</strong> <!-- price.// -->
-                        <a href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/page-index-2.html#"
-                            class="title text-truncate">Modern product name here</a>
-                        <small class="text-muted">Sizes: S, M, XL</small>
-                    </figcaption>
-                </figure>
-            </div> <!-- col end.// -->
-
-            <div class="col-lg-3 col-md-6 col-sm-6">
-                <figure class="card-product-grid">
-                    <a href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/page-index-2.html#"
-                        class="img-wrap rounded bg-gray-light">
-                        <img height="250" class="mix-blend-multiply" src="{{ asset('images/12.jpg') }}">
-                    </a>
-                    <figcaption class="pt-2">
-                        <a href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/page-index-2.html#"
-                            class="float-end btn btn-primary btn-icon"> <i class="fa fa-shopping-cart"></i> </a>
-                        <strong class="price">$29.95</strong> <!-- price.// -->
-                        <a href="https://bootstrap-ecommerce.com/bootstrap5-ecommerce/page-index-2.html#"
-                            class="title text-truncate">Modern product name here</a>
-                        <small class="text-muted">Sizes: S, M, XL</small>
-                    </figcaption>
-                </figure>
-            </div> <!-- col end.// -->
-        </div> <!-- row end.// -->
-
-    </section><!-- container end.// -->
-    <!-- ================ SECTION PRODUCTS END.// ================ -->
-
+        </section><!-- container end.// -->
+        <!-- ================ SECTION PRODUCTS END.// ================ -->
+    @endif
 
     <section class="padding-y">
         <div class="container">
@@ -296,3 +352,35 @@
         </div>
     </section>
 </main>
+
+@push('scripts')
+    <script>
+        // Set the date we're counting down
+        var countDownDate = new Date(document.getElementById('countdown').getAttribute('data-expire')).getTime();
+        // Update the count down every 1 second
+        var x = setInterval(function() {
+
+            // Get today's date and time
+            var now = new Date().getTime();
+
+            // Find the distance between now and the count down date
+            var distance = countDownDate - now;
+
+            // Time calculations for days, hours, minutes and seconds
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            // Output the result in an element with id="countdown"
+            document.getElementById("countdown").innerHTML = days + "d " + hours + "h " +
+                minutes + "m " + seconds + "s ";
+
+            // If the count down is over, write some text
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("countdown").innerHTML = "EXPIRED";
+            }
+        }, 1000);
+    </script>
+@endpush

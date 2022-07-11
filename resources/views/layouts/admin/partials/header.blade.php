@@ -181,11 +181,19 @@
                                         <li><a class="dropdown-item"
                                                 href="{{ route('admin.categories') }}">Categories</a>
                                         </li>
-                                        <li><a class="dropdown-item" href="{{ route('admin.products') }}">Products</a>
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('admin.products') }}">Products</a>
                                         </li>
-                                        <li><a class="dropdown-item" href="{{ route('admin.homeslider') }}">Manage Home slider</a>
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('admin.homeslider') }}">Manage Home
+                                                slider</a>
                                         </li>
-                                        <li><a class="dropdown-item" href="{{ route('admin.homecategories') }}">Manage Home categories</a>
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('admin.homecategories') }}">Manage
+                                                Home categories</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('admin.sale') }}">Sale setting</a>
                                         </li>
 
                                         <li>
