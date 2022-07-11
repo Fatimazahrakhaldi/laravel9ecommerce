@@ -195,6 +195,9 @@
                                         <li>
                                             <a class="dropdown-item" href="{{ route('admin.sale') }}">Sale setting</a>
                                         </li>
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('admin.coupons') }}">All Coupons</a>
+                                        </li>
 
                                         <li>
                                             <hr class="dropdown-divider">

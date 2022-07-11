@@ -235,18 +235,13 @@
 
                 <!-- ========= content items ========= -->
                 <div class="row">
-                    @php
-                        $witems = Cart::instance('wishlist')
-                            ->content()
-                            ->pluck('id');
-                    @endphp
                     @foreach ($products as $product)
                         <div class="col-lg-4 col-md-6 col-sm-6">
                             <figure class="card card-product-grid">
                                 <div class="img-wrap">
                                     <span class="topbar">
                                         @if ($witems->contains($product->id))
-                                            <a href="#" class="btn btn-sm btn-light float-end"><i
+                                            <a href="#" wire:click.prevent="removeFromWishlist({{ $product->id }})" class="btn btn-sm btn-light float-end"><i
                                                     class="fa fa-heart"></i></a>
                                         @else
                                             <a href="#"

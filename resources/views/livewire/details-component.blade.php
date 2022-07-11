@@ -89,14 +89,14 @@
                         <div class="col-md-4 col-6 mb-3">
                             <label class="form-label d-block">Quantity</label>
                             <div class="input-group input-spinner">
-                                <button class="btn btn-icon btn-light" type="button">
+                                <button class="btn btn-icon btn-light" type="button" wire:click.prevent="decreaseQuantity">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#999"
                                         viewBox="0 0 24 24">
                                         <path d="M19 13H5v-2h14v2z"></path>
                                     </svg>
                                 </button>
-                                <input class="form-control text-center" placeholder="" value="14">
-                                <button class="btn btn-icon btn-light" type="button">
+                                <input type="text" class="form-control text-center" pattern="[0-9]*" wire:model="qty">
+                                <button class="btn btn-icon btn-light" type="button" wire:click.prevent="increaseQuantity">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
                                         fill="#999" viewBox="0 0 24 24">
                                         <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path>
