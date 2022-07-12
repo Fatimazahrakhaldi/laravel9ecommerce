@@ -6,6 +6,7 @@ use Cart;
 use Carbon\Carbon;
 use App\Models\Coupon;
 use Livewire\Component;
+use Illuminate\Support\Facades\Auth;
 
 class CartComponent extends Component
 {
@@ -71,7 +72,7 @@ class CartComponent extends Component
 
     public function applyCouponCode()
     {
-        $coupon = Coupon::where('code', $this->couponCode)->where('expiry_date','>=',Carbon::today())->where('cart_value', '<=', Cart::instance('cart')->subtotal())->first();
+        $coupon = Coupon::where('code', $this->couponCode)->where('expiry_date', '>=', Carbon::today())->where('cart_value', '<=', Cart::instance('cart')->subtotal())->first();
         if (!$coupon) {
             session()->flash('coupon_message', 'Coupon code is invalid !');
             return;
@@ -104,6 +105,39 @@ class CartComponent extends Component
         session()->forget('coupon');
     }
 
+    public function checkout()
+    {
+        if (Auth::check()) {
+            return redirect()->route('checkout');
+        } else {
+            return redirect()->route('login');
+        }
+    }
+
+    public function setAmountForCheckout()
+    {
+        if (!Cart::instance('cart')->count() > 0) {
+            session()->forget('checkout');
+            return;
+        }
+
+        if (session()->has('coupon')) {
+            session()->put('checkout', [
+                'discount' => $this->discount,
+                'subtotal' => $this->subtotalAfterDiscount,
+                'tax' => $this->taxAfterDiscount,
+                'total' => $this->totalAfterDiscount,
+            ]);
+        } else {
+            session()->put('checkout', [
+                'discount' => 0,
+                'subtotal' => Cart::instance('cart')->subtotal(),
+                'tax' => Cart::instance('cart')->tax(),
+                'total' => Cart::instance('cart')->total(),
+            ]);
+        }
+    }
+
     public function render()
     {
         if (session()->has('coupon')) {
@@ -113,6 +147,9 @@ class CartComponent extends Component
                 $this->calculateDiscount();
             }
         }
+
+        $this->setAmountForCheckout();
+
         return view('livewire.cart-component')->layout('layouts.front.base');
     }
 }

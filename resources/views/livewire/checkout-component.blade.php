@@ -1,111 +1,273 @@
 <main class="padding-y bg-light">
     <div class="container">
-        <ul class="steps-wrap mb-5">
-            <li class="step active"> <span class="icon">1</span> <span class="text">Informations personnel</span> </li>
-            <!-- step.// -->
-            <li class="step active"> <span class="icon">2</span> <span class="text">Adresse</span> </li>
-            <!-- step.// -->
-            <li class="step active"> <span class="icon">3</span> <span class="text">Livraison</span> </li>
-            <!-- step.// -->
-            <li class="step"> <span class="icon">4</span> <span class="text">Paiement</span> </li>
-            <!-- step.// -->
-        </ul>
         <div class="row">
             <div class="col-lg-8">
                 <!-- ============== COMPONENT 1 =============== -->
-                <article class="card mb-4">
-                    <div class="content-body">
-                        <div class="float-end">
-                            <a href="{{ url('register') }}" class="btn btn-outline-primary">Register</a>
-                            <a href="{{ url('login') }}" class="btn btn-primary">Sign in</a>
-                        </div>
-                        <h5>Have an account?</h5>
-                        <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit</p>
-                    </div>
-                </article>
-                <article class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Address</h5>
-                        <div class="row">
-                            <div class="col-sm-8 mb-3"> <label class="form-label">Address</label> <input type="text"
-                                    class="form-control" placeholder="Type here"> </div>
-                            <!-- col end.// -->
-                            <div class="col-sm-4 mb-3"> <label class="form-label">City*</label> <select
-                                    class="form-select" id="city*" aria-label="City*">
-                                    <option value="1">New York</option>
-                                    <option value="2">Moscow</option>
-                                    <option value="3">Samarqand</option>
-                                </select> </div>
-                            <!-- col end.// -->
-                            <div class="col-sm-4 col-6 mb-3"> <label class="form-label">House</label> <input
-                                    type="text" class="form-control" placeholder="Type here"> </div>
-                            <!-- col end.// -->
-                            <div class="col-sm-4 col-6 mb-3"> <label class="form-label">Postal code</label> <input
-                                    type="text" class="form-control" placeholder=""> </div>
-                            <!-- col end.// -->
-                            <div class="col-sm-4 col-6 mb-3"> <label class="form-label">Zip</label> <input
-                                    type="text" class="form-control" placeholder=""> </div>
-                            <!-- col end.// -->
-                            <label class="form-check mb-4"> <input class="form-check-input" type="checkbox"
-                                    value="">
-                                    <span class="form-check-label"> Save this address
-                                </span>
-                            </label>
-                        </div>
-                        <!-- row.// -->
-                        <h5 class="card-title">Contact info</h5>
-                        <div class="row">
-                            <div class="col-6 mb-3"> <label class="form-label">First name</label> <input type="text"
-                                    class="form-control" placeholder="Type here"> </div>
-                            <!-- col end.// -->
-                            <div class="col-6"> <label class="form-label">Last name</label> <input type="text"
-                                    class="form-control" placeholder="Type here"> </div>
-                            <!-- col end.// -->
-                            <div class="col-lg-6 mb-3"> <label class="form-label">Phone</label> <input type="text"
-                                    value="+998" class="form-control" placeholder=""> </div>
-                            <!-- col end.// -->
-                            <div class="col-lg-6 mb-3"> <label class="form-label">Email</label> <input type="text"
-                                    class="form-control" placeholder="example@gmail.com"> </div>
-                            <!-- col end.// -->
-                        </div>
-                        <!-- row.// --><label class="form-check mb-3"> <input class="form-check-input" type="checkbox"
-                                value=""> <span class="form-check-label"> Keep me up to date on news </span>
-                        </label>
-                        <hr class="my-4">
-                        <h5 class="card-title"> Shipping info </h5>
-                        <div class="row mb-3">
-                            <div class="col-lg-4 mb-3">
-                                <div class="box box-check"> <label class="form-check"> <input class="form-check-input"
-                                            type="radio" name="dostavka" checked=""> <b
-                                            class="border-oncheck"></b> <span class="form-check-label"> Express delivery
-                                            <br> <small class="text-muted">3-4 days via Fedex </small> </span> </label>
+                <form wire:submit.prevent="placeOrder">
+                    <article class="card">
+                        <div class="card-body">
+
+                            <div class="billing_address">
+                                <h5 class="card-title">Billing Address</h5>
+                                <div class="row">
+                                    <div class="col-6 mb-3"> <label class="form-label">First name</label>
+                                        <input type="text" class="form-control" wire:model="firstname">
+                                        @error('firstname')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    <!-- col end.// -->
+                                    <div class="col-6"> <label class="form-label">Last name</label>
+                                        <input type="text" class="form-control" wire:model="lastname">
+                                        @error('lastname')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    <!-- col end.// -->
+                                    <div class="col-lg-6 mb-3"> <label class="form-label">Phone</label>
+                                        <input type="text" value="+212" class="form-control" wire:model="mobile">
+                                        @error('mobile')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    <!-- col end.// -->
+                                    <div class="col-lg-6 mb-3"> <label class="form-label">Email</label>
+                                        <input type="text" class="form-control" placeholder="example@gmail.com"
+                                            wire:model="email">
+                                        @error('email')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    <!-- col end.// -->
+                                    <div class="col-4 mb-3">
+                                        <label class="form-label">Country</label>
+                                        <select class="form-select" wire:model="country">
+                                            <option value="1">New York</option>
+                                            <option value="2">Moscow</option>
+                                            <option value="3">Samarqand</option>
+                                        </select>
+                                        @error('country')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    <!-- col end.// -->
+                                    <div class="col-4 mb-3">
+                                        <label class="form-label">City</label>
+                                        <input type="text" class="form-control" wire:model="city">
+                                        @error('city')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    <!-- col end.// -->
+                                    <div class="col-4 mb-3">
+                                        <label class="form-label">Postal code / Zip</label>
+                                        <input type="text" class="form-control" wire:model="zipcode">
+                                        @error('zipcode')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    <!-- col end.// -->
+                                    <div class="col-6 mb-3">
+                                        <label class="form-label">Line1</label>
+                                        <input type="text" class="form-control" wire:model="line1">
+                                        @error('line1')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    <div class="col-6 mb-3">
+                                        <label class="form-label">Line2</label>
+                                        <input type="text" class="form-control" wire:model="line2">
+                                        @error('line2')
+                                            <p class="text-danger">{{ $message }}</p>
+                                        @enderror
+                                    </div>
+                                    <div class="col-12">
+                                        <label class="form-check mb-4">
+                                            <input class="form-check-input" type="checkbox" value="1"
+                                                wire:model="ship_to_different">
+                                            <span class="form-check-label"> Ship to a different address ? </span>
+                                        </label>
+                                    </div>
                                 </div>
+                                <!-- row.// -->
                             </div>
-                            <!-- col end.// -->
-                            <div class="col-lg-4 mb-3">
-                                <div class="box box-check"> <label class="form-check"> <input
-                                            class="form-check-input" type="radio" name="dostavka"> <b
-                                            class="border-oncheck"></b> <span class="form-check-label"> Post office
-                                            <br> <small class="text-muted">20-30
-                                                days via post</small> </span> </label> </div>
+
+                            @if ($ship_to_different)
+                                <div class="shipping_address">
+                                    <h5 class="card-title">Shipping Address</h5>
+                                    <div class="row">
+                                        <div class="col-6 mb-3"> <label class="form-label">First name</label>
+                                            <input type="text" class="form-control" wire:model="s_firstname">
+                                            @error('s_firstname')
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                        <!-- col end.// -->
+                                        <div class="col-6"> <label class="form-label">Last name</label>
+                                            <input type="text" class="form-control" wire:model="s_lastname">
+                                            @error('s_lastname')
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                        <!-- col end.// -->
+                                        <div class="col-lg-6 mb-3"> <label class="form-label">Phone</label>
+                                            <input type="text" value="+212" class="form-control"
+                                                wire:model="s_mobile">
+                                            @error('s_mobile')
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                        <!-- col end.// -->
+                                        <div class="col-lg-6 mb-3"> <label class="form-label">Email</label>
+                                            <input type="text" class="form-control"
+                                                placeholder="example@gmail.com" wire:model="s_email">
+                                            @error('s_email')
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                        <!-- col end.// -->
+                                        <div class="col-4 mb-3">
+                                            <label class="form-label">Country</label>
+                                            <select class="form-select" wire:model="s_country">
+                                                <option value="1">New York</option>
+                                                <option value="2">Moscow</option>
+                                                <option value="3">Samarqand</option>
+                                            </select>
+                                            @error('s_country')
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                        <!-- col end.// -->
+                                        <div class="col-4 mb-3">
+                                            <label class="form-label">City</label>
+                                            <input type="text" class="form-control" wire:model="s_city">
+                                            @error('s_city')
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                        <!-- col end.// -->
+                                        <div class="col-4 mb-3">
+                                            <label class="form-label">Postal code / Zip</label>
+                                            <input type="text" class="form-control" wire:model="s_zipcode">
+                                            @error('s_zipcode')
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                        <!-- col end.// -->
+                                        <div class="col-6 mb-3">
+                                            <label class="form-label">Line1</label>
+                                            <input type="text" class="form-control" wire:model="s_line1">
+                                            @error('s_line1')
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                        <div class="col-6 mb-3">
+                                            <label class="form-label">Line2</label>
+                                            <input type="text" class="form-control" wire:model="s_line2">
+                                            @error('s_line2')
+                                                <p class="text-danger">{{ $message }}</p>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <!-- row.// -->
+                                </div>
+                            @endif
+                            <hr class="my-4">
+                            <h5 class="card-title"> Shipping info </h5>
+                            <div class="row mb-3">
+                                <div class="col-lg-4 mb-3">
+                                    <div class="box box-check">
+                                        <label class="form-check">
+                                            <input class="form-check-input" type="radio" name="dostavka"
+                                                checked="">
+                                            <b class="border-oncheck"></b>
+                                            <span class="form-check-label"> Express delivery <br>
+                                                <small class="text-muted">3-4 days via Fedex </small>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <!-- col end.// -->
+                                <div class="col-lg-4 mb-3">
+                                    <div class="box box-check"> <label class="form-check">
+                                            <input class="form-check-input" type="radio" name="dostavka"> <b
+                                                class="border-oncheck"></b>
+                                            <span class="form-check-label"> Post office <br>
+                                                <small class="text-muted">20-30 days via post</small>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <!-- col end.// -->
+                                <div class="col-lg-4 mb-3">
+                                    <div class="box box-check"> <label class="form-check">
+                                            <input class="form-check-input" type="radio" name="dostavka">
+                                            <b class="border-oncheck"></b>
+                                            <span class="form-check-label"> Self pick-up
+                                                <br>
+                                                <small class="text-muted"> Come to our shop </small>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <!-- col end.// -->
                             </div>
-                            <!-- col end.// -->
-                            <div class="col-lg-4 mb-3">
-                                <div class="box box-check"> <label class="form-check"> <input
-                                            class="form-check-input" type="radio" name="dostavka"> <b
-                                            class="border-oncheck"></b> <span class="form-check-label"> Self pick-up
-                                            <br> <small class="text-muted"> Come
-                                                to our shop </small> </span> </label> </div>
+                            <hr class="my-4">
+                            <h5 class="card-title"> Payment method </h5>
+                            <div class="row mb-3">
+                                <div class="col-lg-4 mb-3">
+                                    <div class="box box-check">
+                                        <label class="form-check">
+                                            <input class="form-check-input" type="radio" value="cod" name="payment-method"
+                                                wire:model="paymentmode">
+                                            <b class="border-oncheck"></b>
+                                            <span class="form-check-label"> Cash on delivery <br>
+                                                <small class="text-muted">Order now pay on delivery </small>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <!-- col end.// -->
+                                <div class="col-lg-4 mb-3">
+                                    <div class="box box-check"> <label class="form-check">
+                                            <input class="form-check-input" type="radio" value="card" name="payment-method"
+                                                >
+                                            <b class="border-oncheck"></b>
+                                            <span class="form-check-label"> Debit / Credit Card <br>
+                                                <small class="text-muted"></small>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <!-- col end.// -->
+                                <div class="col-lg-4 mb-3">
+                                    <div class="box box-check"> <label class="form-check">
+                                            <input class="form-check-input" type="radio" value="paypal" name="payment-method"
+                                               >
+                                            <b class="border-oncheck"></b>
+                                            <span class="form-check-label"> Paypal
+                                                <br>
+                                                <small class="text-muted"> Come to our shop </small>
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                                <!-- col end.// -->
+                                @error('paymentmode')
+                                    <p class="text-danger">{{ $message }}</p>
+                                @enderror
                             </div>
-                            <!-- col end.// -->
+                            <!-- row end.// -->
+                            <div class="float-end">
+                                <button type="submit" class="btn btn-primary">Continue</button>
+                                <button class="btn btn-light">Cancel</button>
+                            </div>
                         </div>
-                        <!-- row end.// -->
-                        <button class="btn btn-primary">Continue</button> <button class="btn btn-light">Cancel
-                        </button>
-                    </div>
-                    <!-- card-body end.// -->
-                </article>
-                <!-- card end.// -->
+                        <!-- card-body end.// -->
+                    </article>
+                    <!-- card end.// -->
+                </form>
+
                 <!-- ============== COMPONENT 1 .// =============== -->
             </div>
             <!-- col.// -->
@@ -158,14 +320,14 @@
                             <dt>Shipping cost:</dt>
                             <dd class="text-end"> + $14.00 </dd>
                         </dl>
-                        <hr>
+                        @if (Session::has('checkout'))
+                            <hr>
                         <dl class="dlist-align">
                             <dt> Total: </dt>
-                            <dd class="text-end"> <strong class="text-dark">$1357.97</strong> </dd>
+                            <dd class="text-end"> <strong class="text-dark">{{Session::get('checkout')['total']}}</strong> </dd>
                         </dl>
-                        <div class="input-group my-4"> <input type="text" class="form-control" name="lorem"
-                                placeholder="Promo code"> <button class="btn btn-light text-primary">Apply</button>
-                        </div>
+                        @endif
+
                     </div>
                 </article>
                 <!-- ============== COMPONENT SUMMARY .// =============== -->

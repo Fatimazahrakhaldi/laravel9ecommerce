@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -27,9 +27,9 @@ return new class extends Migration
             $table->string('line1');
             $table->string('line2')->nullable();
             $table->string('city');
-            $table->string('province');
+            // $table->string('province');
             $table->string('country');
-            $table->strong('zipcode');
+            $table->string('zipcode');
             $table->enum('status',['ordered','delivered','canceled'])->default('ordered');
             $table->boolean('is_shipping_different')->default(false);
             $table->timestamps();

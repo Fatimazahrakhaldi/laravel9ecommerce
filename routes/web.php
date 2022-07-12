@@ -24,6 +24,7 @@ use App\Http\Livewire\Admin\AdminEditCouponComponent;
 use App\Http\Livewire\Admin\AdminEditHomeSliderComponent;
 use App\Http\Livewire\Admin\AdminHomeCategoryComponent;
 use App\Http\Livewire\Admin\AdminSaleComponent;
+use App\Http\Livewire\ThankyouComponent;
 use App\Http\Livewire\WishlistComponent;
 
 /*
@@ -43,11 +44,11 @@ use App\Http\Livewire\WishlistComponent;
 
 Route::get('/', HomeComponent::class);
 
-Route::get('/shop', ShopComponent::class);
+Route::get('/shop', ShopComponent::class)->name('shop');
 
 Route::get('/cart', CartComponent::class)->name('product.cart');
 
-Route::get('/checkout', CheckoutComponent::class);
+Route::get('/checkout', CheckoutComponent::class)->name('checkout');
 
 Route::get('/product/{slug}', DetailsComponent::class)->name('product.details');
 
@@ -56,6 +57,8 @@ Route::get('/product-category/{category_slug}', CategoryComponent::class)->name(
 Route::get('/search', SearchComponent::class)->name('produit.search');
 
 Route::get('/wishlist', WishlistComponent::class)->name('produit.wishlist');
+
+Route::get('/thank-you', ThankyouComponent::class)->name('thankyou');
 
 // Route::middleware([
 //     'auth:sanctum',

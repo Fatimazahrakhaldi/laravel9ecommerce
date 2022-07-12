@@ -23,9 +23,9 @@ return new class extends Migration
             $table->string('line1');
             $table->string('line2')->nullable();
             $table->string('city');
-            $table->string('province');
+            // $table->string('province');
             $table->string('country');
-            $table->strong('zipcode');
+            $table->string('zipcode');
             $table->timestamps();
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
         });
