@@ -1728,7 +1728,6 @@ ul.row {
     max-height: 100%;
     -o-object-fit: cover;
     object-fit: cover;
-    cursor: zoom-in
 }
 
 @media(min-width: 993px) {

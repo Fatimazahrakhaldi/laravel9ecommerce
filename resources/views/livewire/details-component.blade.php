@@ -1,36 +1,46 @@
+@push('styles')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css"
+        integrity="sha512-yHknP1/AwR+yx26cB1y0cjvQUMvEa2PFzt1c9LlS4pRQ5NOTZFWbhBig+X9G9eYW/8m0/4OXNx8pxJ6z57x0dw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.min.css"
+        integrity="sha512-17EgCFERpgZKcm0j0fEq1YCJuyAWdz9KUtv1EjVuaOz8pDnh/0nZxmU6BBXwaaxqoi9PQXnRWqlcDB027hgv9A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css"
+        integrity="sha512-H9jrZiiopUdsLpg94A333EfumgUBpO9MdbxStdeITo+KEIMaNfHNvwyjjDJb+ERPaRS6DpyRlKbvPUasNItRyw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+@endpush
+
 <section class="padding-y">
     <div class="container">
 
         <div class="row">
             <aside class="col-lg-6">
-                <article class="gallery-wrap">
-                    <div class="img-big-wrap img-thumbnail">
-                        <a data-fslightbox="mygalley" data-type="image"
-                            href="{{ asset('images/products') }}/{{ $product->image }}">
-                            <img height="560" src="{{ asset('images/products') }}/{{ $product->image }}">
-                        </a>
+                <article class="gallery-wrap" wire:ignore>
+                    <div class="img-big-wrap img-thumbnail slider slider-for">
+                        @php
+                            $images = explode(',', $product->images);
+                        @endphp
+                        @foreach ($images as $key => $image)
+                            @if ($image)
+                                <a data-fancybox="gallery" href="{{ asset('images/products') }}/{{ $image }}">
+                                    <img height="560" src="{{ asset('images/products') }}/{{ $image }}">
+                                </a>
+                            @endif
+                        @endforeach
+
                     </div> <!-- img-big-wrap.// -->
-                    <div class="thumbs-wrap">
-                        <a data-fslightbox="mygalley" data-type="image" href="images/items/detail1/big1.jpg"
-                            class="item-thumb">
-                            <img width="60" height="60" src="images/items/detail1/thumb1.jpg">
-                        </a>
-                        <a data-fslightbox="mygalley" data-type="image" href="images/items/detail1/big2.jpg"
-                            class="item-thumb">
-                            <img width="60" height="60" src="images/items/detail1/thumb2.jpg">
-                        </a>
-                        <a data-fslightbox="mygalley" data-type="image" href="images/items/detail1/big3.jpg"
-                            class="item-thumb">
-                            <img width="60" height="60" src="images/items/detail1/thumb3.jpg">
-                        </a>
-                        <a data-fslightbox="mygalley" data-type="image" href="images/items/detail1/big4.jpg"
-                            class="item-thumb">
-                            <img width="60" height="60" src="images/items/detail1/thumb4.jpg">
-                        </a>
-                        <a data-fslightbox="mygalley" data-type="image" href="images/items/detail1/big.jpg"
-                            class="item-thumb">
-                            <img width="60" height="60" src="images/items/detail1/thumb.jpg">
-                        </a>
+                    <div class="thumbs-wrap slider slider-nav">
+                        @foreach ($images as $key => $image)
+                            @if ($image)
+                                <div>
+                                    <div class="item-thumb">
+                                        <img width="60" height="60"
+                                            src="{{ asset('images/products') }}/{{ $image }}"
+                                            alt="{{ $image }}">
+                                    </div>
+                                </div>
+                            @endif
+                        @endforeach
                     </div> <!-- thumbs-wrap.// -->
                 </article> <!-- gallery-wrap .end// -->
             </aside>
@@ -89,16 +99,19 @@
                         <div class="col-md-4 col-6 mb-3">
                             <label class="form-label d-block">Quantity</label>
                             <div class="input-group input-spinner">
-                                <button class="btn btn-icon btn-light" type="button" wire:click.prevent="decreaseQuantity">
+                                <button class="btn btn-icon btn-light" type="button"
+                                    wire:click.prevent="decreaseQuantity">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#999"
                                         viewBox="0 0 24 24">
                                         <path d="M19 13H5v-2h14v2z"></path>
                                     </svg>
                                 </button>
-                                <input type="text" class="form-control text-center" pattern="[0-9]*" wire:model="qty">
-                                <button class="btn btn-icon btn-light" type="button" wire:click.prevent="increaseQuantity">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22"
-                                        fill="#999" viewBox="0 0 24 24">
+                                <input type="text" class="form-control text-center" pattern="[0-9]*"
+                                    wire:model="qty">
+                                <button class="btn btn-icon btn-light" type="button"
+                                    wire:click.prevent="increaseQuantity">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="#999"
+                                        viewBox="0 0 24 24">
                                         <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"></path>
                                     </svg>
                                 </button>
@@ -116,7 +129,7 @@
                             <i class="me-1 fa fa-shopping-basket"></i> Add to cart
                         </button>
                     @endif
-                    <a href="#" class="btn  btn-light"> <i class="me-1 fa fa-heart"></i> Save </a>
+                    {{-- <a href="#" class="btn  btn-light"> <i class="me-1 fa fa-heart"></i> Save </a> --}}
 
                 </article> <!-- product-info-aside .// -->
             </main> <!-- col.// -->
@@ -135,89 +148,14 @@
                         <ul class="nav nav-tabs card-header-tabs">
                             <li class="nav-item">
                                 <a href="#" data-bs-target="#tab_specs" data-bs-toggle="tab"
-                                    class="nav-link active">Specification</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" data-bs-target="#tab_warranty" data-bs-toggle="tab"
-                                    class="nav-link">Warranty info</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" data-bs-target="#tab_shipping" data-bs-toggle="tab"
-                                    class="nav-link">Shipping info</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="#" data-bs-target="#tab_seller" data-bs-toggle="tab"
-                                    class="nav-link">Seller profile</a>
+                                    class="nav-link active">Decription</a>
                             </li>
                         </ul>
                     </header>
                     <div class="tab-content">
                         <article id="tab_specs" class="tab-pane show active card-body">
-                            <p>{!! $product->description !!}</p>
-                            <ul class="list-check cols-two">
-                                <li>Some great feature name here </li>
-                                <li>Lorem ipsum dolor sit amet, consectetur </li>
-                                <li>Duis aute irure dolor in reprehenderit </li>
-                                <li>Optical heart sensor </li>
-                                <li>Easy fast and ver good </li>
-                                <li>Some great feature name here </li>
-                                <li>Modern style and design</li>
-                            </ul>
-                            <table class="table border table-hover">
-                                <tbody>
-                                    <tr>
-                                        <th> Display: </th>
-                                        <td> 13.3-inch LED-backlit display with IPS </td>
-                                    </tr>
-                                    <tr>
-                                        <th> Processor capacity: </th>
-                                        <td> 2.3GHz dual-core Intel Core i5 </td>
-                                    </tr>
-                                    <tr>
-                                        <th> Camera quality: </th>
-                                        <td>720p FaceTime HD camera </td>
-                                    </tr>
-                                    <tr>
-                                        <th> Memory </th>
-                                        <td> 8 GB RAM or 16 GB RAM </td>
-                                    </tr>
-                                    <tr>
-                                        <th> Graphics </th>
-                                        <td> Intel Iris Plus Graphics 640 </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                            {!! $product->description !!}
                         </article> <!-- tab-content.// -->
-                        <article id="tab_warranty" class="tab-pane card-body">
-                            Tab content or sample information now <br>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                            proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Lorem ipsum dolor
-                            sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        </article>
-                        <article id="tab_shipping" class="tab-pane card-body">
-                            Another tab content or sample information now <br>
-                            Dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </article>
-                        <article id="tab_seller" class="tab-pane card-body">
-                            Some other tab content or sample information now <br>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                        </article>
                     </div>
                 </div>
                 <!-- =================== COMPONENT SPECS .// ================== -->
@@ -258,3 +196,36 @@
 
     </div><!-- container // -->
 </section>
+
+@push('scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.slim.min.js"
+        integrity="sha512-6ORWJX/LrnSjBzwefdNUyLCMTIsGoNP6NftMy2UAm1JBm6PRZCO1d7OHBStWpVFZLO+RerTvqX/Z9mBFfCJZ4A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"
+        integrity="sha512-XtmMtDEcNz2j7ekrtHvOVR4iwwaD6o/FUJe6+Zq+HgcCsk3kj4uSQQR8weQ2QVj1o0Pk6PwYLohm206ZzNfubg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"
+        integrity="sha512-uURl+ZXMBrF4AwGaWmEetzrd+J5/8NRkWAvJx5sbPSSuOb0bZLqf+tOzniObO00BjHa/dD7gub9oCGMLPQHtQA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+    <script>
+        $('.slider-for').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: true,
+            fade: true,
+            asNavFor: '.slider-nav'
+        });
+        $('.slider-nav').slick({
+            slidesToShow: 5,
+            slidesToScroll: 5,
+            asNavFor: '.slider-for',
+            arrows: true,
+            dots: false,
+            centerMode: true,
+            focusOnSelect: true
+        });
+    </script>
+@endpush

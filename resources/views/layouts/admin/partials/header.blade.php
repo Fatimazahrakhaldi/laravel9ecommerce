@@ -198,7 +198,12 @@
                                         <li>
                                             <a class="dropdown-item" href="{{ route('admin.coupons') }}">All Coupons</a>
                                         </li>
-
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('admin.orders') }}">Orders</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="{{ route('admin.settings') }}">Settings</a>
+                                        </li>
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>

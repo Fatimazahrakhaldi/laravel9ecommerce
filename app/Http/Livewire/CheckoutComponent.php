@@ -161,6 +161,7 @@ class CheckoutComponent extends Component
 
             $this->makeTransaction($order->id, 'pending');
             $this->resetCart();
+
         } else if ($this->paymentmode == 'card') {
             // $base_url = config('app.url');
             $client = new CmiClient(
@@ -198,10 +199,7 @@ class CheckoutComponent extends Component
                 [ProcessController::class, "index"]
             );
 
-            // $cmi = CmiClient::
-
-            // try {// amount : session()->get('checkout')['total']
-
+            // try {
             // if($status == 1){
             //     $this->makeTransaction($order->id,'approved');
             // }else{
