@@ -42,9 +42,7 @@
                                     <div class="col-4 mb-3">
                                         <label class="form-label">Country</label>
                                         <select class="form-select" wire:model="country">
-                                            <option value="1">New York</option>
-                                            <option value="2">Moscow</option>
-                                            <option value="3">Samarqand</option>
+                                            <option value="1">Maroc</option>
                                         </select>
                                         @error('country')
                                             <p class="text-danger">{{ $message }}</p>
@@ -119,8 +117,8 @@
                                         </div>
                                         <!-- col end.// -->
                                         <div class="col-lg-6 mb-3"> <label class="form-label">Email</label>
-                                            <input type="text" class="form-control"
-                                                placeholder="example@gmail.com" wire:model="s_email">
+                                            <input type="text" class="form-control" placeholder="example@gmail.com"
+                                                wire:model="s_email">
                                             @error('s_email')
                                                 <p class="text-danger">{{ $message }}</p>
                                             @enderror
@@ -214,43 +212,64 @@
                             </div>
                             <hr class="my-4">
                             <h5 class="card-title"> Payment method </h5>
+                            <p>Quels moyens de paiment voulez-vous utiliser ?</p>
                             <div class="row mb-3">
-                                <div class="col-lg-4 mb-3">
+                                <div class="col-12 mb-3">
                                     <div class="box box-check">
                                         <label class="form-check">
-                                            <input class="form-check-input" type="radio" value="cod" name="payment-method"
-                                                wire:model="paymentmode">
+                                            <input class="form-check-input" type="radio" value="cod"
+                                                name="payment-method" wire:model="paymentmode">
                                             <b class="border-oncheck"></b>
-                                            <span class="form-check-label"> Cash on delivery <br>
-                                                <small class="text-muted">Order now pay on delivery </small>
+                                            <span class="form-check-label"> Payer comptant à la livraison
                                             </span>
                                         </label>
                                     </div>
+                                    @if ($paymentmode == 'cod')
+                                        <div class="cod-payment">
+                                            <p class="mb-0 mt-2">Vous payez lors de la livraison de votre commande</p>
+                                        </div>
+                                    @endif
                                 </div>
                                 <!-- col end.// -->
-                                <div class="col-lg-4 mb-3">
+                                <div class="col-12 mb-3">
                                     <div class="box box-check"> <label class="form-check">
-                                            <input class="form-check-input" type="radio" value="card" name="payment-method"
-                                                >
+                                            <input class="form-check-input" type="radio" value="card"
+                                                name="payment-method" wire:model="paymentmode">
                                             <b class="border-oncheck"></b>
-                                            <span class="form-check-label"> Debit / Credit Card <br>
+                                            <span class="form-check-label"> Paiment par cart bancaire (pour éviter tout
+                                                contact avec de la monnaire ou des billes) <img
+                                                    src="{{ asset('images/cb.png') }}" alt="">
                                                 <small class="text-muted"></small>
                                             </span>
                                         </label>
                                     </div>
+                                    @if ($paymentmode == 'card')
+                                        <p>Recommandation sanitaire dans le contexte du COVID-19</p>
+                                        <div class="cmi-payment">
+                                            <p>Payment form CMI</p>
+                                        </div>
+                                    @endif
                                 </div>
                                 <!-- col end.// -->
-                                <div class="col-lg-4 mb-3">
+                                <div class="col-12 mb-3">
                                     <div class="box box-check"> <label class="form-check">
-                                            <input class="form-check-input" type="radio" value="paypal" name="payment-method"
-                                               >
+                                            <input class="form-check-input" type="radio" value="paypal"
+                                                name="payment-method" wire:model="paymentmode">
                                             <b class="border-oncheck"></b>
-                                            <span class="form-check-label"> Paypal
-                                                <br>
-                                                <small class="text-muted"> Come to our shop </small>
+                                            <span class="form-check-label"> Paiement par virement bancaire
                                             </span>
                                         </label>
                                     </div>
+                                    @if ($paymentmode == 'paypal')
+                                        <p>Il vous faudra transférer le montant de la facture sur notre compte bancaire.
+                                            Vous recevrez votre confirmation de commande par e-mail, comprenant nos
+                                            coordonnées bancaires et le numéro de commande. Les biens seront mis de côté
+                                            7
+                                            jours pour vous et nous traiterons votre commande dès la réception du
+                                            paiement.
+                                        </p>
+                                    @endif
+
                                 </div>
                                 <!-- col end.// -->
                                 @error('paymentmode')
@@ -322,10 +341,11 @@
                         </dl>
                         @if (Session::has('checkout'))
                             <hr>
-                        <dl class="dlist-align">
-                            <dt> Total: </dt>
-                            <dd class="text-end"> <strong class="text-dark">{{Session::get('checkout')['total']}}</strong> </dd>
-                        </dl>
+                            <dl class="dlist-align">
+                                <dt> Total: </dt>
+                                <dd class="text-end"> <strong
+                                        class="text-dark">{{ Session::get('checkout')['total'] }}</strong> </dd>
+                            </dl>
                         @endif
 
                     </div>
