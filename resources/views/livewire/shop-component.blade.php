@@ -206,7 +206,7 @@
             <main class="col-lg-9">
 
                 <header class="d-sm-flex align-items-center border-bottom mb-4 pb-3">
-                    <strong class="d-block py-2">32 Items found </strong>
+                    <strong class="d-block py-2">Items found </strong>
                     <div class="ms-auto">
                         <select class="form-select d-inline-block w-auto" wire:model="sorting">
                             <option value="default" selected="selected">Default sorting</option>
@@ -232,52 +232,65 @@
                         </div> <!-- btn-group end.// -->
                     </div>
                 </header>
+                <div class="position-relative">
+                    <div class="load" wire:loading>
+                        <div class="sticky_loader" >
+                            <div class="la-timer la-2x">
+                                <div></div>
+                            </div>
+                        </div>
+                    </div>
 
-                <!-- ========= content items ========= -->
-                <div class="row">
-                    @foreach ($products as $product)
-                        <div class="col-lg-4 col-md-6 col-sm-6">
-                            <figure class="card card-product-grid">
-                                <div class="img-wrap">
-                                    <span class="topbar">
-                                        @if ($witems->contains($product->id))
-                                            <a href="#" wire:click.prevent="removeFromWishlist({{ $product->id }})" class="btn btn-sm btn-light float-end"><i
-                                                    class="fa fa-heart"></i></a>
-                                        @else
-                                            <a href="#"
-                                                wire:click.prevent="addToWishlist({{ $product->id }},'{{ $product->name }}',{{ $product->regular_price }})"
-                                                class="btn btn-sm btn-light float-end"><i
-                                                    class="fa-regular fa-heart"></i></a>
-                                        @endif
-                                    </span>
-                                    <a href="{{ route('product.details', ['slug' => $product->slug]) }}">
-                                        <img src="{{ asset('images/products') }}/{{ $product->image }}"
-                                            alt="{{ $product->name }}">
-                                    </a>
-                                </div>
-                                <figcaption class="info-wrap border-top">
-                                    <div class="price-wrap">
-                                        @if ($product->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now())
-                                            <strong class="price h6 me-2">{{ $product->sale_price }}</strong>
-                                            <del class="price-old"> {{ $product->regular_price }} </del>
-                                        @else
-                                            <strong class="price">{{ $product->regular_price }}</strong>
-                                        @endif
-                                    </div> <!-- price-wrap.// -->
+                    <!-- ========= content items ========= -->
 
-                                    <a href="{{ route('product.details', ['slug' => $product->slug]) }}">
-                                        <p class="title mb-2">{{ $product->name }}</p>
-                                    </a>
 
-                                    <button class="float-end btn btn-primary btn-icon"
-                                        wire:click.prevent="store({{ $product->id }},'{{ $product->name }}',{{ $product->regular_price }})">
-                                        <i class="fa fa-shopping-cart"></i>
-                                    </button>
-                                </figcaption>
-                            </figure>
-                        </div> <!-- col end.// -->
-                    @endforeach
-                </div> <!-- row end.// -->
+                    <div class="row">
+                        @foreach ($products as $product)
+                            <div class="col-lg-4 col-md-6 col-sm-6">
+                                <figure class="card card-product-grid">
+                                    <div class="img-wrap">
+                                        <span class="topbar">
+                                            @if ($witems->contains($product->id))
+                                                <a href="#"
+                                                    wire:click.prevent="removeFromWishlist({{ $product->id }})"
+                                                    class="btn btn-sm btn-light float-end"><i
+                                                        class="fa fa-heart"></i></a>
+                                            @else
+                                                <a href="#"
+                                                    wire:click.prevent="addToWishlist({{ $product->id }},'{{ $product->name }}',{{ $product->regular_price }})"
+                                                    class="btn btn-sm btn-light float-end"><i
+                                                        class="fa-regular fa-heart"></i></a>
+                                            @endif
+                                        </span>
+                                        <a href="{{ route('product.details', ['slug' => $product->slug]) }}">
+                                            <img src="{{ asset('images/products') }}/{{ $product->image }}"
+                                                alt="{{ $product->name }}">
+                                        </a>
+                                    </div>
+                                    <figcaption class="info-wrap border-top">
+                                        <div class="price-wrap">
+                                            @if ($product->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now())
+                                                <strong class="price h6 me-2">{{ $product->sale_price }}</strong>
+                                                <del class="price-old"> {{ $product->regular_price }} </del>
+                                            @else
+                                                <strong class="price">{{ $product->regular_price }}</strong>
+                                            @endif
+                                        </div> <!-- price-wrap.// -->
+
+                                        <a href="{{ route('product.details', ['slug' => $product->slug]) }}">
+                                            <p class="title mb-2">{{ $product->name }}</p>
+                                        </a>
+
+                                        <button class="float-end btn btn-primary btn-icon"
+                                            wire:click.prevent="store({{ $product->id }},'{{ $product->name }}',{{ $product->regular_price }})">
+                                            <i class="fa fa-shopping-cart"></i>
+                                        </button>
+                                    </figcaption>
+                                </figure>
+                            </div> <!-- col end.// -->
+                        @endforeach
+                    </div> <!-- row end.// -->
+                </div>
 
                 <hr>
 

@@ -15,3 +15,7 @@
 .slider-nav .slick-slide {
     cursor: pointer;
 }
+
+.cmi_cards {
+    width: 120px;
+}

@@ -160,7 +160,7 @@
                         <p>No matter how far along you are in your sophistication as an amateur astronomer, there is
                             always
                             one.
-                        </p> <a href="https://bootstrap-ecommerce.com/components.html#" class="btn btn-primary"> View
+                        </p> <a href="#" class="btn btn-primary"> View
                             more
                         </a>
                     </div>
@@ -177,7 +177,7 @@
                         <p>No matter how far along you are in your sophistication as an amateur astronomer, there is
                             always
                             one.
-                        </p> <a href="https://bootstrap-ecommerce.com/components.html#" class="btn btn-primary"> View
+                        </p> <a href="#" class="btn btn-primary"> View
                             more
                         </a>
                     </div>
@@ -194,7 +194,7 @@
                         <p>No matter how far along you are in your sophistication as an amateur astronomer, there is
                             always
                             one.
-                        </p> <a href="https://bootstrap-ecommerce.com/components.html#" class="btn btn-primary"> View
+                        </p> <a href="#" class="btn btn-primary"> View
                             more
                         </a>
                     </div>

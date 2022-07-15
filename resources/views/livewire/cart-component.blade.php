@@ -2,6 +2,7 @@
     <div class="container">
         <!-- ====================== COMPONENT 2 CART+SUMMARY ====================== -->
         @if (Cart::instance('cart')->count() > 0)
+            <h1>Panier</h1>
 
             <div class="row">
                 <div class="col-md-9">
@@ -17,9 +18,9 @@
                         </div>
                     @endif
                     @if (Cart::instance('cart')->count() > 0)
-                        <button class="btn btn-light" type="button" wire:click.prevent="destroyAll()">
+                        {{-- <button class="btn btn-light" type="button" wire:click.prevent="destroyAll()">
                             Destroy cart
-                        </button>
+                        </button> --}}
                         @foreach (Cart::instance('cart')->content() as $item)
                             <article class="card card-body mb-3">
                                 <div class="row gy-3 align-items-center">
@@ -33,7 +34,6 @@
                                             </div>
                                             <div class="info">
                                                 <p class="title">{{ $item->model->name }}</p>
-                                                <span class="text-muted">Clothes</span>
                                                 <span class="price">{{ $item->model->regular_price }} MAD</span>
                                             </div>
                                         </a>
@@ -60,15 +60,16 @@
                                             </button>
                                         </div>
                                         <!-- input-group.// -->
-                                        <div class="text-center">
+                                        {{-- <div class="text-center">
                                             <a href="#"
                                                 wire:click.prevent="switchToSaveForLater('{{ $item->rowId }}')">Save
                                                 for
                                                 later</a>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     <!-- col.// -->
-                                    <div class="col"> <strong class="total"> {{ $item->subtotal }} MAD</strong>
+                                    <div class="col text-center"> <strong class="total"> {{ $item->subtotal }}
+                                            MAD</strong>
                                     </div>
                                     <div class="col text-end">
                                         <a href="" class="btn btn-icon btn-outline-danger"
@@ -81,7 +82,7 @@
                             </article>
                         @endforeach
 
-                        <div class="card">
+                        {{-- <div class="card">
                             <div class="card-body border-top">
                                 <div class="icontext">
                                     <div class="icon">
@@ -96,13 +97,13 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     @else
                         <p>No item in cart</p>
                     @endif
 
 
-                    <hr>
+                    {{-- <hr>
 
                     <h2>{{ Cart::instance('saveForLater')->count() }} item(s) Saved for later</h2>
                     @forelse (Cart::instance('saveForLater')->content() as $item)
@@ -145,7 +146,7 @@
                         </article>
                     @empty
                         <p>No item in cart</p>
-                    @endforelse
+                    @endforelse --}}
                 </div>
                 <!-- col.// -->
                 <aside class="col-md-3">
@@ -153,8 +154,8 @@
                         <div class="card-body">
                             @if (!Session::has('coupon'))
                                 <div class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" value="1"
-                                        id="flexCheckCoupon" wire:model="haveCouponCode">
+                                    <input class="form-check-input" type="checkbox" value="1" id="flexCheckCoupon"
+                                        wire:model="haveCouponCode">
                                     <label class="form-check-label" for="flexCheckCoupon">
                                         Have coupon?
                                     </label>
@@ -226,12 +227,15 @@
                                 </dl>
                             @endif
 
-
                             <div class="d-grid gap-2 my-3">
-                                <a href="{{ url('checkout') }}" class="btn btn-primary w-100"
+                                <a href="{{ route('checkout') }}" class="btn btn-primary w-100"
                                     wire:click.prevent="checkout"> Checkout </a>
-                                <a href="#" class="btn btn-light w-100"> Back to shop </a>
+                                <a href="{{ route('shop') }}" class="btn btn-light w-100"> Back to shop </a>
                             </div>
+                            <ul class="list-icon">
+                                <li> <i class="icon fa fa-truck text-success"></i> Worldwide shipping </li>
+                                <li> <i class="icon fa fa-lock text-warning"></i> Secure payment </li>
+                            </ul>
                         </div>
                         <!-- card-body.// -->
                     </div>
@@ -242,8 +246,9 @@
             <!-- row.// -->
         @else
             <div class="text-center">
-                <h2>Your cart is empty</h2>
-                <p>Add items to it now</p>
+                <h2>Votre panier est vide</h2>
+                <p>Remplissez-le avec la nouvelle collection ou les articles les plus populaires de la semaine.
+                </p>
                 <a href="{{ route('shop') }}" class="btn btn-light"> Shop now </a>
             </div>
         @endif
