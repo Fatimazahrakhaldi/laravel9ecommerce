@@ -17,61 +17,55 @@ class ShopComponent extends Component
 
     public $sorting;
     public $pagesize;
+    public $category_slug;
 
     public $min_price;
     public $max_price;
 
-    public function mount()
+    public function mount($category_slug = null)
     {
         $this->sorting = "default";
-        $this->pagesize = 5;
+        $this->pagesize = 9;
+
+        if ( $category_slug != null) {
+        $this->category_slug = $category_slug;
+        } else {
+            $this->category_slug = "";
+        }
 
         $this->min_price = 1;
         $this->max_price = 1000;
     }
 
-    public function store($product_id, $product_name, $product_price)
-    {
-        Cart::instance('cart')->add($product_id, $product_name, 1, $product_price)->associate('App\Models\Product');
-        session()->flash('success_message', 'Item added in cart');
-        return redirect()->route('product.cart');
-    }
-
-    public function addToWishlist($product_id, $product_name, $product_price)
-    {
-        Cart::instance('wishlist')->add($product_id, $product_name, 1, $product_price)->associate('App\Models\Product');
-        $this->emitTo('wishlist-count-component', 'refreshComponent');
-    }
-
-    public function removeFromWishlist($product_id)
-    {
-        foreach (Cart::instance('wishlist')->content() as $witems) {
-            if ($witems->id == $product_id) {
-                Cart::instance('wishlist')->remove($witems->rowId);
-                $this->emitTo('wishlist-count-component', 'refreshComponent');
-                return;
-            }
-        }
-    }
-
     public function render()
     {
-        if ($this->sorting == 'date') {
-            $products = Product::whereBetween('regular_price', [$this->min_price, $this->max_price])->orderBy('created_at', 'DESC')->paginate($this->pagesize);
-        } else if ($this->sorting == 'price') {
-            $products = Product::whereBetween('regular_price', [$this->min_price, $this->max_price])->orderBy('regular_price', 'ASC')->paginate($this->pagesize);
-        } else if ($this->sorting == 'price-desc') {
-            $products = Product::whereBetween('regular_price', [$this->min_price, $this->max_price])->orderBy('regular_price', 'DESC')->paginate($this->pagesize);
+        $category_ids = [];
+        if ($this->category_slug != null) {
+        $category = Category::where('slug', $this->category_slug)->first();
+        $category_ids = (array) $category->id;
+        $category_name = $category->name;
         } else {
-            $products = Product::whereBetween('regular_price', [$this->min_price, $this->max_price])->paginate($this->pagesize);
+            $category_ids = Category::pluck('id');
+            $category_name = "";
+        }
+
+        switch ($this->sorting) {
+            case 'date':
+                $products = Product::whereIn('category_id', $category_ids)->whereBetween('regular_price', [$this->min_price, $this->max_price])->orderBy('created_at', 'DESC')->paginate($this->pagesize);
+                break;
+            case 'price':
+                $products = Product::whereIn('category_id', $category_ids)->whereBetween('regular_price', [$this->min_price, $this->max_price])->orderBy('regular_price', 'ASC')->paginate($this->pagesize);
+                break;
+            case 'price-desc':
+                $products = Product::whereIn('category_id', $category_ids)->whereBetween('regular_price', [$this->min_price, $this->max_price])->orderBy('regular_price', 'DESC')->paginate($this->pagesize);
+                break;
+            default:
+                $products = Product::whereIn('category_id', $category_ids)->whereBetween('regular_price', [$this->min_price, $this->max_price])->paginate($this->pagesize);
+                break;
         }
 
         $categories = Category::all();
-        $sale = Sale::find(1);
-        $witems = Cart::instance('wishlist')
-            ->content()
-            ->pluck('id');
 
-        return view('livewire.shop-component', ['products' => $products, 'categories' => $categories, 'sale' => $sale, 'witems' => $witems])->layout('layouts.front.base');
+        return view('livewire.shop-component', ['products' => $products, 'categories' => $categories, 'category_name' => $category_name])->layout('layouts.front.base');
     }
 }

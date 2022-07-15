@@ -8,7 +8,7 @@
                         <div class="card-body">
 
                             <div class="billing_address">
-                                <h5 class="card-title">Billing Address</h5>
+                                <h5 class="card-title">Adresse de facturation </h5>
                                 <div class="row">
                                     <div class="col-6 mb-3"> <label class="form-label">First name</label>
                                         <input type="text" class="form-control" wire:model="firstname">
@@ -42,9 +42,7 @@
                                     <div class="col-4 mb-3">
                                         <label class="form-label">Country</label>
                                         <select class="form-select" wire:model="country">
-                                            <option value="1">New York</option>
-                                            <option value="2">Moscow</option>
-                                            <option value="3">Samarqand</option>
+                                            <option value="1">Maroc</option>
                                         </select>
                                         @error('country')
                                             <p class="text-danger">{{ $message }}</p>
@@ -85,7 +83,9 @@
                                         <label class="form-check mb-4">
                                             <input class="form-check-input" type="checkbox" value="1"
                                                 wire:model="ship_to_different">
-                                            <span class="form-check-label"> Ship to a different address ? </span>
+                                            <span class="form-check-label"> L'adresse de facturation est différente de
+                                                l'adresse de livraison
+                                            </span>
                                         </label>
                                     </div>
                                 </div>
@@ -94,7 +94,7 @@
 
                             @if ($ship_to_different)
                                 <div class="shipping_address">
-                                    <h5 class="card-title">Shipping Address</h5>
+                                    <h5 class="card-title"> Adresse de livraison </h5>
                                     <div class="row">
                                         <div class="col-6 mb-3"> <label class="form-label">First name</label>
                                             <input type="text" class="form-control" wire:model="s_firstname">
@@ -119,8 +119,8 @@
                                         </div>
                                         <!-- col end.// -->
                                         <div class="col-lg-6 mb-3"> <label class="form-label">Email</label>
-                                            <input type="text" class="form-control"
-                                                placeholder="example@gmail.com" wire:model="s_email">
+                                            <input type="text" class="form-control" placeholder="example@gmail.com"
+                                                wire:model="s_email">
                                             @error('s_email')
                                                 <p class="text-danger">{{ $message }}</p>
                                             @enderror
@@ -173,84 +173,109 @@
                                 </div>
                             @endif
                             <hr class="my-4">
-                            <h5 class="card-title"> Shipping info </h5>
+                            <h5 class="card-title"> Mode de livraison </h5>
                             <div class="row mb-3">
-                                <div class="col-lg-4 mb-3">
+                                <div class="col-lg-6 mb-3">
                                     <div class="box box-check">
                                         <label class="form-check">
-                                            <input class="form-check-input" type="radio" name="dostavka"
-                                                checked="">
+                                            <span class="float-end">
+                                                Gratuit
+                                            </span>
+                                            <input class="form-check-input" type="radio" name="mode_shipping"
+                                                checked="" wire:model="mode_shipping">
                                             <b class="border-oncheck"></b>
-                                            <span class="form-check-label"> Express delivery <br>
-                                                <small class="text-muted">3-4 days via Fedex </small>
+                                            <span class="form-check-label">
+                                                Livraison Standard
                                             </span>
                                         </label>
                                     </div>
                                 </div>
                                 <!-- col end.// -->
-                                <div class="col-lg-4 mb-3">
+                                <div class="col-lg-6 mb-3">
                                     <div class="box box-check"> <label class="form-check">
-                                            <input class="form-check-input" type="radio" name="dostavka"> <b
-                                                class="border-oncheck"></b>
-                                            <span class="form-check-label"> Post office <br>
-                                                <small class="text-muted">20-30 days via post</small>
+                                            <span class="float-end">
+                                                30 MAD TTC
                                             </span>
-                                        </label>
-                                    </div>
-                                </div>
-                                <!-- col end.// -->
-                                <div class="col-lg-4 mb-3">
-                                    <div class="box box-check"> <label class="form-check">
-                                            <input class="form-check-input" type="radio" name="dostavka">
+                                            <input class="form-check-input" type="radio" name="mode_shipping" wire:model="mode_shipping">
                                             <b class="border-oncheck"></b>
-                                            <span class="form-check-label"> Self pick-up
+                                            <span class="form-check-label"> Livraison en 24h
                                                 <br>
-                                                <small class="text-muted"> Come to our shop </small>
+                                                <small class="text-muted">Livraison via AMANA
+                                                </small>
                                             </span>
                                         </label>
                                     </div>
                                 </div>
-                                <!-- col end.// -->
                             </div>
                             <hr class="my-4">
-                            <h5 class="card-title"> Payment method </h5>
+                            <h5 class="card-title"> Méthode de paiment </h5>
+                            <p>Quels moyens de paiment voulez-vous utiliser ?</p>
                             <div class="row mb-3">
-                                <div class="col-lg-4 mb-3">
+                                <div class="col-12 mb-3">
                                     <div class="box box-check">
                                         <label class="form-check">
-                                            <input class="form-check-input" type="radio" value="cod" name="payment-method"
-                                                wire:model="paymentmode">
+                                            <input class="form-check-input" type="radio" value="cod"
+                                                name="payment-method" wire:model="paymentmode">
                                             <b class="border-oncheck"></b>
-                                            <span class="form-check-label"> Cash on delivery <br>
-                                                <small class="text-muted">Order now pay on delivery </small>
+                                            <span class="form-check-label"> Payer comptant à la livraison
                                             </span>
                                         </label>
                                     </div>
+                                    @if ($paymentmode == 'cod')
+                                        <div class="cod-payment">
+                                            <p class="mb-0 mt-2 ms-2">Vous payez lors de la livraison de votre commande
+                                            </p>
+                                        </div>
+                                    @endif
                                 </div>
                                 <!-- col end.// -->
-                                <div class="col-lg-4 mb-3">
+                                <div class="col-12 mb-3">
                                     <div class="box box-check"> <label class="form-check">
-                                            <input class="form-check-input" type="radio" value="card" name="payment-method"
-                                                >
+                                            <input class="form-check-input" type="radio" value="card"
+                                                name="payment-method" wire:model="paymentmode">
                                             <b class="border-oncheck"></b>
-                                            <span class="form-check-label"> Debit / Credit Card <br>
+                                            <span class="form-check-label">CMI, Payer en toute sécurité avec votre
+                                                carte bancaire.<img class="ms-2 cmi_cards"
+                                                    src="{{ asset('images/cartes.png') }}" alt="">
                                                 <small class="text-muted"></small>
                                             </span>
                                         </label>
                                     </div>
+                                    @if ($paymentmode == 'card')
+                                        <p class="mb-0 mt-2 ms-2">
+                                        <ul>
+                                            <li>Paiment par cart bancaire (pour éviter tout
+                                                contact avec de la monnaire ou des billes)
+                                            </li>
+                                            <li>
+                                                Recommandation sanitaire dans le contexte du COVID-19
+                                            </li>
+                                        </ul>
+                                        </p>
+                                    @endif
                                 </div>
                                 <!-- col end.// -->
-                                <div class="col-lg-4 mb-3">
+                                <div class="col-12 mb-3">
                                     <div class="box box-check"> <label class="form-check">
-                                            <input class="form-check-input" type="radio" value="paypal" name="payment-method"
-                                               >
+                                            <input class="form-check-input" type="radio" value="paypal"
+                                                name="payment-method" wire:model="paymentmode">
                                             <b class="border-oncheck"></b>
-                                            <span class="form-check-label"> Paypal
-                                                <br>
-                                                <small class="text-muted"> Come to our shop </small>
+                                            <span class="form-check-label"> Paiement par virement bancaire
                                             </span>
                                         </label>
                                     </div>
+                                    @if ($paymentmode == 'paypal')
+                                        <p class="mb-0 mt-2 ms-2">Il vous faudra transférer le montant de la facture
+                                            sur
+                                            notre compte bancaire.
+                                            Vous recevrez votre confirmation de commande par e-mail, comprenant nos
+                                            coordonnées bancaires et le numéro de commande. Les biens seront mis de côté
+                                            7
+                                            jours pour vous et nous traiterons votre commande dès la réception du
+                                            paiement.
+                                        </p>
+                                    @endif
+
                                 </div>
                                 <!-- col end.// -->
                                 @error('paymentmode')
@@ -275,57 +300,67 @@
                 <!-- ============== COMPONENT SUMMARY =============== -->
                 <article class="card">
                     <div class="card-body">
-                        <h5 class="mb-4">Items in cart</h5>
-                        <div class="itemside align-items-center mb-4">
-                            <div class="aside"> <b class="badge bg-secondary rounded-pill">2</b> <img
-                                    src="{{ asset('images/manteau.jpg') }}" class="img-sm rounded border">
-                            </div>
-                            <div class="info"> <a href="https://bootstrap-ecommerce.com/components.html#"
-                                    class="title">Canon Cmera EOS, 10x zoom</a>
-                                <div class="price text-muted">Total: $12.99</div>
-                                <!-- price .// -->
-                            </div>
-                        </div>
-                        <div class="itemside align-items-center mb-4">
-                            <div class="aside"> <b class="badge bg-secondary rounded-pill">2</b> <img
-                                    src="{{ asset('images/manteau.jpg') }}" class="img-sm rounded border">
-                            </div>
-                            <div class="info"> <a href="https://bootstrap-ecommerce.com/components.html#"
-                                    class="title">Leather Wallet for Men Original</a>
-                                <div class="price text-muted">Total: $12.99</div>
-                                <!-- price .// -->
-                            </div>
-                        </div>
-                        <div class="itemside align-items-center mb-4">
-                            <div class="aside"> <b class="badge bg-secondary rounded-pill">2</b> <img
-                                    src="{{ asset('images/manteau.jpg') }}" class="img-sm rounded border">
-                            </div>
-                            <div class="info"> <a href="https://bootstrap-ecommerce.com/components.html#"
-                                    class="title">Product name goes here</a>
-                                <div class="price text-muted">Total: $12.99</div>
-                                <!-- price .// -->
-                            </div>
-                        </div>
+                        <h5 class="mb-4">Articles de la commande</h5>
+                        @if (Cart::instance('cart')->count() > 0)
+                            @foreach (Cart::instance('cart')->content() as $item)
+                                <div class="itemside align-items-center mb-4">
+                                    <div class="aside"> <b
+                                            class="badge bg-secondary rounded-pill">X{{ $item->qty }}</b> <img
+                                            src="{{ asset('images/products') }}/{{ $item->model->image }}"
+                                            class="img-sm rounded border">
+                                    </div>
+                                    <div class="info"> <a href="#"
+                                            class="title">{{ $item->model->name }}</a>
+                                        <div class="price text-muted">{{ $item->model->regular_price }} MAD</div>
+                                        <!-- price .// -->
+                                    </div>
+                                </div>
+                            @endforeach
+                        @endif
                         <hr />
-                        <h5 class="card-title">Summary</h5>
                         <dl class="dlist-align">
-                            <dt>Total price:</dt>
-                            <dd class="text-end"> $1403.97</dd>
+                            <dt>Sous total :</dt>
+                            <dd class="text-end"> {{ Session::get('checkout')['subtotal'] }} MAD</dd>
                         </dl>
-                        <dl class="dlist-align">
-                            <dt>Discount:</dt>
-                            <dd class="text-end text-danger"> - $60.00 </dd>
-                        </dl>
-                        <dl class="dlist-align">
-                            <dt>Shipping cost:</dt>
-                            <dd class="text-end"> + $14.00 </dd>
-                        </dl>
+                        @if (Session::has('coupon'))
+                            <dl class="dlist-align">
+                                <dt>Discount: ({{ Session::get('coupon')['code'] }})</dt>
+                                <dd class="text-end text-success"> - {{ number_format($discount, 2) }} MAD
+                                </dd>
+                            </dl>
+                            <dl class="dlist-align">
+                                <dt>Sous total avec remise :</dt>
+                                <dd class="text-end"> {{ number_format($subtotalAfterDiscount, 2) }} MAD</dd>
+                            </dl>
+                            <dl class="dlist-align">
+                                <dt>Tax ({{ config('cart.tax') }} %):</dt>
+                                <dd class="text-end text-danger"> + {{ number_format($taxAfterDiscount, 2) }}
+                                    MAD
+                                </dd>
+                            </dl>
+                            {{-- <dl class="dlist-align">
+                                <dt>Shipping:</dt>
+                                <dd class="text-end"> Free shipping </dd>
+                            </dl> --}}
+                        @else
+                            <dl class="dlist-align">
+                                <dt>Tax :</dt>
+                                <dd class="text-end text-danger"> + {{ Session::get('checkout')['tax'] }} MAD
+                                </dd>
+                            </dl>
+                            {{-- <dl class="dlist-align">
+                                <dt>Shipping:</dt>
+                                <dd class="text-end"> Free shipping </dd>
+                            </dl> --}}
+                        @endif
+
                         @if (Session::has('checkout'))
                             <hr>
-                        <dl class="dlist-align">
-                            <dt> Total: </dt>
-                            <dd class="text-end"> <strong class="text-dark">{{Session::get('checkout')['total']}}</strong> </dd>
-                        </dl>
+                            <dl class="dlist-align">
+                                <dt> Total : </dt>
+                                <dd class="text-end text-dark h5"> {{ Session::get('checkout')['total'] }} MAD
+                                </dd>
+                            </dl>
                         @endif
 
                     </div>

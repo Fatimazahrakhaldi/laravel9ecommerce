@@ -18,7 +18,7 @@
                 <div class="aside"><img src="{{ asset('images/manteau.jpg') }}"
                         class="img-sm rounded border"></div>
                 <div class="info"> <a
-                        href="https://bootstrap-ecommerce.com/components.html#"
+                        href="#"
                         class="title">Canon Cmera EOS</a> <small class="text-muted">Blue
                         Size: M
                         QTY: 1</small>
@@ -26,7 +26,7 @@
                     <!-- price .// -->
                 </div>
                 <div class="flex-grow-0 ms-2"> <a
-                        href="https://bootstrap-ecommerce.com/components.html#"
+                        href="#"
                         class="btn btn-sm btn-light float-end"><i
                             class="fa fa-times"></i></a>
                 </div>
@@ -35,7 +35,7 @@
                 <div class="aside"><img src="{{ asset('images/manteau.jpg') }}"
                         class="img-sm rounded border"></div>
                 <div class="info"> <a
-                        href="https://bootstrap-ecommerce.com/components.html#"
+                        href="#"
                         class="title">Name of item nice iteme</a> <small
                         class="text-muted">Blue
                         Size: M QTY: 1</small>
@@ -43,7 +43,7 @@
                     <!-- price .// -->
                 </div>
                 <div class="flex-grow-0 ms-2"> <a
-                        href="https://bootstrap-ecommerce.com/components.html#"
+                        href="#"
                         class="btn btn-sm btn-light float-end"><i
                             class="fa fa-times"></i></a>
                 </div>
@@ -52,7 +52,7 @@
                 <div class="aside"><img src="{{ asset('images/manteau.jpg') }}"
                         class="img-sm rounded border"></div>
                 <div class="info"> <a
-                        href="https://bootstrap-ecommerce.com/components.html#"
+                        href="#"
                         class="title">Name of item nice iteme</a> <small
                         class="text-muted">Blue
                         Size: M QTY: 1</small>
@@ -60,7 +60,7 @@
                     <!-- price .// -->
                 </div>
                 <div class="flex-grow-0 ms-2"> <a
-                        href="https://bootstrap-ecommerce.com/components.html#"
+                        href="#"
                         class="btn btn-sm btn-light float-end"><i
                             class="fa fa-times"></i></a>
                 </div>
