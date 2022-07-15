@@ -10,6 +10,9 @@ use Livewire\WithPagination;
 
 class CategoryComponent extends Component
 {
+    use WithPagination;
+    protected $paginationTheme = 'bootstrap';
+
     public $sorting;
     public $pagesize;
     public $category_slug;
@@ -28,8 +31,6 @@ class CategoryComponent extends Component
         return redirect()->route('product.cart');
     }
 
-    use WithPagination;
-    protected $paginationTheme = 'bootstrap';
 
     public function render()
     {

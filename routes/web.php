@@ -49,7 +49,7 @@ use CMI\CmiClient;
 
 Route::get('/', HomeComponent::class);
 
-Route::get('/shop', ShopComponent::class)->name('shop');
+Route::get('/shop/{category_slug?}', ShopComponent::class)->name('shop');
 
 Route::get('/cart', CartComponent::class)->name('product.cart');
 

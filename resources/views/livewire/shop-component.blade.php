@@ -1,11 +1,10 @@
 <main class="padding-y">
     <div class="container">
-
         <div class="row">
             <aside class="col-lg-3">
 
                 <button class="btn btn-outline-secondary mb-3 w-100  d-lg-none" data-bs-toggle="collapse"
-                    data-bs-target="#aside_filter">Show filter</button>
+                    data-bs-target="#aside_filter">Afficher le filtre</button>
 
                 <!-- ===== Card for sidebar filter ===== -->
                 <div id="aside_filter" class="collapse card d-lg-block mb-5">
@@ -14,15 +13,16 @@
                         <header class="card-header">
                             <a href="#" class="title" data-bs-toggle="collapse"
                                 data-bs-target="#collapse_aside1">
-                                <i class="icon-control fa fa-chevron-down"></i> All categories
+                                <i class="icon-control fa fa-chevron-down"></i> Tous les categories
                             </a>
                         </header>
                         <div class="collapse show" id="collapse_aside1">
                             <div class="card-body">
                                 <ul class="list-menu">
+                                    <li><a href="{{ route('shop') }}">Tous</a></li>
                                     @foreach ($categories as $category)
                                         <li><a
-                                                href="{{ route('product.category', ['category_slug' => $category->slug]) }}">{{ $category->name }}</a>
+                                                href="{{ route('shop', ['category_slug' => $category->slug]) }}">{{ $category->name }}</a>
                                         </li>
                                     @endforeach
                                 </ul>
@@ -86,23 +86,9 @@
                                     class="text-info">{{ $min_price }} - {{ $max_price }}</span>
                             </a>
                         </header>
-                        <div class="collapse show" id="collapse_aside2">
+                        <div class="collapse show pb-5" id="collapse_aside2">
                             <div class="card-body">
                                 <div id="slider" wire:ignore></div>
-
-                                {{-- <input type="range" class="form-range" min="0" max="100"> --}}
-                                {{-- <div class="row mb-3">
-                                    <div class="col-6">
-                                        <label for="min" class="form-label">Min</label>
-                                        <input class="form-control" id="min" placeholder="$0" type="number">
-                                    </div> <!-- col end.// -->
-
-                                    <div class="col-6">
-                                        <label for="max" class="form-label">Max</label>
-                                        <input class="form-control" id="max" placeholder="$1,0000" type="number">
-                                    </div> <!-- col end.// -->
-                                </div> <!-- row end.// --> --}}
-                                <button class="btn btn-light w-100" type="button">Apply</button>
                             </div> <!-- card-body.// -->
                         </div> <!-- collapse.// -->
                     </article> <!-- filter-group // -->
@@ -139,102 +125,39 @@
                         </div> <!-- collapse.// -->
                     </article> <!-- filter-group // -->
 
-                    <article class="filter-group">
-                        <header class="card-header">
-                            <a href="#" class="title" data-bs-toggle="collapse"
-                                data-bs-target="#collapse_aside4">
-                                <i class="icon-control fa fa-chevron-down"></i> Ratings
-                            </a>
-                        </header>
-                        <div class="collapse show" id="collapse_aside4">
-                            <div class="card-body">
-
-                                <label class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" value="" checked="">
-                                    <span class="form-check-label">
-                                        <ul class="rating-stars">
-                                            <li class="stars-active" style="width: 100%;">
-                                                <img src="images/misc/stars-active.svg" alt="">
-                                            </li>
-                                            <li> <img src="images/misc/starts-disable.svg" alt=""> </li>
-                                        </ul>
-                                    </span>
-                                </label> <!-- form-check end.// -->
-                                <label class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" value="" checked="">
-                                    <span class="form-check-label">
-                                        <ul class="rating-stars">
-                                            <li class="stars-active" style="width: 80%;">
-                                                <img src="images/misc/stars-active.svg" alt="">
-                                            </li>
-                                            <li> <img src="images/misc/starts-disable.svg" alt=""> </li>
-                                        </ul>
-                                    </span>
-                                </label> <!-- form-check end.// -->
-                                <label class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" value="" checked="">
-                                    <span class="form-check-label">
-                                        <ul class="rating-stars">
-                                            <li class="stars-active" style="width: 60%;">
-                                                <img src="images/misc/stars-active.svg" alt="">
-                                            </li>
-                                            <li> <img src="images/misc/starts-disable.svg" alt=""> </li>
-                                        </ul>
-                                    </span>
-                                </label> <!-- form-check end.// -->
-                                <label class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" value="" checked="">
-                                    <span class="form-check-label">
-                                        <ul class="rating-stars">
-                                            <li class="stars-active" style="width: 40%;">
-                                                <img src="images/misc/stars-active.svg" alt="">
-                                            </li>
-                                            <li> <img src="images/misc/starts-disable.svg" alt=""> </li>
-                                        </ul>
-                                    </span>
-                                </label> <!-- form-check end.// -->
-
-
-                            </div> <!-- card-body.// -->
-                        </div> <!-- collapse.// -->
-                    </article> <!-- filter-group // -->
-
                 </div> <!-- card.// -->
                 <!-- ===== Card for sidebar filter .// ===== -->
 
             </aside> <!-- col .// -->
             <main class="col-lg-9">
-
+                @if ($category_name)
+                    <h1>{{ $category_name }}</h1>
+                @endif
                 <header class="d-sm-flex align-items-center border-bottom mb-4 pb-3">
-                    <strong class="d-block py-2">Items found </strong>
+                    <strong class="d-block py-2">
+                        @if ($products->count() > 0)
+                            Il y a {{ $products->count() }} produits
+                        @endif
+                    </strong>
                     <div class="ms-auto">
                         <select class="form-select d-inline-block w-auto" wire:model="sorting">
-                            <option value="default" selected="selected">Default sorting</option>
-                            <option value="date">Sort by newness</option>
-                            <option value="price">Sort by price ASC</option>
-                            <option value="price-desc">Sort by price DESC</option>
+                            <option value="default" selected="selected">Tri par défaut</option>
+                            <option value="date">Nouveaux</option>
+                            <option value="price">Prix, croissant</option>
+                            <option value="price-desc">Prix, décroissant</option>
                         </select>
                         <select class="form-select d-inline-block w-auto" wire:model="pagesize">
-                            <option value="9">9 per page</option>
-                            <option value="12">12 per page</option>
-                            <option value="21"> 21 per page</option>
-                            <option value="100">100 per page</option>
+                            <option value="9">9 par page</option>
+                            <option value="12">12 par page</option>
+                            <option value="21"> 21 par page</option>
+                            <option value="100">100 par page</option>
                         </select>
-                        <div class="btn-group">
-                            <a href="#" class="btn btn-light" data-bs-toggle="tooltip" title=""
-                                data-bs-original-title="List view">
-                                <i class="fa fa-bars"></i>
-                            </a>
-                            <a href="#" class="btn btn-light active" data-bs-toggle="tooltip" title=""
-                                data-bs-original-title="Grid view">
-                                <i class="fa fa-th"></i>
-                            </a>
-                        </div> <!-- btn-group end.// -->
                     </div>
                 </header>
+
                 <div class="position-relative">
                     <div class="load" wire:loading>
-                        <div class="sticky_loader" >
+                        <div class="sticky_loader">
                             <div class="la-timer la-2x">
                                 <div></div>
                             </div>
@@ -243,61 +166,21 @@
 
                     <!-- ========= content items ========= -->
 
-
                     <div class="row">
-                        @foreach ($products as $product)
-                            <div class="col-lg-4 col-md-6 col-sm-6">
-                                <figure class="card card-product-grid">
-                                    <div class="img-wrap">
-                                        <span class="topbar">
-                                            @if ($witems->contains($product->id))
-                                                <a href="#"
-                                                    wire:click.prevent="removeFromWishlist({{ $product->id }})"
-                                                    class="btn btn-sm btn-light float-end"><i
-                                                        class="fa fa-heart"></i></a>
-                                            @else
-                                                <a href="#"
-                                                    wire:click.prevent="addToWishlist({{ $product->id }},'{{ $product->name }}',{{ $product->regular_price }})"
-                                                    class="btn btn-sm btn-light float-end"><i
-                                                        class="fa-regular fa-heart"></i></a>
-                                            @endif
-                                        </span>
-                                        <a href="{{ route('product.details', ['slug' => $product->slug]) }}">
-                                            <img src="{{ asset('images/products') }}/{{ $product->image }}"
-                                                alt="{{ $product->name }}">
-                                        </a>
-                                    </div>
-                                    <figcaption class="info-wrap border-top">
-                                        <div class="price-wrap">
-                                            @if ($product->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now())
-                                                <strong class="price h6 me-2">{{ $product->sale_price }}</strong>
-                                                <del class="price-old"> {{ $product->regular_price }} </del>
-                                            @else
-                                                <strong class="price">{{ $product->regular_price }}</strong>
-                                            @endif
-                                        </div> <!-- price-wrap.// -->
+                        @if ($products->count() > 0)
+                            @foreach ($products as $product)
+                                <div class="col-lg-4 col-md-6 col-sm-6">
 
-                                        <a href="{{ route('product.details', ['slug' => $product->slug]) }}">
-                                            <p class="title mb-2">{{ $product->name }}</p>
-                                        </a>
+                                    <livewire:card-product-component :product="$product" :wire:key="$product->id">
 
-                                        <button class="float-end btn btn-primary btn-icon"
-                                            wire:click.prevent="store({{ $product->id }},'{{ $product->name }}',{{ $product->regular_price }})">
-                                            <i class="fa fa-shopping-cart"></i>
-                                        </button>
-                                    </figcaption>
-                                </figure>
-                            </div> <!-- col end.// -->
-                        @endforeach
+                                </div> <!-- col end.// -->
+                            @endforeach
+                        @endif
                     </div> <!-- row end.// -->
                 </div>
 
-                <hr>
 
-                <footer class="d-flex mt-4">
-                    <div>
-                        <a href="javascript: history.back()" class="btn btn-light"> « Go back</a>
-                    </div>
+                <footer class="d-flex mt-4 justify-content-center">
                     <nav class="ms-3">
                         {{ $products->links() }}
                     </nav>

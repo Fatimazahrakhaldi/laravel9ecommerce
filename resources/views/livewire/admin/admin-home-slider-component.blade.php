@@ -9,8 +9,7 @@
                     <div class="page-utilities">
                         <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
                             <div class="col-auto">
-                                <a class="btn app-btn-secondary" href="{{ route('admin.addhomeslider') }}">Add
-                                    new slide</a>
+                                <a class="btn app-btn-secondary" href="{{ route('admin.addhomeslider') }}">Ajouter un nouveau slide</a>
                             </div>
                         </div>
                         <!--//row-->
@@ -70,7 +69,7 @@
                                     @endforeach
                                 @else
                                     <tr>
-                                        <td colspan="8">No slider found</td>
+                                        <td colspan="8">pas de slider</td>
                                     </tr>
                                 @endif
                             </tbody>
@@ -88,24 +87,10 @@
                 </div>
             </div>
             <!--//app-pagination-->
-
-
-
         </div>
         <!--//container-fluid-->
     </div>
     <!--//app-content-->
-
-    <footer class="app-footer">
-        <div class="container text-center py-3">
-            <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
-            <small class="copyright">Designed with <span class="sr-only">love</span><i class="fas fa-heart"
-                    style="color: #fb866a;"></i> by <a class="app-link" href="http://themes.3rdwavemedia.com"
-                    target="_blank">Xiaoying Riley</a> for developers</small>
-
-        </div>
-    </footer>
-    <!--//app-footer-->
 
 </div>
 <!--//app-wrapper-->

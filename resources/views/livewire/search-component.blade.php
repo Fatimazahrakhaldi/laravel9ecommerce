@@ -82,13 +82,16 @@
                         <header class="card-header">
                             <a href="#" class="title" data-bs-toggle="collapse"
                                 data-bs-target="#collapse_aside2">
-                                <i class="icon-control fa fa-chevron-down"></i> Price
+                                <i class="icon-control fa fa-chevron-down"></i> Price <span
+                                    class="text-info">{{ $min_price }} MAD - {{ $max_price }} MAD</span>
                             </a>
                         </header>
-                        <div class="collapse show" id="collapse_aside2">
+                        <div class="collapse show pb-5" id="collapse_aside2">
                             <div class="card-body">
-                                <input type="range" class="form-range" min="0" max="100">
-                                <div class="row mb-3">
+                                <div id="slider" wire:ignore></div>
+
+                                {{-- <input type="range" class="form-range" min="0" max="100"> --}}
+                                {{-- <div class="row mb-3">
                                     <div class="col-6">
                                         <label for="min" class="form-label">Min</label>
                                         <input class="form-control" id="min" placeholder="$0" type="number">
@@ -98,8 +101,7 @@
                                         <label for="max" class="form-label">Max</label>
                                         <input class="form-control" id="max" placeholder="$1,0000" type="number">
                                     </div> <!-- col end.// -->
-                                </div> <!-- row end.// -->
-                                <button class="btn btn-light w-100" type="button">Apply</button>
+                                </div> <!-- row end.// --> --}}
                             </div> <!-- card-body.// -->
                         </div> <!-- collapse.// -->
                     </article> <!-- filter-group // -->
@@ -136,152 +138,92 @@
                         </div> <!-- collapse.// -->
                     </article> <!-- filter-group // -->
 
-                    <article class="filter-group">
-                        <header class="card-header">
-                            <a href="#" class="title" data-bs-toggle="collapse"
-                                data-bs-target="#collapse_aside4">
-                                <i class="icon-control fa fa-chevron-down"></i> Ratings
-                            </a>
-                        </header>
-                        <div class="collapse show" id="collapse_aside4">
-                            <div class="card-body">
-
-                                <label class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" value="" checked="">
-                                    <span class="form-check-label">
-                                        <ul class="rating-stars">
-                                            <li class="stars-active" style="width: 100%;">
-                                                <img src="images/misc/stars-active.svg" alt="">
-                                            </li>
-                                            <li> <img src="images/misc/starts-disable.svg" alt=""> </li>
-                                        </ul>
-                                    </span>
-                                </label> <!-- form-check end.// -->
-                                <label class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" value="" checked="">
-                                    <span class="form-check-label">
-                                        <ul class="rating-stars">
-                                            <li class="stars-active" style="width: 80%;">
-                                                <img src="images/misc/stars-active.svg" alt="">
-                                            </li>
-                                            <li> <img src="images/misc/starts-disable.svg" alt=""> </li>
-                                        </ul>
-                                    </span>
-                                </label> <!-- form-check end.// -->
-                                <label class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" value="" checked="">
-                                    <span class="form-check-label">
-                                        <ul class="rating-stars">
-                                            <li class="stars-active" style="width: 60%;">
-                                                <img src="images/misc/stars-active.svg" alt="">
-                                            </li>
-                                            <li> <img src="images/misc/starts-disable.svg" alt=""> </li>
-                                        </ul>
-                                    </span>
-                                </label> <!-- form-check end.// -->
-                                <label class="form-check mb-2">
-                                    <input class="form-check-input" type="checkbox" value="" checked="">
-                                    <span class="form-check-label">
-                                        <ul class="rating-stars">
-                                            <li class="stars-active" style="width: 40%;">
-                                                <img src="images/misc/stars-active.svg" alt="">
-                                            </li>
-                                            <li> <img src="images/misc/starts-disable.svg" alt=""> </li>
-                                        </ul>
-                                    </span>
-                                </label> <!-- form-check end.// -->
-
-
-                            </div> <!-- card-body.// -->
-                        </div> <!-- collapse.// -->
-                    </article> <!-- filter-group // -->
-
                 </div> <!-- card.// -->
                 <!-- ===== Card for sidebar filter .// ===== -->
 
             </aside> <!-- col .// -->
             <main class="col-lg-9">
-                @if ($products->count() > 0)
 
+                <header class="d-sm-flex align-items-center border-bottom mb-4 pb-3">
+                    <strong class="d-block py-2">Items found </strong>
+                    <div class="ms-auto">
+                        <select class="form-select d-inline-block w-auto" wire:model="sorting">
+                            <option value="default" selected="selected">Default sorting</option>
+                            <option value="date">Sort by newness</option>
+                            <option value="price">Sort by price ASC</option>
+                            <option value="price-desc">Sort by price DESC</option>
+                        </select>
+                        <select class="form-select d-inline-block w-auto" wire:model="pagesize">
+                            <option value="9">9 per page</option>
+                            <option value="12">12 per page</option>
+                            <option value="21"> 21 per page</option>
+                            <option value="100">100 per page</option>
+                        </select>
+                    </div>
+                </header>
 
-                    <header class="d-sm-flex align-items-center border-bottom mb-4 pb-3">
-                        <strong class="d-block py-2">32 Items found </strong>
-                        <div class="ms-auto">
-                            <select class="form-select d-inline-block w-auto" wire:model="sorting">
-                                <option value="default" selected="selected">Default sorting</option>
-                                <option value="date">Sort by newness</option>
-                                <option value="price">Sort by price ASC</option>
-                                <option value="price-desc">Sort by price DESC</option>
-                            </select>
-                            <select class="form-select d-inline-block w-auto" wire:model="pagesize">
-                                <option value="9">9 per page</option>
-                                <option value="12">12 per page</option>
-                                <option value="21"> 21 per page</option>
-                                <option value="100">100 per page</option>
-                            </select>
-                            <div class="btn-group">
-                                <a href="#" class="btn btn-light" data-bs-toggle="tooltip" title=""
-                                    data-bs-original-title="List view">
-                                    <i class="fa fa-bars"></i>
-                                </a>
-                                <a href="#" class="btn btn-light active" data-bs-toggle="tooltip"
-                                    title="" data-bs-original-title="Grid view">
-                                    <i class="fa fa-th"></i>
-                                </a>
-                            </div> <!-- btn-group end.// -->
+                <div class="position-relative">
+                    <div class="load" wire:loading>
+                        <div class="sticky_loader" >
+                            <div class="la-timer la-2x">
+                                <div></div>
+                            </div>
                         </div>
-                    </header>
+                    </div>
 
                     <!-- ========= content items ========= -->
+
                     <div class="row">
                         @foreach ($products as $product)
                             <div class="col-lg-4 col-md-6 col-sm-6">
-                                <figure class="card card-product-grid">
-                                    <div class="img-wrap">
-                                        <span class="topbar"> <a href="#" class="btn btn-sm btn-light float-end"><i class="fa fa-heart"></i></a> </span>
-                                        <a href="{{ route('product.details', ['slug' => $product->slug]) }}">
-                                            <img src="{{ asset('images/products') }}/{{ $product->image }}"
-                                                alt="{{ $product->name }}">
-                                        </a>
-                                    </div>
-                                    <figcaption class="info-wrap border-top">
-                                        <div class="price-wrap">
-                                            <strong class="price">{{ $product->regular_price }}</strong>
-                                            <del class="price-old">$170.00</del>
-                                        </div> <!-- price-wrap.// -->
-                                        <a href="{{ route('product.details', ['slug' => $product->slug]) }}">
-                                            <p class="title mb-2">{{ $product->name }}</p>
-                                        </a>
 
-                                        <button class="btn btn-primary"
-                                            wire:click.prevent="store({{ $product->id }},'{{ $product->name }}',{{ $product->regular_price }})">Add
-                                            to cart</button>
-                                        <a href="#" class="btn btn-light btn-icon"> <i class="fa fa-heart"></i>
-                                        </a>
-                                    </figcaption>
-                                </figure>
+                                @livewire('card-product-component', ['product' => $product])
+
                             </div> <!-- col end.// -->
                         @endforeach
                     </div> <!-- row end.// -->
+                </div>
 
-                    <hr>
+                <hr>
 
-                    <footer class="d-flex mt-4">
-                        <div>
-                            <a href="javascript: history.back()" class="btn btn-light"> « Go back</a>
-                        </div>
-                        <nav class="ms-3">
-                            {{ $products->links() }}
-                        </nav>
-                    </footer>
+                <footer class="d-flex mt-4 justify-content-center">
+                    <nav class="ms-3">
+                        {{ $products->links() }}
+                    </nav>
+                </footer>
 
-                    <!-- ========= content items .// ========= -->
-                @else
-                <p>No product found</p>
-                @endif
+                <!-- ========= content items .// ========= -->
+
+
 
             </main> <!-- col .// -->
         </div> <!-- row .// -->
 
     </div> <!-- container .//  -->
 </main>
+
+@push('scripts')
+    <script>
+        var slider = document.getElementById('slider');
+
+        noUiSlider.create(slider, {
+            start: [1, 1000],
+            // tooltips: true,
+            connect: true,
+            range: {
+                'min': 0,
+                'max': 1000
+            },
+            pips: {
+                mode: 'steps',
+                stepped: true,
+                density: 4
+            },
+        });
+
+        slider.noUiSlider.on('update', function(value) {
+            @this.set('min_price', value[0]);
+            @this.set('max_price', value[1]);
+        });
+    </script>
+@endpush

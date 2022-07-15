@@ -95,9 +95,9 @@
     <!-- ================ SECTION PRODUCTS ================ -->
     <section class="padding-y">
         <div class="container">
-            <div class="card">
-                <header class="card-header">
-                    <ul class="nav nav-tabs card-header-tabs">
+            <div class="">
+                <header class="">
+                    <ul class="nav nav-tabs">
                         @foreach ($categories as $key => $category)
                             <li class="nav-item">
                                 <a href="#" data-bs-target="#category_{{ $category->id }}" data-bs-toggle="tab"
@@ -106,37 +106,16 @@
                         @endforeach
                     </ul>
                 </header>
-                <div class="tab-content">
+                <div class="tab-content border_tabs">
                     @foreach ($categories as $key => $category)
                         <article id="category_{{ $category->id }}"
                             class="tab-pane {{ $key == 0 ? 'show active' : '' }} card-body">
                             <div class="row">
                                 @foreach ($getProductsByIdCat($category->id, $no_of_products) as $product)
                                     <div class="col-lg-3 col-md-6 col-sm-6">
-                                        <figure class="card-product-grid">
 
-                                            <div class="img-wrap">
-                                                <span class="topbar">
-                                                    <a href="#" class="btn btn-sm btn-light float-end"><i
-                                                            class="fa fa-heart"></i></a> <span class="badge bg-danger"> New </span>
-                                                </span>
-                                                <a href="{{ route('product.details', ['slug' => $product->slug]) }}">
-                                                    <img height="250"
-                                                        src="{{ asset('images/products') }}/{{ $product->image }}">
-                                                    </a>
-                                            </div>
-                                            <figcaption class="pt-2">
-                                                <a href="{{ route('product.details', ['slug' => $product->slug]) }}"
-                                                    class="float-end btn btn-primary btn-icon">
-                                                    <i class="fa fa-shopping-cart"></i>
-                                                </a>
-                                                <strong class="price">{{ $product->regular_price }}</strong>
-                                                <!-- price.// -->
-                                                <a href="{{ route('product.details', ['slug' => $product->slug]) }}"
-                                                    class="title text-truncate">{{ $product->name }}</a>
-                                                <small class="text-muted">Model: X-200</small>
-                                            </figcaption>
-                                        </figure>
+                                        @livewire('card-product-component', ['product' => $product])
+
                                     </div> <!-- col end.// -->
                                 @endforeach
 
@@ -217,27 +196,9 @@
             <div class="row">
                 @foreach ($lproducts as $lproduct)
                     <div class="col-lg-3 col-md-6 col-sm-6">
-                        <figure class="card-product-grid">
-                            <div class="img-wrap">
-                                <span class="topbar"> <a href="#" class="btn btn-sm btn-light float-end"><i
-                                            class="fa fa-heart"></i></a> <span class="badge bg-danger"> New </span>
-                                </span>
-                                <a href="{{ route('product.details', ['slug' => $lproduct->slug]) }}">
-                                <img height="250"
-                                    src="{{ asset('images/products') }}/{{ $lproduct->image }}">
-                                </a>
-                            </div>
-                            <figcaption class="pt-2">
-                                <a href="{{ route('product.details', ['slug' => $lproduct->slug]) }}"
-                                    class="float-end btn btn-primary btn-icon">
-                                    <i class="fa fa-shopping-cart"></i>
-                                </a>
-                                <strong class="price">{{ $lproduct->regular_price }}</strong> <!-- price.// -->
-                                <a href="{{ route('product.details', ['slug' => $lproduct->slug]) }}"
-                                    class="title text-truncate">{{ $lproduct->name }}</a>
-                                <small class="text-muted">Model: X-200</small>
-                            </figcaption>
-                        </figure>
+
+                        @livewire('card-product-component', ['product' => $lproduct])
+
                     </div> <!-- col end.// -->
                 @endforeach
 
@@ -260,28 +221,9 @@
                 </div>
                 @foreach ($sproducts as $sproduct)
                     <div class="col-lg-3 col-md-6 col-sm-6">
-                        <figure class="card-product-grid">
-                            <div class="img-wrap">
-                                <span class="topbar">
-                                    <a href="#" class="btn btn-sm btn-light float-end"><i
-                                            class="fa fa-heart"></i></a> <span class="badge bg-warning"> sale </span>
-                                </span>
-                                <a href="{{ route('product.details', ['slug' => $sproduct->slug]) }}">
-                                    <img height="250"
-                                        src="{{ asset('images/products') }}/{{ $sproduct->image }}">
-                                    </a>
-                            </div>
-                            <figcaption class="pt-2">
-                                <a href="{{ route('product.details', ['slug' => $sproduct->slug]) }}"
-                                    class="float-end btn btn-primary btn-icon"> <i class="fa fa-shopping-cart"></i>
-                                </a>
-                                <div class="price-wrap mb-3"> <strong class="price"> {{ $sproduct->sale_price }}
-                                    </strong> <del class="price-old"> {{ $sproduct->regular_price }} </del> </div>
-                                <a href="{{ route('product.details', ['slug' => $sproduct->slug]) }}"
-                                    class="title text-truncate">{{ $sproduct->name }}</a>
-                                {{-- <small class="text-muted">Sizes: S, M, XL</small> --}}
-                            </figcaption>
-                        </figure>
+
+                        @livewire('card-product-component', ['product' => $sproduct])
+
                     </div> <!-- col end.// -->
                 @endforeach
 

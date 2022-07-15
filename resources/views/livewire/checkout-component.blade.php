@@ -184,9 +184,8 @@
                                             <input class="form-check-input" type="radio" name="mode_shipping"
                                                 checked="" wire:model="mode_shipping">
                                             <b class="border-oncheck"></b>
-                                            <span class="form-check-label">Livraison Standard
-                                                <br>
-                                                <small class="text-muted">Livraison via AMANA</small>
+                                            <span class="form-check-label">
+                                                Livraison Standard
                                             </span>
                                         </label>
                                     </div>
@@ -301,7 +300,7 @@
                 <!-- ============== COMPONENT SUMMARY =============== -->
                 <article class="card">
                     <div class="card-body">
-                        <h5 class="mb-4">Items in cart</h5>
+                        <h5 class="mb-4">Articles de la commande</h5>
                         @if (Cart::instance('cart')->count() > 0)
                             @foreach (Cart::instance('cart')->content() as $item)
                                 <div class="itemside align-items-center mb-4">
@@ -310,7 +309,7 @@
                                             src="{{ asset('images/products') }}/{{ $item->model->image }}"
                                             class="img-sm rounded border">
                                     </div>
-                                    <div class="info"> <a href="https://bootstrap-ecommerce.com/components.html#"
+                                    <div class="info"> <a href="#"
                                             class="title">{{ $item->model->name }}</a>
                                         <div class="price text-muted">{{ $item->model->regular_price }} MAD</div>
                                         <!-- price .// -->
@@ -319,10 +318,9 @@
                             @endforeach
                         @endif
                         <hr />
-                        <h5 class="card-title">Summary</h5>
                         <dl class="dlist-align">
-                            <dt>Subtotal:</dt>
-                            <dd class="text-end"> {{ Cart::instance('cart')->subtotal() }} MAD</dd>
+                            <dt>Sous total :</dt>
+                            <dd class="text-end"> {{ Session::get('checkout')['subtotal'] }} MAD</dd>
                         </dl>
                         @if (Session::has('coupon'))
                             <dl class="dlist-align">
@@ -331,7 +329,7 @@
                                 </dd>
                             </dl>
                             <dl class="dlist-align">
-                                <dt>Subtotal with discount:</dt>
+                                <dt>Sous total avec remise :</dt>
                                 <dd class="text-end"> {{ number_format($subtotalAfterDiscount, 2) }} MAD</dd>
                             </dl>
                             <dl class="dlist-align">
@@ -344,37 +342,24 @@
                                 <dt>Shipping:</dt>
                                 <dd class="text-end"> Free shipping </dd>
                             </dl> --}}
-                            <hr>
-                            <dl class="dlist-align">
-                                <dt>Total:</dt>
-                                <dd class="text-end text-dark h5">{{ number_format($totalAfterDiscount, 2) }}
-                                    MAD
-                                </dd>
-                            </dl>
                         @else
                             <dl class="dlist-align">
-                                <dt>Tax:</dt>
-                                <dd class="text-end text-danger"> + {{ Cart::instance('cart')->tax() }} MAD
+                                <dt>Tax :</dt>
+                                <dd class="text-end text-danger"> + {{ Session::get('checkout')['tax'] }} MAD
                                 </dd>
                             </dl>
-                            <dl class="dlist-align">
+                            {{-- <dl class="dlist-align">
                                 <dt>Shipping:</dt>
                                 <dd class="text-end"> Free shipping </dd>
-                            </dl>
-                            <hr>
-                            <dl class="dlist-align">
-                                <dt>Total:</dt>
-                                <dd class="text-end text-dark h5"> {{ Cart::instance('cart')->total() }} MAD
-                                </dd>
-                            </dl>
+                            </dl> --}}
                         @endif
 
                         @if (Session::has('checkout'))
                             <hr>
                             <dl class="dlist-align">
-                                <dt> Total: </dt>
-                                <dd class="text-end"> <strong
-                                        class="text-dark">{{ Session::get('checkout')['total'] }}</strong> </dd>
+                                <dt> Total : </dt>
+                                <dd class="text-end text-dark h5"> {{ Session::get('checkout')['total'] }} MAD
+                                </dd>
                             </dl>
                         @endif
 

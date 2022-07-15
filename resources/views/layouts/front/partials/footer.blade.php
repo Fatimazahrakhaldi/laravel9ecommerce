@@ -21,33 +21,33 @@
                 <aside class="col-6 col-sm-3 col-lg-2">
                     <h6 class="title">About</h6>
                     <ul class="list-menu mb-4">
-                        <li> <a href="#">About us</a></li>
-                        <li> <a href="#">Services</a></li>
-                        <li> <a href="#">Rules and terms</a></li>
-                        <li> <a href="#">Blogs</a></li>
+                        <li> <a class="hover_link" href="#">About us</a></li>
+                        <li> <a class="hover_link" href="#">Services</a></li>
+                        <li> <a class="hover_link" href="#">Rules and terms</a></li>
+                        <li> <a class="hover_link" href="#">Blogs</a></li>
                     </ul>
                 </aside>
                 <aside class="col-6 col-sm-3 col-lg-2">
                     <h6 class="title">Services</h6>
                     <ul class="list-menu mb-4">
-                        <li> <a href="#">Help center</a></li>
-                        <li> <a href="#">Money refund</a></li>
-                        <li> <a href="#">Terms and Policy</a></li>
-                        <li> <a href="#">Open dispute</a></li>
+                        <li> <a class="hover_link" href="#">Help center</a></li>
+                        <li> <a class="hover_link" href="#">Money refund</a></li>
+                        <li> <a class="hover_link" href="#">Terms and Policy</a></li>
+                        <li> <a class="hover_link" href="#">Open dispute</a></li>
                     </ul>
                 </aside>
                 <aside class="col-6 col-sm-3 col-lg-2">
                     <h6 class="title">For users</h6>
                     <ul class="list-menu mb-4">
-                        <li> <a href="{{ url('login') }}"> User Login </a></li>
-                        <li> <a href="{{ url('register') }}"> User register </a></li>
-                        <li> <a href="#"> Account Setting </a></li>
-                        <li> <a href="#"> My Orders </a></li>
+                        <li> <a class="hover_link" href="{{ route('login') }}"> User Login </a></li>
+                        <li> <a class="hover_link" href="{{ route('register') }}"> User register </a></li>
+                        <li> <a class="hover_link" href="#"> Account Setting </a></li>
+                        <li> <a class="hover_link" href="#"> My Orders </a></li>
                     </ul>
                 </aside>
                 <aside class="col-6 col-sm-2 col-lg-2">
                     <h6 class="title">Call us</h6>
-                    <a href="tel:+212 64 54 66 77 90" class="mb-0">+212 64 54 66 77 90</a>
+                    <a href="tel:+212 64 54 66 77 90" class="mb-0 hover_link">+212 64 54 66 77 90</a>
                 </aside>
             </div>
             <!-- row.// -->

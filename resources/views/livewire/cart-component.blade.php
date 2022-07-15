@@ -215,10 +215,6 @@
                                     <dd class="text-end text-danger"> + {{ Cart::instance('cart')->tax() }} MAD
                                     </dd>
                                 </dl>
-                                <dl class="dlist-align">
-                                    <dt>Shipping:</dt>
-                                    <dd class="text-end"> Free shipping </dd>
-                                </dl>
                                 <hr>
                                 <dl class="dlist-align">
                                     <dt>Total:</dt>
@@ -229,12 +225,13 @@
 
                             <div class="d-grid gap-2 my-3">
                                 <a href="{{ route('checkout') }}" class="btn btn-primary w-100"
-                                    wire:click.prevent="checkout"> Checkout </a>
-                                <a href="{{ route('shop') }}" class="btn btn-light w-100"> Back to shop </a>
+                                    wire:click.prevent="checkout"> Commander </a>
+                                <a href="{{ route('shop') }}" class="btn btn-light w-100">  Poursuivre vos achats </a>
                             </div>
-                            <ul class="list-icon">
-                                <li> <i class="icon fa fa-truck text-success"></i> Worldwide shipping </li>
-                                <li> <i class="icon fa fa-lock text-warning"></i> Secure payment </li>
+                            <ul class="list-icon text-center">
+                                <li class="p-0"> <img class="cmi_cards"
+                                    src="{{ asset('images/cartes.png') }}" alt="">  </li>
+                                <li class="p-0"> <i class="fa fa-lock text-warning"></i> Paiement sécurisé </li>
                             </ul>
                         </div>
                         <!-- card-body.// -->
@@ -249,7 +246,7 @@
                 <h2>Votre panier est vide</h2>
                 <p>Remplissez-le avec la nouvelle collection ou les articles les plus populaires de la semaine.
                 </p>
-                <a href="{{ route('shop') }}" class="btn btn-light"> Shop now </a>
+                <a href="{{ route('shop') }}" class="btn btn-light"> Commencer mes achats </a>
             </div>
         @endif
         <!-- =================== COMPONENT 2 CART+SUMMARY END .// ====================== -->

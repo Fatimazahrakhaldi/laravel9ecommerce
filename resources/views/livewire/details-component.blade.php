@@ -15,63 +15,63 @@
 
         <div class="row">
             <aside class="col-lg-6">
-                <article class="gallery-wrap" wire:ignore>
-                    <div class="img-big-wrap img-thumbnail slider slider-for">
-                        @php
-                            $images = explode(',', $product->images);
-                        @endphp
-                        @foreach ($images as $key => $image)
-                            @if ($image)
-                                <a data-fancybox="gallery" href="{{ asset('images/products') }}/{{ $image }}">
-                                    <img height="560" src="{{ asset('images/products') }}/{{ $image }}">
-                                </a>
-                            @endif
-                        @endforeach
-
-                    </div> <!-- img-big-wrap.// -->
-                    <div class="thumbs-wrap slider slider-nav">
-                        @foreach ($images as $key => $image)
-                            @if ($image)
-                                <div>
-                                    <div class="item-thumb">
-                                        <img width="60" height="60"
-                                            src="{{ asset('images/products') }}/{{ $image }}"
-                                            alt="{{ $image }}">
+                @if (isset($product->images))
+                    <article class="gallery-wrap text-center" wire:ignore>
+                        <div class="img-big-wrap img-thumbnail slider slider-for">
+                            @php
+                                $images = explode(',', $product->images);
+                            @endphp
+                            @foreach ($images as $key => $image)
+                                @if ($image)
+                                    <a data-fancybox="gallery"
+                                        href="{{ asset('images/products') }}/{{ $image }}">
+                                        <img src="{{ asset('images/products') }}/{{ $image }}">
+                                    </a>
+                                @endif
+                            @endforeach
+                        </div> <!-- img-big-wrap.// -->
+                        <div class="thumbs-wrap slider slider-nav">
+                            @foreach ($images as $key => $image)
+                                @if ($image)
+                                    <div>
+                                        <div class="item-thumb">
+                                            <img width="60" height="60"
+                                                src="{{ asset('images/products') }}/{{ $image }}"
+                                                alt="{{ $image }}">
+                                        </div>
                                     </div>
-                                </div>
-                            @endif
-                        @endforeach
-                    </div> <!-- thumbs-wrap.// -->
-                </article> <!-- gallery-wrap .end// -->
+                                @endif
+                            @endforeach
+                        </div> <!-- thumbs-wrap.// -->
+                    </article> <!-- gallery-wrap .end// -->
+                @else
+                    <div class="img-big-wrap img-thumbnail text-center">
+                        <a data-fancybox="mygalley"
+                            href="{{ asset('images/products') }}/{{ $product->image }}">
+                            <img src="{{ asset('images/products') }}/{{ $product->image }}">
+                        </a>
+                    </div> <!-- img-big-wrap.// -->
+                @endif
+
             </aside>
             <main class="col-lg-6">
                 <article class="ps-lg-3">
                     <h4 class="title text-dark">{{ $product->name }}</h4>
-                    <div class="rating-wrap my-3">
-                        <ul class="rating-stars">
-                            <li style="width:80%" class="stars-active"> <img src="images/misc/stars-active.svg"
-                                    alt=""> </li>
-                            <li> <img src="images/misc/starts-disable.svg" alt=""> </li>
-                        </ul>
-                        <b class="label-rating text-warning"> 4.5</b>
-                        <i class="dot"></i>
-                        <span class="label-rating text-muted"> <i class="fa fa-shopping-basket"></i> 154 orders </span>
-                        <i class="dot"></i>
+                    <div class="my-3">
                         <span class="label-rating text-success">{{ $product->stock_status }}</span>
                     </div> <!-- rating-wrap.// -->
 
                     <div class="price-wrap mb-3">
                         @if ($product->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now())
-                            <strong> <var class="price h4 me-2">{{ $product->sale_price }}</var> </strong>
-                            <del class="price-old"> {{ $product->regular_price }} </del>
+                            <strong> <var class="price h4 me-2">{{ $product->sale_price }} MAD</var> </strong>
+                            <del class="price-old"> {{ $product->regular_price }} MAD</del>
                         @else
-                            <var class="price h4">{{ $product->regular_price }}</var>
+                            <var class="price h4">{{ $product->regular_price }} MAD</var>
                         @endif
                     </div>
 
                     <p>{!! $product->short_description !!}</p>
-
-                    <dl class="row">
+                    {{-- <dl class="row">
                         <dt class="col-3">Type:</dt>
                         <dd class="col-9">Regular</dd>
 
@@ -83,19 +83,19 @@
 
                         <dt class="col-3">Brand</dt>
                         <dd class="col-9">Reebook </dd>
-                    </dl>
+                    </dl> --}}
 
                     <hr>
 
                     <div class="row mb-4">
-                        <div class="col-md-4 col-6 mb-2">
+                        {{-- <div class="col-md-4 col-6 mb-2">
                             <label class="form-label">Size</label>
                             <select class="form-select">
                                 <option>Small</option>
                                 <option>Medium</option>
                                 <option>Large</option>
                             </select>
-                        </div> <!-- col.// -->
+                        </div> <!-- col.// --> --}}
                         <div class="col-md-4 col-6 mb-3">
                             <label class="form-label d-block">Quantity</label>
                             <div class="input-group input-spinner">
@@ -118,15 +118,17 @@
                             </div> <!-- input-group.// -->
                         </div> <!-- col.// -->
                     </div> <!-- row.// -->
+
+
                     @if ($product->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now())
                         <button class="btn btn-primary"
                             wire:click.prevent="store({{ $product->id }},'{{ $product->name }}',{{ $product->sale_price }})">
-                            <i class="me-1 fa fa-shopping-basket"></i> Add to cart
+                            <i class="me-1 fa fa-shopping-basket"></i> Ajouter au panier
                         </button>
                     @else
                         <button class="btn btn-primary"
                             wire:click.prevent="store({{ $product->id }},'{{ $product->name }}',{{ $product->regular_price }})">
-                            <i class="me-1 fa fa-shopping-basket"></i> Add to cart
+                            <i class="me-1 fa fa-shopping-basket"></i> Ajouter au panier
                         </button>
                     @endif
                     {{-- <a href="#" class="btn  btn-light"> <i class="me-1 fa fa-heart"></i> Save </a> --}}
@@ -160,36 +162,39 @@
                 </div>
                 <!-- =================== COMPONENT SPECS .// ================== -->
             </div> <!-- col.// -->
-            <aside class="col-lg-4">
-                <!-- =================== COMPONENT ADDINGS ====================== -->
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="card-title">Similar items</h5>
-                        @foreach ($related_products as $r_product)
-                            <article class="itemside mb-3">
-                                <a href="{{ route('product.details', ['slug' => $r_product->slug]) }}"
-                                    class="aside">
-                                    <img src="{{ asset('images/products') }}/{{ $r_product->image }}"
-                                        width="96" height="96" class="img-md img-thumbnail">
-                                </a>
-                                <div class="info">
+            @if ($related_products->count() > 0)
+                <aside class="col-lg-4">
+                    <!-- =================== COMPONENT ADDINGS ====================== -->
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Produits similaires</h5>
+                            @foreach ($related_products as $r_product)
+                                <article class="itemside mb-3">
                                     <a href="{{ route('product.details', ['slug' => $r_product->slug]) }}"
-                                        class="title mb-1"> {{ $r_product->name }}
+                                        class="aside">
+                                        <img src="{{ asset('images/products') }}/{{ $r_product->image }}"
+                                            width="96" height="96" class="img-md img-thumbnail">
                                     </a>
-                                    @if ($product->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now())
-                                        <strong class="price h6 me-2">{{ $r_product->sale_price }}</strong>
-                                        <del class="price-old"> {{ $r_product->regular_price }} </del>
-                                    @else
-                                        <strong class="price">{{ $r_product->regular_price }}</strong>
-                                    @endif
-                                    <!-- price.// -->
-                                </div>
-                            </article>
-                        @endforeach
-                    </div> <!-- card-body .// -->
-                </div> <!-- card .// -->
-                <!-- =================== COMPONENT ADDINGS .// ================== -->
-            </aside> <!-- col.// -->
+                                    <div class="info">
+                                        <a href="{{ route('product.details', ['slug' => $r_product->slug]) }}"
+                                            class="title mb-1"> {{ $r_product->name }}
+                                        </a>
+                                        @if ($product->sale_price > 0 && $sale->status == 1 && $sale->sale_date > Carbon\Carbon::now())
+                                            <strong class="price h6 me-2">{{ $r_product->sale_price }}</strong>
+                                            <del class="price-old"> {{ $r_product->regular_price }} </del>
+                                        @else
+                                            <strong class="price">{{ $r_product->regular_price }}</strong>
+                                        @endif
+                                        <!-- price.// -->
+                                    </div>
+                                </article>
+                            @endforeach
+                        </div> <!-- card-body .// -->
+                    </div> <!-- card .// -->
+                    <!-- =================== COMPONENT ADDINGS .// ================== -->
+                </aside> <!-- col.// -->
+            @endif
+
         </div>
 
         <br><br>
