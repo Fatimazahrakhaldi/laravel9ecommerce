@@ -46,8 +46,7 @@
                     </article> <!-- gallery-wrap .end// -->
                 @else
                     <div class="img-big-wrap img-thumbnail text-center">
-                        <a data-fancybox="mygalley"
-                            href="{{ asset('images/products') }}/{{ $product->image }}">
+                        <a data-fancybox="mygalley" href="{{ asset('images/products') }}/{{ $product->image }}">
                             <img src="{{ asset('images/products') }}/{{ $product->image }}">
                         </a>
                     </div> <!-- img-big-wrap.// -->
@@ -57,6 +56,27 @@
             <main class="col-lg-6">
                 <article class="ps-lg-3">
                     <h4 class="title text-dark">{{ $product->name }}</h4>
+                    <div class="rating-wrap my-3">
+                        <div class="stars">
+                            @php
+                                $avgrating = 0;
+                            @endphp
+                            @foreach ($product->orderItems->where('rstatus', 1) as $orderItem)
+                                @php
+                                    $avgrating = $avgrating + $orderItem->review->rating;
+                                @endphp
+                            @endforeach
+                            @for ($i = 1; $i <= 5; $i++)
+                                @if ($i <= $avgrating)
+                                    <label class="star checked_star float-none p-0"></label>
+                                @else
+                                    <label class="star float-none p-0"></label>
+                                @endif
+                            @endfor
+                            <b class="label-rating text-warning">
+                                ({{ $product->orderItems->where('rstatus', 1)->count() }}) review</b>
+                        </div>
+                    </div>
                     <div class="my-3">
                         <span class="label-rating text-success">{{ $product->stock_status }}</span>
                     </div> <!-- rating-wrap.// -->
@@ -152,12 +172,54 @@
                                 <a href="#" data-bs-target="#tab_specs" data-bs-toggle="tab"
                                     class="nav-link active">Decription</a>
                             </li>
+                            <li class="nav-item">
+                                <a href="#" data-bs-target="#tab_reviews" data-bs-toggle="tab"
+                                    class="nav-link">Reviews</a>
+                            </li>
                         </ul>
                     </header>
                     <div class="tab-content">
                         <article id="tab_specs" class="tab-pane show active card-body">
                             {!! $product->description !!}
                         </article> <!-- tab-content.// -->
+
+                        <article id="tab_reviews" class="tab-pane card-body">
+                            <div class="card-body">
+                                <div class="mb-3"><span >{{ $product->orderItems->where('rstatus', 1)->count() }}
+                                    <b>review for</b>
+                                    {{ $product->name }}</span>
+                                    </div>
+
+                                @foreach ($product->orderItems->where('rstatus', 1) as $orderItem)
+                                    <blockquote class="border-bottom">
+
+                                        <div class="icontext"> <img
+                                                src="{{ asset('images/avatar.jpg') }}"
+                                                class="img-xs icon rounded-circle">
+                                            <div class="text">
+                                                <h6 class="mb-0"> {{ $orderItem->order->user->name }} </h6>
+                                                <div class="rating-wrap">
+                                                    <ul class="rating-stars">
+                                                        <li style="width:{{ $orderItem->review->rating * 20 }}%"
+                                                            class="stars-active"> <img
+                                                                src="{{ asset('images/stars-active.svg') }}"
+                                                                alt=""> </li>
+                                                        <li> <img src="{{ asset('images/starts-disable.svg') }}"
+                                                                alt=""> </li>
+                                                    </ul> <b class="dot"></b> <small
+                                                        class="label-rating text-muted">
+                                                        {{Carbon\carbon::parse($orderItem->review->created_at)->format('d F Y g:i A')}}</small>
+                                                </div>
+                                            </div>
+                                        </div> <!-- icontext.// -->
+                                        <div class="mt-3">
+                                            <p> {{$orderItem->review->comment}} </p>
+                                        </div>
+                                    </blockquote>
+                                @endforeach
+
+                            </div>
+                        </article>
                     </div>
                 </div>
                 <!-- =================== COMPONENT SPECS .// ================== -->

@@ -10,4 +10,14 @@ class Review extends Model
     use HasFactory;
 
     protected $table = 'reviews';
+
+    /**
+     * Get the orderItem that owns the Review
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function orderItem()
+    {
+        return $this->belongsTo(OrderItem::class);
+    }
 }

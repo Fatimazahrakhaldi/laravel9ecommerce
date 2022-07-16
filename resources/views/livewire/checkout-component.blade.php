@@ -182,7 +182,7 @@
                                                 Gratuit
                                             </span>
                                             <input class="form-check-input" type="radio" name="mode_shipping"
-                                                checked="" wire:model="mode_shipping">
+                                                checked="">
                                             <b class="border-oncheck"></b>
                                             <span class="form-check-label">
                                                 Livraison Standard
@@ -191,24 +191,14 @@
                                     </div>
                                 </div>
                                 <!-- col end.// -->
-                                <div class="col-lg-6 mb-3">
-                                    <div class="box box-check"> <label class="form-check">
-                                            <span class="float-end">
-                                                30 MAD TTC
-                                            </span>
-                                            <input class="form-check-input" type="radio" name="mode_shipping" wire:model="mode_shipping">
-                                            <b class="border-oncheck"></b>
-                                            <span class="form-check-label"> Livraison en 24h
-                                                <br>
-                                                <small class="text-muted">Livraison via AMANA
-                                                </small>
-                                            </span>
-                                        </label>
-                                    </div>
-                                </div>
                             </div>
                             <hr class="my-4">
                             <h5 class="card-title"> Méthode de paiment </h5>
+                            @if (Session::has('cmi_error'))
+                                <div class="alert alert-danger" role="alert">
+                                    {{ Session::get('cmi_error') }}
+                                </div>
+                            @endif
                             <p>Quels moyens de paiment voulez-vous utiliser ?</p>
                             <div class="row mb-3">
                                 <div class="col-12 mb-3">
@@ -257,14 +247,14 @@
                                 <!-- col end.// -->
                                 <div class="col-12 mb-3">
                                     <div class="box box-check"> <label class="form-check">
-                                            <input class="form-check-input" type="radio" value="paypal"
+                                            <input class="form-check-input" type="radio" value="banktransfert"
                                                 name="payment-method" wire:model="paymentmode">
                                             <b class="border-oncheck"></b>
                                             <span class="form-check-label"> Paiement par virement bancaire
                                             </span>
                                         </label>
                                     </div>
-                                    @if ($paymentmode == 'paypal')
+                                    @if ($paymentmode == 'banktransfert')
                                         <p class="mb-0 mt-2 ms-2">Il vous faudra transférer le montant de la facture
                                             sur
                                             notre compte bancaire.
@@ -285,7 +275,7 @@
                             <!-- row end.// -->
                             <div class="float-end">
                                 <button type="submit" class="btn btn-primary">Continue</button>
-                                <button class="btn btn-light">Cancel</button>
+                                <button class="btn btn-light">Annuler</button>
                             </div>
                         </div>
                         <!-- card-body end.// -->
@@ -318,23 +308,19 @@
                             @endforeach
                         @endif
                         <hr />
-                        <dl class="dlist-align">
-                            <dt>Sous total :</dt>
-                            <dd class="text-end"> {{ Session::get('checkout')['subtotal'] }} MAD</dd>
-                        </dl>
                         @if (Session::has('coupon'))
                             <dl class="dlist-align">
                                 <dt>Discount: ({{ Session::get('coupon')['code'] }})</dt>
-                                <dd class="text-end text-success"> - {{ number_format($discount, 2) }} MAD
+                                <dd class="text-end text-success"> - {{ Session::get('checkout')['discount'] }} MAD
                                 </dd>
                             </dl>
                             <dl class="dlist-align">
                                 <dt>Sous total avec remise :</dt>
-                                <dd class="text-end"> {{ number_format($subtotalAfterDiscount, 2) }} MAD</dd>
+                                <dd class="text-end"> {{ Session::get('checkout')['subtotal'] }} MAD</dd>
                             </dl>
                             <dl class="dlist-align">
                                 <dt>Tax ({{ config('cart.tax') }} %):</dt>
-                                <dd class="text-end text-danger"> + {{ number_format($taxAfterDiscount, 2) }}
+                                <dd class="text-end text-danger"> + {{ Session::get('checkout')['tax'] }}
                                     MAD
                                 </dd>
                             </dl>
@@ -343,6 +329,10 @@
                                 <dd class="text-end"> Free shipping </dd>
                             </dl> --}}
                         @else
+                            <dl class="dlist-align">
+                                <dt>Sous total :</dt>
+                                <dd class="text-end"> {{ Session::get('checkout')['subtotal'] }} MAD</dd>
+                            </dl>
                             <dl class="dlist-align">
                                 <dt>Tax :</dt>
                                 <dd class="text-end text-danger"> + {{ Session::get('checkout')['tax'] }} MAD

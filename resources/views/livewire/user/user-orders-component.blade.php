@@ -15,7 +15,7 @@
                 </div>
                 <!--//col-auto-->
             </div>
-            <div class="app-card app-card-orders-table shadow-sm mb-5">
+            <div class="app-card app-card-categories-table shadow-sm mb-5">
                 <div class="app-card-body">
                     <div class="table-responsive">
                         <table class="table app-table-hover mb-0 text-left">
@@ -49,8 +49,27 @@
                                         <td class="cell">{{ $order->mobile }}</td>
                                         <td class="cell">{{ $order->email }}</td>
                                         <td class="cell">{{ $order->zipcode }}</td>
-                                        <td class="cell">{{ $order->status }}</td>
-                                        <td class="cell">{{ $order->created_at }}</td>
+                                        @php
+                                        if ($order->status == 'ordered') {
+                                            $isActive = "primary text-white";
+
+                                        }elseif ($order->status == 'pending') {
+                                            $isActive = "warning";
+
+                                        }elseif ($order->status == 'delivered') {
+                                            $isActive = "success";
+
+                                        }elseif ($order->status == 'canceled') {
+                                            $isActive = "danger";
+
+                                        }
+                                        @endphp
+                                        <td class="cell">
+                                            <span
+                                                class="badge bg-{{ $isActive }}">
+                                                {{ $order->status }}
+                                            </span>
+                                        </td>                                        <td class="cell">{{ $order->created_at }}</td>
                                         <td class="cell"><a href="{{route('user.orderdetails',['order_id'=>$order->id])}}"><i class="fas fa-eye"></i></a></td>
                                     </tr>
                                 @empty
@@ -75,6 +94,8 @@
             </div>
             <!--//app-pagination-->
 
+
+
         </div>
         <!--//container-fluid-->
     </div>
@@ -82,4 +103,3 @@
 
 </div>
 <!--//app-wrapper-->
-

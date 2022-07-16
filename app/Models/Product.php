@@ -15,4 +15,14 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class,'category_id');
     }
+
+    /**
+     * Get all of the orderItems for the Product
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class,'product_id');
+    }
 }

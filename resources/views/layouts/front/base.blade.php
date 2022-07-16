@@ -6,8 +6,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title> @isset($title)
+            {{ $title }} |
+        @endisset
+        {{ config('app.name') }}</title>
 
     <!-- Styles -->
     @livewireStyles

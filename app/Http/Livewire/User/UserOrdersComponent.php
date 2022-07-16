@@ -5,12 +5,12 @@ namespace App\Http\Livewire\User;
 use App\Models\Order;
 use Livewire\Component;
 use Illuminate\Support\Facades\Auth;
-use livewire\WithPagination;
+use Livewire\WithPagination;
 
 class UserOrdersComponent extends Component
 {
     use WithPagination;
-    public $themePagination = "bootstrap";
+    protected $paginationTheme = 'bootstrap';
 
     public function render()
     {

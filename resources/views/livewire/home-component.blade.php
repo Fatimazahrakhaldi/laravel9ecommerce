@@ -245,7 +245,6 @@
                             </div>
                             <div class="text">
                                 <h6 class="title">Reasonable prices</h6>
-                                <p>Have you ever finally just </p>
                             </div>
                         </div>
                         <!-- icontext // -->
@@ -258,7 +257,6 @@
                             </div>
                             <div class="text">
                                 <h6 class="title">Free shipping</h6>
-                                <p>Have you ever finally just </p>
                             </div>
                         </div>
                         <!-- icontext // -->
@@ -271,7 +269,6 @@
                                 </span> </div>
                             <div class="text">
                                 <h6 class="title">24/7 Support</h6>
-                                <p>Have you ever finally just </p>
                             </div>
                         </div>
                         <!-- icontext // -->
@@ -283,7 +280,6 @@
                                 </span> </div>
                             <div class="text">
                                 <h6 class="title">Highly secured</h6>
-                                <p>Have you ever finally just </p>
                             </div>
                         </div>
                         <!-- icontext // -->

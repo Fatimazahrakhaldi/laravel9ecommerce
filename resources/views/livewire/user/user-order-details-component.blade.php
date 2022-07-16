@@ -3,13 +3,25 @@
         <div class="container-xl">
             <div class="row g-3 mb-4 align-items-center justify-content-between">
                 <div class="col-auto">
-                    <a class="action-link" href="{{ route('user.orders') }}"><i class="fas fa-arrow-left"></i> My
-                        orders</a>
+                    <a class="action-link" href="{{ route('user.orders') }}"><i class="fas fa-arrow-left"></i> Tous les
+                        commades</a>
+
+                </div>
+                <div class="col-auto">
+                    @if ($order->status == 'ordered')
+                        <a class="float-end btn btn-danger" href="#" wire:click.prevent="cancelOrder">Cancel
+                            order</a>
+                    @endif
                 </div>
                 <!--//col-auto-->
             </div>
-            <div class="app-card app-card-account bg-transparent d-flex flex-column align-items-start">
-                <div class="app-card-header p-3 border-bottom-0">
+            @if (Session::has('order_message'))
+                <div class="alert alert-success" role="alert">
+                    {{ Session::get('order_message') }}
+                </div>
+            @endif
+            <div class="app-card app-card-account bg-transparent d-flex flex-column">
+                <div class="app-card-header border-bottom-0">
                     <div class="row align-items-center gx-3">
                         <div class="col-auto">
                             <div class="app-icon-holder shadow-sm">
@@ -23,19 +35,55 @@
                         </div>
                         <!--//col-->
                         <div class="col-auto">
-                            <h1 class="app-card-title">Detail Order</h1>
+                            <h1 class="app-card-title mb-3">Détails commade</h1>
+                        </div>
+                        <div>
+                            <div class="app-card app-card-notification shadow">
+                                <div class="app-card-header px-4 py-3">
+                                    <table class="table m-0">
+                                        <tr>
+                                            <th class="border-0">Order Id</th>
+                                            <td class="border-0">{{ $order->id }}</td>
+                                            <th class="border-0">Order Date</th>
+                                            <td class="border-0">{{ $order->created_at }}</td>
+                                            <th class="border-0">Status</th>
+                                            <td class="border-0">{{ $order->status }}</td>
+                                            @if ($order->status == 'delivred')
+                                                <th class="border-0">Delivery Date</th>
+                                                <td class="border-0">{{ $order->delivered_date }}</td>
+                                            @elseif($order->status == 'canceled')
+                                                <th class="border-0">Cancellation Date</th>
+                                                <td class="border-0">{{ $order->canceled_date }}</td>
+                                            @endif
+                                        </tr>
+                                    </table>
+
+                                    <!--//row-->
+                                </div>
+                                <!--//app-card-body-->
+                                {{-- <div class="app-card-footer px-4 py-3">
+                                    <a class="action-link" href="#">View invoice<svg width="1em" height="1em"
+                                            viewBox="0 0 16 16" class="bi bi-arrow-right ms-2" fill="currentColor"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z">
+                                            </path>
+                                        </svg></a>
+                                </div> --}}
+                                <!--//app-card-footer-->
+                            </div>
                         </div>
                         <!--//col-->
                     </div>
                     <!--//row-->
                 </div>
                 <!--//app-card-header-->
-                <div class=" app-card-settings p-4">
-                    <div class="app-card-body">
 
+                <div class=" app-card-settings mt-4">
+                    <div class="app-card-body">
                         <div class="row gy-4">
                             <div class="col-12">
-                                <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
+                                <div class="app-card app-card-account shadow d-flex flex-column align-items-start">
                                     <div class="app-card-header p-3 border-bottom-0">
                                         <div class="row align-items-center gx-3">
                                             <div class="col-auto">
@@ -81,6 +129,8 @@
                                                                     <img width="72" height="72"
                                                                         src="{{ asset('images/products') }}/{{ $item->product->image }}"alt="{{ $item->product->name }}"
                                                                         class="img-sm rounded border">
+
+
                                                                 </div>
                                                                 <figcaption class="info">
                                                                     <p class="item-label">{{ $item->product->name }}
@@ -90,10 +140,19 @@
                                                                     <strong> Total :
                                                                         {{ $item->price * $item->quantity }} MAD
                                                                     </strong>
+
+
                                                                 </figcaption>
                                                             </figure>
-                                                        </a>
-                                                    </div>
+                                                        </a><div class="float-end">
+                                                                        @if ($order->status == 'delivered' && $item->rstatus == false)
+                                                                            <div class="price-field sub-total">
+                                                                                <p class="price"><a
+                                                                                        href="{{ route('user.review', ['order_item_id' => $item->id]) }}">Write
+                                                                                        Review</a></p>
+                                                                            </div>
+                                                                        @endif
+                                                                    </div>
                                                 @endforeach
                                             </div> <!-- card-body .// -->
                                         </article>
@@ -153,7 +212,7 @@
                             </div>
                             <!--//col-->
                             <div class="col-12 col-lg-6">
-                                <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
+                                <div class="app-card app-card-account shadow d-flex flex-column align-items-start">
                                     <div class="app-card-header p-3 border-bottom-0">
                                         <div class="row align-items-center gx-3">
                                             <div class="col-auto">
@@ -309,8 +368,7 @@
                             <!--//col-->
                             @if ($order->is_shipping_diffrent)
                                 <div class="col-12 col-lg-6">
-                                    <div
-                                        class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
+                                    <div class="app-card app-card-account shadow d-flex flex-column align-items-start">
                                         <div class="app-card-header p-3 border-bottom-0">
                                             <div class="row align-items-center gx-3">
                                                 <div class="col-auto">
@@ -374,7 +432,8 @@
                                                         <div class="row justify-content-between align-items-center">
                                                             <div class="col-auto">
                                                                 <div class="item-label"><strong>Phone </strong></div>
-                                                                <div class="item-data">{{ $order->shipping->mobile }}
+                                                                <div class="item-data">
+                                                                    {{ $order->shipping->mobile }}
                                                                 </div>
                                                             </div>
                                                             <!--//col-->
@@ -489,7 +548,7 @@
                                 </div>
                             @endif
                             <div class="col-12 col-lg-6">
-                                <div class="app-card app-card-account shadow-sm d-flex flex-column align-items-start">
+                                <div class="app-card app-card-account shadow d-flex flex-column align-items-start">
                                     <div class="app-card-header p-3 border-bottom-0">
                                         <div class="row align-items-center gx-3">
                                             <div class="col-auto">
@@ -524,7 +583,8 @@
                                                 <div class="col-auto">
                                                     <div class="item-label text-capitalize"><strong>transition
                                                             mode</strong></div>
-                                                    <div class="item-data">{{ $order->transition->mode ?? '---' }}</div>
+                                                    <div class="item-data">{{ $order->transition->mode ?? '---' }}
+                                                    </div>
                                                 </div>
                                                 <!--//col-->
                                                 {{-- <div class="col text-end">
@@ -558,7 +618,8 @@
                                                 <div class="col-auto">
                                                     <div class="item-label text-capitalize "><strong>transition
                                                             date</strong></div>
-                                                    <div class="item-data">{{ $order->transition->created_at ?? '---' }}
+                                                    <div class="item-data">
+                                                        {{ $order->transition->created_at ?? '---' }}
                                                     </div>
                                                 </div>
                                                 <!--//col-->

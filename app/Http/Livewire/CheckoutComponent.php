@@ -14,6 +14,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\ProcessController;
+use App\Mail\OrderMail;
+use Illuminate\Support\Facades\Mail;
 
 class CheckoutComponent extends Component
 {
@@ -161,20 +163,18 @@ class CheckoutComponent extends Component
 
             $this->makeTransaction($order->id, 'pending');
             $this->resetCart();
-
         } else if ($this->paymentmode == 'card') {
-
             try {
                 $client = new CmiClient(
                     $client = [
                         'storekey' => env('CMI_STORE_KEY'), // STOREKEY
-                        'clientid' => env('CMI_CLIENT_ID'), // CLIENTID
+                        'clientid' => env(''), // CLIENTID
                         // 'oid' => date('dmY') . rand(10, 1000), // COMMAND ID IT MUST BE UNIQUE
                         // 'oid' => (string)$order->id, // COMMAND ID IT MUST BE UNIQUE
                         // Dans Cmi, vous devez fournir un identifiant de la commande, sauf que dans la plupart des cas la commande est créée après le paiement de l'utilisateur
                         // donc à la place, vous pouvez utiliser soit un identifant de transaction ou l'identifiant du panier et ajouter 3 nombres aléatoires, et récupérer le panier actuel dans le callback en supprimant les 3 derniers chiffres.
                         // La valeur de oid doit être unique pour chaque transaction. Parce que si l'utilisateur clique sur revenir en arrière sans payer. Vous ne pouvez pas utiliser le même identifiant de transaction (Allez comprendre)
-                        'oid' => $order->id . rand(100, 900),
+                        'oid' => (string) $order->id,
                         'shopurl' => env('CMI_SHOP_URL'), // SHOP URL FOR REDIRECTION
                         'okUrl' => env('CMI_OK_URL'), // REDIRECTION AFTER SUCCEFFUL PAYMENT
                         'failUrl' => env('CMI_FAIL_URL'), // REDIRECTION AFTER FAILED PAYMENT
@@ -189,7 +189,7 @@ class CheckoutComponent extends Component
                         'tel' => $order->mobile, // YOUR PHONE APPEAR IN CMI PLATEFORM NOT REQUIRED
                         'amount' => session()->get('checkout')['total'], // RETRIEVE AMOUNT WITH METHOD POST
                         'CallbackURL' => env('CMI_CALLBACK_URL'), // CALLBACK
-                        // 'AutoRedirect' => 'true'
+                        'AutoRedirect' => 'true'
                     ]
                 );
 
@@ -199,23 +199,33 @@ class CheckoutComponent extends Component
                 return redirect()->action(
                     [ProcessController::class, "index"]
                 );
-            // if($status == 1){
-            //     $this->makeTransaction($order->id,'approved');
-            // }else{
-            //     session()->flash('error_payment_cmi','');
-            //     $this->thankyou = 0;
-            // }
             } catch (Exception $e) {
-            //     session()->flash('cmi_error',$e->getMessage());
-            //                     $this->thankyou = 0;
+                session()->flash('cmi_error', 'Erreur CMI :'. $e->getMessage());
             }
+        } else if ($this->paymentmode == 'banktransfert'){
 
         }
+
+        $this->sendOrderConfirmationMail($order);
     }
+
     public function okUrlCmi(Request $request)
     {
         //Look, in the orders’ DB for the record identified by the value of the "oid" parameter sent by the CMI platform in the request. And trait your order as you want.
-        dd($request->all());
+        // dd($request->all());
+        try {
+            if ($request['Response'] == 'Approved') {
+                // dd($request['oid']);
+                $this->makeTransaction($request['oid'], 'approved');
+                $this->resetCart();
+            } else {
+                session()->flash('cmi_error', 'Erreur lors de la transaction.');
+                $this->thankyou = 0;
+            }
+        } catch (Exception $e) {
+            session()->flash('cmi_error', $e->getMessage());
+            $this->thankyou = 0;
+        }
     }
 
     public function callback(Request $request)
@@ -245,6 +255,11 @@ class CheckoutComponent extends Component
         $transaction->save();
     }
 
+    public function sendOrderConfirmationMail($order)
+    {
+        Mail::to($order->email)->send(new OrderMail($order));
+    }
+
     public function verifyForCheckout()
     {
         if (!Auth::check()) {
@@ -259,7 +274,6 @@ class CheckoutComponent extends Component
     public function render()
     {
         $this->verifyForCheckout();
-        session()->flash('message', 'ddd');
 
         return view('livewire.checkout-component')->layout('layouts.front.base');
     }

@@ -3,7 +3,7 @@
         <div class="container-xl">
             <div class="row g-3 mb-4 align-items-center justify-content-between">
                 <div class="col-auto">
-                    <h1 class="app-page-title mb-0">All Orders</h1>
+                    <h1 class="app-page-title mb-0">Commandes</h1>
                 </div>
                 <div class="col-auto">
                     <div class="page-utilities">
@@ -19,8 +19,14 @@
                 </div>
                 <!--//col-auto-->
             </div>
-            <div class="app-card app-card-orders-table shadow-sm mb-5">
+            @if (Session::has('order_message'))
+                <div class="alert alert-success" role="alert">
+                    {{ Session::get('order_message') }}
+                </div>
+            @endif
+            <div class="app-card app-card-categories-table shadow-sm mb-5">
                 <div class="app-card-body">
+
                     <div class="table-responsive">
                         <table class="table app-table-hover mb-0 text-left">
                             <thead>
@@ -37,7 +43,7 @@
                                     <th class="cell text-capitalize">zipcode </th>
                                     <th class="cell text-capitalize">status </th>
                                     <th class="cell text-capitalize">order Date </th>
-                                    <th class="cell text-capitalize">Action </th>
+                                    <th class="cell text-capitalize" colspan="2">Actions </th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -53,9 +59,45 @@
                                         <td class="cell">{{ $order->mobile }}</td>
                                         <td class="cell">{{ $order->email }}</td>
                                         <td class="cell">{{ $order->zipcode }}</td>
-                                        <td class="cell">{{ $order->status }}</td>
+                                        @php
+                                            if ($order->status == 'ordered') {
+                                                $isActive = 'info';
+                                            } elseif ($order->status == 'pending') {
+                                                $isActive = 'warning';
+                                            } elseif ($order->status == 'delivered') {
+                                                $isActive = 'success';
+                                            } elseif ($order->status == 'canceled') {
+                                                $isActive = 'danger';
+                                            }
+                                        @endphp
+                                        <td class="cell">
+                                            <span class="badge bg-{{ $isActive }}">
+                                                {{ $order->status }}
+                                            </span>
+                                        </td>
                                         <td class="cell">{{ $order->created_at }}</td>
-                                        <td class="cell"><a href="{{route('admin.orderdetails',['order_id'=>$order->id])}}"><i class="fas fa-eye"></i></a></td>
+                                        <td class="cell"><a
+                                                href="{{ route('admin.orderdetails', ['order_id' => $order->id]) }}"><i
+                                                    class="fas fa-eye"></i></a></td>
+                                        <td>
+                                            {{-- {{($order->status != 'ordered') ? 'disabled' : ''}} --}}
+                                            <div class="dropdown">
+                                                <button class=" btn btn-success dropdown-toggle text-white"
+                                                    type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown"
+                                                    aria-expanded="false">
+                                                    Status
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                    <li><a class="dropdown-item" href="#"
+                                                            wire:click.prevent="updateOrderStatus({{ $order->id }},'delivered')">Delivered</a>
+                                                    </li>
+                                                    <li><a class="dropdown-item" href="#"
+                                                            wire:click.prevent="updateOrderStatus({{ $order->id }},'canceled')">Canceled</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+
+                                        </td>
                                     </tr>
                                 @empty
                                     <tr>

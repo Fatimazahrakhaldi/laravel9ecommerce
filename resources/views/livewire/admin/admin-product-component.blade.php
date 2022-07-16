@@ -3,14 +3,13 @@
         <div class="container-xl">
             <div class="row g-3 mb-4 align-items-center justify-content-between">
                 <div class="col-auto">
-                    <h1 class="app-page-title mb-0">Products</h1>
+                    <h1 class="app-page-title mb-0">Produits</h1>
                 </div>
                 <div class="col-auto">
                     <div class="page-utilities">
                         <div class="row g-2 justify-content-start justify-content-md-end align-items-center">
                             <div class="col-auto">
-                                <a class="btn app-btn-secondary" href="{{ route('admin.addproduct') }}">Add
-                                    product</a>
+                                <a class="btn app-btn-secondary" href="{{ route('admin.addproduct') }}">Ajouter produit</a>
                             </div>
                         </div>
                         <!--//row-->
@@ -25,7 +24,7 @@
                     {{ Session::get('message') }}
                 </div>
             @endif
-            <div class="app-card app-card-products-table shadow-sm mb-5">
+            <div class="app-card app-card-categories-table shadow-sm mb-5">
                 <div class="app-card-body">
                     <div class="table-responsive">
                         <table class="table app-table-hover mb-0 text-left">

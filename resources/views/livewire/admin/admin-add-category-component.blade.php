@@ -24,7 +24,7 @@
                         </div>
                         <!--//col-->
                         <div class="col-auto">
-                            <h1 class="app-card-title">Add category</h1>
+                            <h1 class="app-card-title">Ajouter catégorie</h1>
                         </div>
                         <!--//col-->
                     </div>

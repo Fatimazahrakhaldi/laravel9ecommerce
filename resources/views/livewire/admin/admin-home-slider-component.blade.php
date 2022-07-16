@@ -24,7 +24,7 @@
                     {{ Session::get('message') }}
                 </div>
             @endif
-            <div class="app-card app-card-products-table shadow-sm mb-5">
+            <div class="app-card app-card-categories-table shadow-sm mb-5">
                 <div class="app-card-body">
                     <div class="table-responsive">
                         <table class="table app-table-hover mb-0 text-left">

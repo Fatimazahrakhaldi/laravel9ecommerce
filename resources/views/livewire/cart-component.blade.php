@@ -157,7 +157,7 @@
                                     <input class="form-check-input" type="checkbox" value="1" id="flexCheckCoupon"
                                         wire:model="haveCouponCode">
                                     <label class="form-check-label" for="flexCheckCoupon">
-                                        Have coupon?
+                                        Vous avez un code promo ?
                                     </label>
                                 </div>
                                 @if ($haveCouponCode == 1)
@@ -204,7 +204,7 @@
                             </dl> --}}
                                 <hr>
                                 <dl class="dlist-align">
-                                    <dt>Total:</dt>
+                                    <dt>Total TTC :</dt>
                                     <dd class="text-end text-dark h5">{{ number_format($totalAfterDiscount, 2) }}
                                         MAD
                                     </dd>

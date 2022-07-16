@@ -40,7 +40,7 @@
                                                 <i class="fa fa-user"></i>
                                             </a>
                                             <ul class="dropdown-menu dropdown-menu-end" data-bs-popper="none">
-                                                <li> <a class="dropdown-item"
+                                                {{-- <li> <a class="dropdown-item"
                                                         href="{{ route('user.dashboard') }}">Dashboard</a>
                                                 </li>
                                                 <li> <a class="dropdown-item"
@@ -48,6 +48,10 @@
                                                 </li>
                                                 <li> <a class="dropdown-item" href="{{ url('profile/setting') }}">Account
                                                         Settings</a>
+                                                </li> --}}
+                                                <li>
+                                                    <a class="dropdown-item" href="{{ route('user.orders') }}">Mes
+                                                        Commandes</a>
                                                 </li>
                                                 <li>
                                                     <hr class="dropdown-divider">
@@ -102,7 +106,6 @@
             <div class="navbar-collapse collapse" id="navbar_main" style="">
 
                 @include('layouts.front.partials.nav')
-
 
             </div> <!-- collapse end.// -->
         </div> <!-- container end.// -->
